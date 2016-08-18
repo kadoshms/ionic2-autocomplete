@@ -5,6 +5,8 @@ export * from './directives';
 export * from './services';
 export * from './pipes';
 
+export {AutoCompleteService} from './interfaces/auto-complete-service';
+
 export default {
   directives: [AUTOCOMPLETE_DIRECTIVES],
   pipes: [AUTOCOMPLETE_PIPES]
