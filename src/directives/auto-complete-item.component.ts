@@ -5,12 +5,12 @@ import {AUTOCOMPLETE_PIPES} from '../pipes';
  * AutoCompleteItem metadata interface
  */
 export interface AutoCompleteItemMetadata {
-  template?     : string,
-  templateUrl?  : string,
-  pipes?        : any[]
+  template?: string;
+  templateUrl?: string;
+  pipes?: any[];
 };
 
-export const defaultTemplate = "<span [innerHTML]='data[labelAttribute] | boldbegin:keyword'></span>";
+export const defaultTemplate = `<span [innerHTML]='data[labelAttribute] | boldbegin:keyword'></span>`;
 
 /**
  * AutoCompleteItem annotation
@@ -18,16 +18,16 @@ export const defaultTemplate = "<span [innerHTML]='data[labelAttribute] | boldbe
  * @returns {(cls:any)=>any}
  * @constructor
  */
-export function AutoCompleteItem( config : AutoCompleteItemMetadata ) {
+export function AutoCompleteItem( config: AutoCompleteItemMetadata ) {
   return function(cls) {
     const _reflect: any = Reflect;
 
-    var annotations = _reflect.getMetadata('annotations', cls) || [];
-    let extendedConfig : any = config;
+    let annotations = _reflect.getMetadata('annotations', cls) || [];
+    let extendedConfig: any = config;
 
-    extendedConfig.selector = "ion-auto-complete-item";
+    extendedConfig.selector = 'ion-auto-complete-item';
 
-    if(config.template == null && config.templateUrl == null) {
+    if (config.template == null && config.templateUrl == null) {
       config.template = defaultTemplate;
     }
 
@@ -35,21 +35,21 @@ export function AutoCompleteItem( config : AutoCompleteItemMetadata ) {
     _reflect.defineMetadata('annotations', annotations, cls);
 
     return cls;
-  }
+  };
 }
 
 /**
  * Auto complete Item base class
  */
 @AutoCompleteItem({
-  template : defaultTemplate,
-  pipes    : [AUTOCOMPLETE_PIPES]
+  template: defaultTemplate,
+  pipes: [AUTOCOMPLETE_PIPES]
 })
 export class AutoCompleteItemComponent {
 
-  @Input() data : any;
-  @Input() keyword : string;
-  @Input() labelAttribute : string;
+  @Input() data: any;
+  @Input() keyword: string;
+  @Input() labelAttribute: string;
 
   constructor() {
   }
