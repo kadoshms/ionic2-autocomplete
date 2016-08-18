@@ -48,11 +48,11 @@ export class AutoCompleteComponent {
     if (result instanceof Observable) {
       result
         .subscribe(
-          (results) => {
+          (results: any) => {
             this.suggestions = results;
             this.showItemList();
           },
-          (error) =>  console.error(error)
+          (error: any) =>  console.error(error)
         )
       ;
     } else {

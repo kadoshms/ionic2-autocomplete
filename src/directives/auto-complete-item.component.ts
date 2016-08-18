@@ -19,7 +19,7 @@ export const defaultTemplate = `<span [innerHTML]='data[labelAttribute] | boldbe
  * @constructor
  */
 export function AutoCompleteItem( config: AutoCompleteItemMetadata ) {
-  return function(cls) {
+  return function(cls: any) {
     const _reflect: any = Reflect;
 
     let annotations = _reflect.getMetadata('annotations', cls) || [];
