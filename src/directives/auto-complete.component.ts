@@ -1,10 +1,10 @@
-import {Component, OnInit, Input, EventEmitter} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {IONIC_DIRECTIVES} from 'ionic-angular';
-import {AutoCompleteItemComponent} from "./auto-complete-item.component";
-import {Observable} from "rxjs";
+import {AutoCompleteItemComponent} from './auto-complete-item.component';
+import {Observable} from 'rxjs';
 
 @Component({
-  template      :`
+  template: `
       <ion-searchbar (ionInput)="getItems($event)" [(ngModel)]="keyword"></ion-searchbar>
       <ion-list *ngIf="suggestions.length > 0 && showList">
       <ion-item *ngFor="let suggestion of suggestions" (click)="select(suggestion)">
@@ -15,15 +15,14 @@ import {Observable} from "rxjs";
   selector      : 'ion-auto-complete',
   directives    : [IONIC_DIRECTIVES, AutoCompleteItemComponent],
 })
+export class AutoCompleteComponent {
 
-export class AutoCompleteComponent implements OnInit{
+  @Input() public dataProvider:   any;
+  @Input() public itemComponent:  any;
 
-  @Input() public dataProvider : any;
-  @Input() public itemComponent : any;
-
-  private keyword     : string;
-  private suggestions : string[];
-  private showList    : boolean;
+  private keyword:      string;
+  private suggestions:  string[];
+  private showList:     boolean;
 
   /**
    * create a new instace
@@ -38,7 +37,7 @@ export class AutoCompleteComponent implements OnInit{
    * get items for auto-complete
    */
   public getItems() {
-    if(this.keyword.trim() == '') {
+    if (this.keyword.trim() === '') {
       this.suggestions = [];
       return;
     }
@@ -46,7 +45,7 @@ export class AutoCompleteComponent implements OnInit{
     let result = this.dataProvider.getResults(this.keyword);
 
     // if query is async
-    if(result instanceof Observable) {
+    if (result instanceof Observable) {
       result
         .subscribe(
           (results) => {
@@ -56,8 +55,7 @@ export class AutoCompleteComponent implements OnInit{
           (error) =>  console.error(error)
         )
       ;
-    }
-    else {
+    } else {
       this.suggestions = result;
       this.showItemList();
     }
@@ -67,14 +65,14 @@ export class AutoCompleteComponent implements OnInit{
   /**
    * show item list
    */
-  private showItemList()  : void {
+  private showItemList(): void {
     this.showList = true;
   }
 
   /**
    * hide item list
    */
-  private hideItemList()  : void {
+  private hideItemList(): void {
     this.showList = false;
   }
 
@@ -82,11 +80,8 @@ export class AutoCompleteComponent implements OnInit{
    * select item from list
    * @param item
    */
-  public select(selection : any) : void {
+  public select(selection: any): void {
     this.keyword = selection[this.dataProvider.labelAttribute];
     this.hideItemList();
-  }
-
-  public ngOnInit() {
   }
 }
