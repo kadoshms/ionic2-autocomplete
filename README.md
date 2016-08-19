@@ -18,7 +18,8 @@ gulp.task('sass',buildSass);
 
 With the following:
 
-```gulp.task('sass', function () {
+```
+gulp.task('sass', function () {
   return buildSass({
     sassOptions: {
       includePaths: [
