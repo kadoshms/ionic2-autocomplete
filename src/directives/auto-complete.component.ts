@@ -45,6 +45,7 @@ export class AutoCompleteComponent {
   @Input() public itemComponent:  any;
   @Input() public options:        any;
   @Output() public itemSelected:  EventEmitter<any>;
+  @Output() public ionAutoInput:  EventEmitter<string>;
 
   private keyword:      string;
   private suggestions:  string[];
@@ -59,6 +60,7 @@ export class AutoCompleteComponent {
     this.suggestions = [];
     this.showList = false;
     this.itemSelected = new EventEmitter<any>();
+    this.ionAutoInput = new EventEmitter<string>();
     this.options = {};
 
     // set default options
@@ -92,6 +94,8 @@ export class AutoCompleteComponent {
       this.showItemList();
     }
 
+    // emit event
+    this.ionAutoInput.emit(this.keyword);
   }
 
   /**
