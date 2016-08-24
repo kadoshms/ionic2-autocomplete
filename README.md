@@ -159,3 +159,7 @@ In order to implement a custom Item component, you need to follow these steps:
 3. Extend the AutoCompleteItemComponent class with your own class.
 4. Add the custom component to the page's directives properties, e.g, in *home.ts* : `directives : [AUTOCOMPLETE_DIRECTIVES, CompTestItem]`
 
+## Events ##
+
+**itemSelected($event)** - fired when item is selected (clicked)
+
