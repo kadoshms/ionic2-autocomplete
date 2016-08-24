@@ -119,4 +119,12 @@ export class AutoCompleteComponent {
     // emit selection event
     this.itemSelected.emit(selection);
   }
+
+  /**
+   * get current input value
+   * @returns {string}
+   */
+  public getValue() {
+    return this.keyword;
+  }
 }
