@@ -1,12 +1,11 @@
 {
   "name": "ionic2-auto-complete",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "scripts": {
     "lint": "tslint src/**/*.ts",
     "test": "tsc && karma start",
     "postinstall": "typings install",
     "prepublish": "tsc && cp src/auto-complete.scss dist/",
-    "mor": "tsc && cp src/auto-complete.scss dist/ && rm -rf /var/www/html/plugins/auto-test/node_modules/ionic2-auto-complete/dist && cp -R dist/ /var/www/html/plugins/auto-test/node_modules/ionic2-auto-complete/",
     "tsc": "tsc",
     "typings": "typings"
   },
