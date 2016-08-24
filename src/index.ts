@@ -2,7 +2,6 @@ import {AUTOCOMPLETE_DIRECTIVES} from './directives';
 import {AUTOCOMPLETE_PIPES} from './pipes';
 
 export * from './directives';
-export * from './services';
 export * from './pipes';
 
 export {AutoCompleteService} from './interfaces/auto-complete-service';
