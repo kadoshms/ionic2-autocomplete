@@ -59,6 +59,7 @@ export class AutoCompleteComponent {
     this.suggestions = [];
     this.showList = false;
     this.itemSelected = new EventEmitter<any>();
+    this.options = {};
 
     // set default options
     this.defaultOpts = defaultOpts;
