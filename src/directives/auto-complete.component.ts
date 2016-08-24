@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {IONIC_DIRECTIVES} from 'ionic-angular';
 import {AutoCompleteItemComponent} from './auto-complete-item.component';
 import {Observable} from 'rxjs';
@@ -19,6 +19,7 @@ export class AutoCompleteComponent {
 
   @Input() public dataProvider:   any;
   @Input() public itemComponent:  any;
+  @Output() public itemSelected: EventEmitter<any>;
 
   private keyword:      string;
   private suggestions:  string[];
@@ -31,6 +32,7 @@ export class AutoCompleteComponent {
     this.keyword = null;
     this.suggestions = [];
     this.showList = false;
+    this.itemSelected = new EventEmitter<any>();
   }
 
   /**
@@ -83,5 +85,8 @@ export class AutoCompleteComponent {
   public select(selection: any): void {
     this.keyword = selection[this.dataProvider.labelAttribute];
     this.hideItemList();
+
+    // emit selection event
+    this.itemSelected.emit(selection);
   }
 }
