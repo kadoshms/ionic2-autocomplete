@@ -3,6 +3,10 @@
 This is a component based on Ionic's search-bar component, with the addition of auto-complete abillity.
 This component is super simple and light-weight. Just provide the data, and let the fun begin.
 
+## TODO ##
+
+1. CSS imrovements (specially position items absolutely
+
 ### Installation
 ```
 $ npm install ionic2-auto-complete --save
