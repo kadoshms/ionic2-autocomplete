@@ -131,4 +131,12 @@ export class AutoCompleteComponent {
   public getValue() {
     return this.keyword;
   }
+  
+  /**
+   * clear current input value
+   */
+  public clearValue() {
+    this.keyword = null;
+    return;
+  }
 }
