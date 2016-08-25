@@ -1,6 +1,6 @@
 {
   "name": "ionic2-auto-complete",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "scripts": {
     "lint": "tslint src/**/*.ts",
     "test": "tsc && karma start",
