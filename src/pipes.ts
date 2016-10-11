@@ -1,10 +1,10 @@
 // Import all pipes
-import {BoldBegin} from './pipes/boldbegin.pipe';
+import {BoldPrefix} from './pipes/boldprefix.pipe';
 
 // Export all pipes
-export * from './pipes/boldbegin.pipe';
+export * from './pipes/boldprefix.pipe';
 
 // Export convenience property
 export const AUTOCOMPLETE_PIPES: any[] = [
-  BoldBegin
+  BoldPrefix
 ];

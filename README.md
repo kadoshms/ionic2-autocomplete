@@ -55,6 +55,9 @@ export class AppModule {}
 The rest is almost the same as below (earlier versiobs), only that you don't need to use the `directives` nor `pipes` properties in your pages/components, and you don't need to import the scss file.
 
 
+Just a little thing: I renamed the boldbegin pipe to boldprefix, it just makes more sense to me...
+
+
 #### Usage guide for versions earlier than RC.0 ####
 
 Ionic2-auto-complete has some stylesheets we must include in order to have a nice and tidy component.
