@@ -1,18 +1,18 @@
 ion-auto-complete {
-  display     : block;
-  overflow    : hidden;
+  display     : block !important;
+  overflow    : hidden !important;
 }
 
 ion-auto-complete ion-list {
-  margin    :   8px;
-  margin-top:   -8px;
-  border    :   1px solid #dedede;
+  margin    :   8px !important;
+  margin-top:   -8px !important;
+  border    :   1px solid #dedede !important;
 }
 
 ion-auto-complete ion-item {
 }
 
 ion-auto-complete ion-item:hover {
-  background    : #f1f1f1;
-  cursor        : pointer;
+  background    : #f1f1f1 !important;
+  cursor        : pointer !important;
 }
