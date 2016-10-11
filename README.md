@@ -16,13 +16,54 @@ Hopefully I'll make the right modifications, please hold on :)
 ```
 $ npm install ionic2-auto-complete --save
 ```
-In addition, Ionic2-auto-complete has some stylesheets we must include in order to have a nice and tidy component.
+
+#### Usage guid for RC.0 (and hopefully for later to come :) ) ####
+
+First, open `app.module.ts` and import the following:
+
+``
+import { AUTOCOMPLETE_DIRECTIVES, AUTOCOMPLETE_PIPES } from 'ionic2-auto-complete';
+``
+
+Then add those imports to the `declerations` array, e.g:
+```
+@NgModule({
+  declarations: [
+    MyApp,
+    AboutPage,
+    ContactPage,
+    HomePage,
+    TabsPage,
+    AUTOCOMPLETE_DIRECTIVES,
+    AUTOCOMPLETE_PIPES
+  ],
+  imports: [
+    IonicModule.forRoot(MyApp)
+  ],
+  bootstrap: [IonicApp],
+  entryComponents: [
+    MyApp,
+    AboutPage,
+    ContactPage,
+    HomePage,
+    TabsPage
+  ],
+})
+export class AppModule {}
+```
+
+The rest is almost the same as below (earlier versiobs), only that you don't need to use the `directives` nor `pipes` properties in your pages/components, and you don't need to import the scss file.
+
+
+#### Usage guide for versions earlier than RC.0 ####
+
+Ionic2-auto-complete has some stylesheets we must include in order to have a nice and tidy component.
 Than, we must modify **gulpfile.js**:
 
 Replace the following line:
 
 ```
-gulp.task('sass',buildSass); 
+gulp.task('sass',buildSass);
 ```
 
 With the following:
@@ -46,7 +87,7 @@ That will let ionic know it has to compile also *scss* files from this module as
 We now need to import the css file to the project.
 Open `app.core.scss` and add:
 
-`` @import "auto-complete"; `` 
+`` @import "auto-complete"; ``
 Before the other imports (some of you might notice that the IDE doesn't like this import, you can ignore that).
 
 ### Usage
@@ -105,7 +146,7 @@ export class CompleteTestService implements AutoCompleteService {
 
 ```
 
-By implementing an AutoCompleteService interface, you must implement two properties: 
+By implementing an AutoCompleteService interface, you must implement two properties:
 
 1. **labelAttribute** [string] - which is the name of the object's descriptive property
 2. **getResults(keyword)** [() => any] - which is the method responsible for getting the data from server.
@@ -142,6 +183,10 @@ Than, in *home.html* modify `<ion-auto-complete>`:
 ```
 
 Now, everything should be up and ready :)
+
+
+----------------------------------------------------------------------------
+
 
 ### Custom Templates ###
 
