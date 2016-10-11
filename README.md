@@ -3,11 +3,6 @@
 This is a component based on Ionic's search-bar component, with the addition of auto-complete abillity.
 This component is super simple and light-weight. Just provide the data, and let the fun begin.
 
-## Important! ##
-
-This package does not support Ionic versions greater than RC4, since the upgrade of Angular 2.0 requirs a bunch of changes to be done.
-Hopefully I'll make the right modifications, please hold on :)
-
 ## TODO ##
 
 1. CSS imrovements (specially position items absolutely
