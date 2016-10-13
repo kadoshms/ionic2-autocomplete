@@ -12,7 +12,8 @@ const defaultOpts = {
   autocorrect       : "off",
   spellcheck        : "off",
   type              : "search",
-  value             : ""
+  value             : "",
+  noItems           : ""
 };
 
 @Component({
@@ -34,6 +35,7 @@ const defaultOpts = {
                 <ion-auto-complete-item [data]="suggestion" [keyword]="keyword" [labelAttribute]="dataProvider.labelAttribute"></ion-auto-complete-item>
             </ion-item>
         </ion-list>
+        <p *ngIf="suggestions.length == 0 && showList && options.noItems">{{ options.noItems }}</p>
   `,
   selector      : 'ion-auto-complete'
 })
