@@ -7,10 +7,9 @@ import {AUTOCOMPLETE_PIPES} from '../pipes';
 export interface AutoCompleteItemMetadata {
   template?: string;
   templateUrl?: string;
-  pipes?: any[];
 };
 
-export const defaultTemplate = `<span [innerHTML]='data[labelAttribute] | boldbegin:keyword'></span>`;
+export const defaultTemplate = `<span [innerHTML]='data[labelAttribute] | boldprefix:keyword'></span>`;
 
 /**
  * AutoCompleteItem annotation
@@ -42,8 +41,7 @@ export function AutoCompleteItem( config: AutoCompleteItemMetadata ) {
  * Auto complete Item base class
  */
 @AutoCompleteItem({
-  template: defaultTemplate,
-  pipes: [AUTOCOMPLETE_PIPES]
+  template: defaultTemplate
 })
 export class AutoCompleteItemComponent {
 

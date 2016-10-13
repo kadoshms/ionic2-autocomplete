@@ -1,5 +1,4 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
-import {IONIC_DIRECTIVES, Searchbar} from 'ionic-angular';
 import {AutoCompleteItemComponent} from './auto-complete-item.component';
 import {Observable} from 'rxjs';
 
@@ -36,8 +35,7 @@ const defaultOpts = {
             </ion-item>
         </ion-list>
   `,
-  selector      : 'ion-auto-complete',
-  directives    : [IONIC_DIRECTIVES, AutoCompleteItemComponent],
+  selector      : 'ion-auto-complete'
 })
 export class AutoCompleteComponent {
 
@@ -131,7 +129,7 @@ export class AutoCompleteComponent {
   public getValue() {
     return this.keyword;
   }
-  
+
   /**
    * clear current input value
    */
