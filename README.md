@@ -5,6 +5,8 @@ This component is super simple and light-weight. Just provide the data, and let 
 
 ## Important ##
 
+** I am working on a new version and will publish it soon! **
+
 Due to change of approach Angular and Ionic have taken while upgrading from Angular 2 RC4 to later versions, this plugin faces some build issues.
 
 ## TODO ##
