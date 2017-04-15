@@ -43,7 +43,7 @@ const defaultOpts = {
   `,
   selector      : 'ion-auto-complete'
 })
-export class SampleComponent {
+export class AutoCompleteComponent {
 
   @Input() public dataProvider:   any;
   @Input() public itemComponent:  any;
