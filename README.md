@@ -3,20 +3,73 @@
 This is a component based on Ionic's search-bar component, with the addition of auto-complete abillity.
 This component is super simple and light-weight. Just provide the data, and let the fun begin.
 
-## Important ##
-
-** I am working on a new version and will publish it soon! **
-
-Due to change of approach Angular and Ionic have taken while upgrading from Angular 2 RC4 to later versions, this plugin faces some build issues.
-
-## TODO ##
-
-1. CSS imrovements (specially position items absolutely
+![](example.gif)
 
 ### Installation
 ```
 $ npm install ionic2-auto-complete --save
 ```
+
+#### Usage guide
+
+Open `app.module.ts` and add the following import statetment:
+
+``
+import { AutoCompleteModule } from 'ionic2-autocomplete';
+``
+
+Then, add the `AutoCompleteModule` to the `imports` array:
+
+```
+@NgModule({
+  declarations: [
+    MyApp,
+    HomePage,
+    TabsPage,
+    MyItem
+  ],
+  imports: [
+    BrowserModule,
+    AutoCompleteModule,
+    FormsModule,
+    HttpModule,
+    IonicModule.forRoot(MyApp)
+  ],
+  bootstrap: [IonicApp],
+  entryComponents: [
+    MyApp,
+    HomePage,
+    TabsPage
+  ],
+  providers: [
+    StatusBar,
+    Auto,
+    SplashScreen,
+    {provide: ErrorHandler, useClass: IonicErrorHandler}
+  ]
+})
+export class AppModule {}
+```
+Now let's import the styling file. Open `app.scss` and add the following:
+
+`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #### Usage guid for RC.0 (and hopefully for later to come :) ) ####
 
@@ -53,63 +106,12 @@ Then add those imports to the `declerations` array, e.g:
 export class AppModule {}
 ```
 
-The rest is almost the same as below (earlier versiobs), only that you don't need to use the `directives` nor `pipes` properties in your pages/components, and you don't need to import the scss file.
+Now, let's add the component to our app!
 
+Add the following tag to one of your pages, in this example I am using the Homepage:
 
-Just a little thing: I renamed the boldbegin pipe to boldprefix, it just makes more sense to me...
+`<ion-auto-complete></ion-auto-complete>`
 
-
-#### Usage guide for versions earlier than RC.0 ####
-
-Ionic2-auto-complete has some stylesheets we must include in order to have a nice and tidy component.
-Than, we must modify **gulpfile.js**:
-
-Replace the following line:
-
-```
-gulp.task('sass',buildSass);
-```
-
-With the following:
-
-```
-gulp.task('sass', function () {
-  return buildSass({
-    sassOptions: {
-      includePaths: [
-        'node_modules/ionic-angular',
-        'node_modules/ionicons/dist/scss',
-        'node_modules/ionic2-auto-complete/dist',
-        'www/scss'
-      ]
-    }
-  });
-});
-```
-
-That will let ionic know it has to compile also *scss* files from this module as well as it's default files.
-We now need to import the css file to the project.
-Open `app.core.scss` and add:
-
-`` @import "auto-complete"; ``
-Before the other imports (some of you might notice that the IDE doesn't like this import, you can ignore that).
-
-### Usage
-Let's open some page file. For example, *home.ts*, and import the following:
-
-`import {AUTOCOMPLETE_DIRECTIVES} from 'ionic2-auto-complete';`
-
-In addition, we must inform Angular that we have some new directives we want to use, so we just need to add *AUTOCOMPLETE_DIRECTIVES* to the *directives* property:
-```
-@Component({
-  templateUrl: 'build/pages/home/home.html',
-  directives : [AUTOCOMPLETE_DIRECTIVES]
-})
-```
-
-Now we can add the component to *home.html*, simply by adding:
-
-`<ion-auto-complete></ion-auto-complete>` to the file.
 Now let's see what wev'e done so far by running `ionic serve`.
 
 Now, when everything is up and running you should see a nice search-bar component. Open the **developer console** and try to type something.
@@ -124,11 +126,12 @@ This is totatlly cool, for now. The exception shows up since we did not provide 
 
 Let's start by creating the service:
 
-import {AutoCompleteService} from 'ionic2-auto-complete';
 ```
 import {AutoCompleteService} from 'ionic2-auto-complete';
 import { Http } from '@angular/http';
 import {Injectable} from "@angular/core";
+import {AutoCompleteService} from "ionic2-autocomplete";
+import 'rxjs/add/operator/map'
 
 @Injectable()
 export class CompleteTestService implements AutoCompleteService {
@@ -148,6 +151,7 @@ export class CompleteTestService implements AutoCompleteService {
   }
 }
 
+
 ```
 
 By implementing an AutoCompleteService interface, you must implement two properties:
@@ -164,21 +168,22 @@ Another thing - the `getResults` method can also return static data, it does not
 Now, we need to let ionic2-auto-complete that we want to use CompleteTestService as the data provider, edit *home.ts* and add `private completeTestService: CompleteTestService` to the constructor argument list.
 Should look like that:
 ```
-import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
-import {AUTOCOMPLETE_DIRECTIVES} from 'ionic2-auto-complete';
-import {CompleteTestService} from '../../services/complete-test.service';
+import { Component } from '@angular/core';
+import { NavController } from 'ionic-angular';
+import { CompleteTestService } from '../../providers/CompleteTestService';
 
 @Component({
-  templateUrl: 'build/pages/home/home.html',
-  directives : [AUTOCOMPLETE_DIRECTIVES],
-  providers  : [CompleteTestService]
+  selector: 'page-home',
+  templateUrl: 'home.html'
 })
 export class HomePage {
-  constructor(public navCtrl: NavController, private completeTestService: CompleteTestService) {
+
+  constructor(public navCtrl: NavController, public completeTestService: CompleteTestService) {
 
   }
+
 }
+
 ```
 
 Than, in *home.html* modify `<ion-auto-complete>`:
@@ -192,6 +197,14 @@ Now, everything should be up and ready :)
 ----------------------------------------------------------------------------
 
 
+### Styling ###
+
+Currently for best visual result, use viewport size / fixed size (pixels) if you are interested in resizing the component:
+```
+ion-auto-complete {
+  width: 50vw;
+}
+```
 ### Custom Templates ###
 
 Ionic2-auto-complete also supports custom templates for the list items.
@@ -199,23 +212,46 @@ Let's assuming that in addition to the country name, we also wish to display the
 
 For that, we need to create a new file, let's call it for instance `comp-test-item.ts`:
 ```
-import {AutoCompleteItem, AutoCompleteItemComponent, AUTOCOMPLETE_PIPES} from 'ionic2-auto-complete';
+import {AutoCompleteItem, AutoCompleteItemComponent} from 'ionic2-autocomplete';
 
 @AutoCompleteItem({
-  template : `<img src="build/images/flags/{{data.name}}.png" class="flag" /> <span [innerHTML]="data.name | boldbegin:keyword"></span>`,
-  pipes    : [AUTOCOMPLETE_PIPES]
+  template: `<img src="assets/image/flags/{{data.name}}.png" class="flag" /> <span [innerHTML]="data.name | boldprefix:keyword"></span>`
 })
 export class CompTestItem extends AutoCompleteItemComponent{
+
 }
+
+```
+
+And we must also add this component to our module:
+
+```
+@NgModule({
+  declarations: [
+    MyApp,
+    AboutPage,
+    ContactPage,
+    HomePage,
+    TabsPage,
+    CompTestItem
+  ],
+  ...
+  ... 
+  providers: [
+    StatusBar,
+    SplashScreen,
+    CompleteTestService,
+    {provide: ErrorHandler, useClass: IonicErrorHandler}
+  ]
+  
 ```
 
 What is going on above is very simple.
 In order to implement a custom Item component, you need to follow these steps:
 
-1. Import all neccessary classes. **Note:** Importing and using `AUTOCOMPLETE_PIPES` is optional.
-2. Use the `@AutoCompleteItem` decorator, which currently accepts `template` or `templateUrl` and `pipes`.
+1. Import all neccessary classes.
+2. Use the `@AutoCompleteItem` decorator, which currently accepts `template` or `templateUrl`.
 3. Extend the AutoCompleteItemComponent class with your own class.
-4. Add the custom component to the page's directives properties, e.g, in *home.ts* : `directives : [AUTOCOMPLETE_DIRECTIVES, CompTestItem]`
 
 ## Events ##
 
