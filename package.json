@@ -1,5 +1,5 @@
 {
-  "name": "ionic2-autocomplete",
+  "name": "ionic2-auto-complete",
   "version": "1.4.0",
   "scripts": {
     "build": "ngc -p tsconfig.json",
