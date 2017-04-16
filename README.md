@@ -15,7 +15,7 @@ $ npm install ionic2-auto-complete --save
 Open `app.module.ts` and add the following import statetment:
 
 ``
-import { AutoCompleteModule } from 'ionic2-autocomplete';
+import { AutoCompleteModule } from 'ionic2-auto-complete';
 ``
 
 Then, add the `AutoCompleteModule` to the `imports` array:
@@ -42,7 +42,7 @@ export class AppModule {}
 ```
 Now let's import the styling file. Open `app.scss` and add the following:
 
-`@import "../../node_modules/ionic2-autocomplete/auto-complete";`
+`@import "../../node_modules/ionic2-auto-complete/auto-complete";`
 
 Now, let's add the component to our app!
 
@@ -68,7 +68,7 @@ Let's start by creating the service:
 import {AutoCompleteService} from 'ionic2-auto-complete';
 import { Http } from '@angular/http';
 import {Injectable} from "@angular/core";
-import {AutoCompleteService} from "ionic2-autocomplete";
+import {AutoCompleteService} from "ionic2-auto-complete";
 import 'rxjs/add/operator/map'
 
 @Injectable()
@@ -150,7 +150,7 @@ Let's assuming that in addition to the country name, we also wish to display the
 
 For that, we need to create a new file, let's call it for instance `comp-test-item.ts`:
 ```
-import {AutoCompleteItem, AutoCompleteItemComponent} from 'ionic2-autocomplete';
+import {AutoCompleteItem, AutoCompleteItemComponent} from 'ionic2-auto-complete';
 
 @AutoCompleteItem({
   template: `<img src="assets/image/flags/{{data.name}}.png" class="flag" /> <span [innerHTML]="data.name | boldprefix:keyword"></span>`
