@@ -48,10 +48,10 @@ export class AutoCompleteComponent {
   @Input() public dataProvider:   any;
   @Input() public itemComponent:  any;
   @Input() public options:        any;
+  @Input() public keyword:      string;
   @Output() public itemSelected:  EventEmitter<any>;
   @Output() public ionAutoInput:  EventEmitter<string>;
 
-  private keyword:      string;
   private suggestions:  string[];
   private showList:     boolean;
   private defaultOpts:  any;
