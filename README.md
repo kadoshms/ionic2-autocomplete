@@ -35,76 +35,14 @@ Then, add the `AutoCompleteModule` to the `imports` array:
     HttpModule,
     IonicModule.forRoot(MyApp)
   ],
-  bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    HomePage,
-    TabsPage
-  ],
-  providers: [
-    StatusBar,
-    Auto,
-    SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
-  ]
+  ...
+  ...
 })
 export class AppModule {}
 ```
 Now let's import the styling file. Open `app.scss` and add the following:
 
-`
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#### Usage guid for RC.0 (and hopefully for later to come :) ) ####
-
-First, open `app.module.ts` and import the following:
-
-``
-import { AUTOCOMPLETE_DIRECTIVES, AUTOCOMPLETE_PIPES } from 'ionic2-auto-complete';
-``
-
-Then add those imports to the `declerations` array, e.g:
-```
-@NgModule({
-  declarations: [
-    MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
-    TabsPage,
-    AUTOCOMPLETE_DIRECTIVES,
-    AUTOCOMPLETE_PIPES
-  ],
-  imports: [
-    IonicModule.forRoot(MyApp)
-  ],
-  bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
-    TabsPage
-  ],
-})
-export class AppModule {}
-```
+@import "../../node_modules/ionic2-autocomplete/auto-complete";
 
 Now, let's add the component to our app!
 
