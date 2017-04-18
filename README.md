@@ -146,7 +146,11 @@ ion-auto-complete {
 ### Custom Templates ###
 
 Ionic2-auto-complete also supports custom templates for the list items.
-Let's assuming that in addition to the country name, we also wish to display the country flag.
+Actually, you can display any attribute associated with your data items by simply accessing it from the `data` input class member in the template.
+
+For example:
+
+Let's assume that in addition to the country name, we also wish to display the country flag.
 
 For that, we need to create a new file, let's call it for instance `comp-test-item.ts`:
 ```
