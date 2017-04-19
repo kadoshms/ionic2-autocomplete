@@ -42,7 +42,7 @@ export class AppModule {}
 ```
 Now let's import the styling file. Open `app.scss` and add the following:
 
-`@import "../../node_modules/ionic2-auto-complete/auto-complete";`
+`@import "../../node_modules/ionic2-auto-complete/dist/auto-complete";`
 
 Now, let's add the component to our app!
 
