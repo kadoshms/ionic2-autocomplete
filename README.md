@@ -42,7 +42,7 @@ export class AppModule {}
 ```
 Now let's import the styling file. Open `app.scss` and add the following:
 
-`@import "../../node_modules/ionic2-auto-complete/dist/auto-complete";`
+`@import "../../node_modules/ionic2-auto-complete/src/auto-complete";`
 
 Now, let's add the component to our app!
 
@@ -207,7 +207,7 @@ Ionic2-auto-complete supports the regular Ionic's Searchbar options, which are s
 You can override these default values by adding the `[options]` attribute to the `<ion-auto-complete>` tag, for instance:
 
 ```
-  <ion-auto-complete [dataProvider]="someProvider" options="{ placeholder : 'Lorem Ipsum' }"></ion-auto-complete>
+  <ion-auto-complete [dataProvider]="someProvider" [options]="{ placeholder : 'Lorem Ipsum' }"></ion-auto-complete>
 ```
 
 Will set the Searchbar's placeholder to *Lorem Ipsum*
