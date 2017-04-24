@@ -1,6 +1,6 @@
 {
   "name": "ionic2-auto-complete",
-  "version": "1.4.1-rc2",
+  "version": "1.4.1-release",
   "scripts": {
     "build": "ngc -p tsconfig.json",
     "lint": "tslint --type-check --project tsconfig.json src/**/*.ts",
