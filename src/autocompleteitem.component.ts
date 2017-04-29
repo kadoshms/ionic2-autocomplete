@@ -11,9 +11,6 @@ export function AutoCompleteItem(config: any) {
 
     extendedConfig.selector = 'ion-auto-complete-item';
 
-    if (config.template == null && config.templateUrl == null) {
-    }
-
     annotations.push(new Component(extendedConfig));
     _reflect.defineMetadata('annotations', annotations, cls);
 

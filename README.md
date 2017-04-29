@@ -192,7 +192,7 @@ What is going on above is very simple.
 In order to implement a custom Item component, you need to follow these steps:
 
 1. Import all neccessary classes.
-2. Use the `@AutoCompleteItem` decorator, which currently accepts `template` or `templateUrl`.
+2. Use the `@AutoCompleteItem` decorator, which currently accepts `template` only (`templeteUrl` is currently not supported).
 3. Extend the AutoCompleteItemComponent class with your own class.
 
 ## Events ##
