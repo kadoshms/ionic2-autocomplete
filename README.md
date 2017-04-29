@@ -94,7 +94,7 @@ export class CompleteTestService implements AutoCompleteService {
 
 By implementing an AutoCompleteService interface, you must implement two properties:
 
-1. **labelAttribute** [string] - which is the name of the object's descriptive property
+1. **labelAttribute** [string] - which is the name of the object's descriptive property (leaving it null is also an option for non-object results)
 2. **getResults(keyword)** [() => any] - which is the method responsible for getting the data from server.
 
 In the above example, we fetch countries data from the amazing https://restcountries.eu/ project, and we filter the results accordingly.

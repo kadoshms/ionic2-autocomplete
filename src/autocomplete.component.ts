@@ -121,7 +121,8 @@ export class AutoCompleteComponent {
    * @param item
    */
   public select(selection: any): void {
-    this.keyword = selection[this.dataProvider.labelAttribute];
+    this.keyword = this.dataProvider.labelAttribute == null || selection[this.dataProvider.labelAttribute] == null
+        ? selection : selection[this.dataProvider.labelAttribute];
     this.hideItemList();
 
     // emit selection event

@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 
-export const defaultTemplate = `<span [innerHTML]='data[labelAttribute] | boldprefix:keyword'></span>`;
+export const defaultTemplate = `<span [innerHTML]='labelAttribute ? data[labelAttribute] : data | boldprefix:keyword'></span>`;
 
 export function AutoCompleteItem(config: any) {
   return function(cls: any) {
