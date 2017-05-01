@@ -24,9 +24,7 @@
     "url": "https://github.com/kadoshms/ionic2-autocomplete/issues"
   },
   "main": "./dist/index.js",
-  "dependencies": {
-    "ionic-angular": "^3.0.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@angular/common": "^4.0.0",
     "@angular/compiler": "^4.0.0",
@@ -39,6 +37,7 @@
     "@types/node": "~6.0.60",
     "codelyzer": "~2.0.0",
     "core-js": "^2.4.1",
+    "ionic-angular": "^3.1.1",
     "jasmine-core": "~2.5.2",
     "jasmine-spec-reporter": "~3.2.0",
     "karma": "~1.4.1",
