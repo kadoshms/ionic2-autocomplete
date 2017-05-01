@@ -27,7 +27,6 @@ const defaultOpts = {
                      [autocorrect]="options.autocorrect == null ? defaultOpts.autocorrect : options.autocorrect"
                      [spellcheck]="options.spellcheck == null ? defaultOpts.spellcheck : options.spellcheck"
                      [type]="options.type == null ? defaultOpts.type : options.type"
-                     [value]="options.value == null ? defaultOpts.value : options.value"
       >
       </ion-searchbar>
       <ul *ngIf="suggestions.length > 0 && showList">
