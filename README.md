@@ -3,6 +3,8 @@
 This is a component based on Ionic's search-bar component, with the addition of auto-complete abillity.
 This component is super simple and light-weight. Just provide the data, and let the fun begin.
 
+This is a **free software** please feel free to contribute! :)
+
 ![](example.gif)
 
 ### Installation
