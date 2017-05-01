@@ -219,7 +219,8 @@ By using the `@ViewChild()` decorator, and the built-in `getValue()` method we c
 Just define a new property within the desired page, for instance (the chosen names are arbitrary):
 
 ```
-    private @ViewChild('searchbar') searchbar: any;
+  @ViewChild('searchbar')
+  searchbar: AutoCompleteComponent;
 ```
 
 And then, in the component tag we need to add `#searchbar`:
@@ -228,5 +229,5 @@ And then, in the component tag we need to add `#searchbar`:
 <ion-auto-complete [dataProvider]="provider" #searchbar></ion-auto-complete>
 ```
 
-By doing that, we can access the current value anywhere in the page simply by calling `this.searchbar.getValue()`
+By doing that, we can access the current value anywhere in the page simpprivate @ViewChild('searchbar') searchbar: anyly by calling `this.searchbar.getValue()`
 
