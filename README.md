@@ -70,7 +70,6 @@ Let's start by creating the service:
 import {AutoCompleteService} from 'ionic2-auto-complete';
 import { Http } from '@angular/http';
 import {Injectable} from "@angular/core";
-import {AutoCompleteService} from "ionic2-auto-complete";
 import 'rxjs/add/operator/map'
 
 @Injectable()
