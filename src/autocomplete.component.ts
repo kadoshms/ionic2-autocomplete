@@ -31,9 +31,9 @@ const defaultOpts = {
       </ion-searchbar>
       <ul *ngIf="suggestions.length > 0 && showList">
           <li *ngFor="let suggestion of suggestions" (click)="select(suggestion)">
-              <ion-auto-complete-item 
+              <ion-auto-complete-item
                       [data]='suggestion'
-                      [keyword]='keyword' 
+                      [keyword]='keyword'
                       [labelAttribute]='dataProvider.labelAttribute'>
               </ion-auto-complete-item>
           </li>
@@ -135,6 +135,16 @@ export class AutoCompleteComponent {
   public getValue() {
     return this.keyword;
   }
+
+  /**
+   * set current input value
+   */
+  public setValue(value: string) {
+    this.keyword = value
+    return;
+  }
+
+  /**
 
   /**
    * clear current input value
