@@ -149,8 +149,11 @@ export class AutoCompleteComponent {
   /**
    * clear current input value
    */
-  public clearValue() {
+  public clearValue(hideItemList: boolean = false) {
     this.keyword = null;
+    if (hideItemList) {
+      this.hideItemList();
+    }
     return;
   }
 }
