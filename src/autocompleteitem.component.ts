@@ -21,8 +21,13 @@ export function AutoCompleteItem(config: any) {
 /**
  * Auto complete Item base class
  */
+
 @AutoCompleteItem({
-  template: defaultTemplate
+  template: defaultTemplate,
+})
+@Component({
+  selector: 'ion-auto-complete-item',
+  template: defaultTemplate,
 })
 export class AutoCompleteItemComponent {
 
