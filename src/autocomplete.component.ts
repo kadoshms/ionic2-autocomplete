@@ -30,7 +30,7 @@ const defaultOpts = {
       >
       </ion-searchbar>
       <ul *ngIf="suggestions.length > 0 && showList">
-          <li *ngFor="let suggestion of suggestions" (click)="select(suggestion)">
+          <li *ngFor="let suggestion of suggestions" (tap)="select(suggestion)">
               <ion-auto-complete-item
                       [data]='suggestion'
                       [keyword]='keyword'
