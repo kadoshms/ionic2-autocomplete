@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule }   from '@angular/forms';
 import { AutoCompleteComponent } from './src/autocomplete.component';
 import { BoldPrefix } from './src/boldprefix.pipe';
-import {IonicApp, IonicModule} from 'ionic-angular';
+import {IonicModule} from 'ionic-angular';
 import {AutoCompleteItemComponent} from './src/autocompleteitem.component';
 
 export * from './src/autocomplete.component';
@@ -15,7 +15,7 @@ export * from './src/auto-complete.service';
     imports: [
         CommonModule,
         FormsModule,
-        IonicModule.forRoot(IonicApp)
+        IonicModule
     ],
     declarations: [
         AutoCompleteComponent,
