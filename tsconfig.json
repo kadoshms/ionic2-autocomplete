@@ -1,25 +1,14 @@
 {
   "compilerOptions": {
-    "noImplicitAny": true,
-    "module": "commonjs",
-    "target": "ES6",
-    "emitDecoratorMetadata": true,
+    "baseUrl": "./src",
     "experimentalDecorators": true,
-    "allowUnusedLabels": false,
-    "noImplicitReturns": true,
-    "sourceMap": true,
-    "declaration": true,
-    "outDir": "./dist",
-    "typeRoots": [
-      "node_modules/@types"
-    ]
-  },
-  "exclude": [
-    "node_modules",
-    "dist",
-    "**/*.spec.ts"
-  ],
-  "angularCompilerOptions": {
-    "strictMetadataEmit": true
+    "moduleResolution": "node",
+    "rootDir": "./src",
+    "lib": [
+      "es2015",
+      "dom"
+    ],
+    "skipLibCheck": true,
+    "types": []
   }
 }
