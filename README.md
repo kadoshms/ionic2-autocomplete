@@ -232,6 +232,13 @@ You can override these default values by adding the `[options]` attribute to the
   <ion-auto-complete [dataProvider]="someProvider" [options]="{ placeholder : 'Lorem Ipsum' }"></ion-auto-complete>
 ```
 
+## Component specific options
+
+In addition to the searchbar options, ion-auto-complete also supports the following option attributes:
+
+* **[template]** (TemplateRef) - custom template reference for your auto complete items (see below)
+* **[showResultsFirst]** (Boolean) - for small lists it might be nicer to show all options on first tap
+
 Will set the Searchbar's placeholder to *Lorem Ipsum*
 
 

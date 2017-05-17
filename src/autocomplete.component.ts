@@ -16,8 +16,12 @@ const defaultOpts = {
 };
 
 @Component({
+  host: {
+    '(document:click)': 'documentClickHandler($event)',
+  },
   template: `
       <ion-searchbar (ionInput)="getItems($event)"
+                     (tap)="showResultsFirst && getItems()"
                      [(ngModel)]="keyword"
                      [cancelButtonText]="options.cancelButtonText == null ? defaultOpts.cancelButtonText : options.cancelButtonText"
                      [showCancelButton]="options.showCancelButton == null ? defaultOpts.showCancelButton : options.showCancelButton"
@@ -49,7 +53,8 @@ export class AutoCompleteComponent {
   @Input() public dataProvider:   any;
   @Input() public options:        any;
   @Input() public keyword:      string;
-  @Input() template: TemplateRef<any>;
+  @Input() public showResultsFirst: boolean;
+  @Input() public template: TemplateRef<any>;
   @Output() public itemSelected:  EventEmitter<any>;
   @Output() public ionAutoInput:  EventEmitter<string>;
 
@@ -76,7 +81,9 @@ export class AutoCompleteComponent {
    * get items for auto-complete
    */
   public getItems() {
-    if (this.keyword.trim() === '') {
+    if (this.showResultsFirst && !this.keyword) {
+      this.keyword = '';
+    } else if (this.keyword.trim() === '') {
       this.suggestions = [];
       return;
     }
@@ -157,5 +164,15 @@ export class AutoCompleteComponent {
       this.hideItemList();
     }
     return;
+  }
+
+  /**
+   * handle document click
+   * @param event
+   */
+  private documentClickHandler(event) {
+    if (event.srcElement.className != "searchbar-input") {
+      this.hideItemList();
+    }
   }
 }
