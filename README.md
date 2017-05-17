@@ -152,7 +152,26 @@ Actually, you can display any attribute associated with your data items by simpl
 For example:
 
 Let's assume that in addition to the country name, we also wish to display the country flag.
+For that, we use the `ng-template` directive, which let's us pass the template as an input to the component.
 
+On the page where your `ion-auto-complete` is located:
+
+```
+<ng-template #withFlags let-attrs="attrs">
+  <img src="assets/image/flags/{{attrs.data.name}}.png" class="flag" /> <span [innerHTML]="attrs.data.name | boldprefix:attrs.keyword"></span>
+</ng-template>
+<ion-auto-complete [dataProvider]="service" [template]="withFlags"></ion-auto-complete>
+```
+
+Please note that you must add the `let-attrs="attrs"` attribute to your template.
+
+With that, you can easily of **different templates for different components**!
+
+#### Old custom templates mechanism (depreacted) ####
+**NOTE** the following is depreacted! (versions less than 1.5.0)
+
+
+**DEPREACTED (applies for<=1.5.0)** 
 For that, we need to create a new file, let's call it for instance `comp-test-item.ts`:
 ```
 import {AutoCompleteItem, AutoCompleteItemComponent} from 'ionic2-auto-complete';
@@ -195,6 +214,8 @@ In order to implement a custom Item component, you need to follow these steps:
 1. Import all neccessary classes.
 2. Use the `@AutoCompleteItem` decorator, which currently accepts `template` only (`templeteUrl` is currently not supported).
 3. Extend the AutoCompleteItemComponent class with your own class.
+
+**DEPREACTED** 
 
 ## Events ##
 
