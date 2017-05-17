@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter, TemplateRef} from '@angular/core';
 import {Observable} from 'rxjs';
 
 // searchbar default options
@@ -29,13 +29,15 @@ const defaultOpts = {
                      [type]="options.type == null ? defaultOpts.type : options.type"
       >
       </ion-searchbar>
+      <ng-template #defaultTemplate let-attrs="attrs">
+          <span [innerHTML]='(attrs.labelAttribute ? attrs.data[attrs.labelAttribute] : attrs.data) | boldprefix:attrs.keyword'></span>
+      </ng-template>
       <ul *ngIf="suggestions.length > 0 && showList">
           <li *ngFor="let suggestion of suggestions" (tap)="select(suggestion)">
-              <ion-auto-complete-item
-                      [data]='suggestion'
-                      [keyword]='keyword'
-                      [labelAttribute]='dataProvider.labelAttribute'>
-              </ion-auto-complete-item>
+              <ng-template 
+                        [ngTemplateOutlet]="template || defaultTemplate" 
+                        [ngOutletContext]="
+                        {attrs:{ data: suggestion, keyword: keyword, labelAttribute: dataProvider.labelAttribute }}"></ng-template>
           </li>
       </ul>
       <p *ngIf="suggestions.length == 0 && showList && options.noItems">{{ options.noItems }}</p>
@@ -45,9 +47,9 @@ const defaultOpts = {
 export class AutoCompleteComponent {
 
   @Input() public dataProvider:   any;
-  @Input() public itemComponent:  any;
   @Input() public options:        any;
   @Input() public keyword:      string;
+  @Input() template: TemplateRef<any>;
   @Output() public itemSelected:  EventEmitter<any>;
   @Output() public ionAutoInput:  EventEmitter<string>;
 

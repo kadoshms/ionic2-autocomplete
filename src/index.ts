@@ -4,11 +4,9 @@ import { FormsModule }   from '@angular/forms';
 import { AutoCompleteComponent } from './autocomplete.component';
 import { BoldPrefix } from './boldprefix.pipe';
 import {IonicModule} from 'ionic-angular';
-import {AutoCompleteItemComponent} from './autocompleteitem.component';
 
 export * from './autocomplete.component';
 export * from './boldprefix.pipe';
-export * from './autocompleteitem.component';
 export * from './auto-complete.service';
 
 @NgModule({
@@ -19,13 +17,11 @@ export * from './auto-complete.service';
   ],
   declarations: [
     AutoCompleteComponent,
-    BoldPrefix,
-    AutoCompleteItemComponent
+    BoldPrefix
   ],
   exports: [
     AutoCompleteComponent,
-    BoldPrefix,
-    AutoCompleteItemComponent
+    BoldPrefix
   ]
 })
 export class AutoCompleteModule {
