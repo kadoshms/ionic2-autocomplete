@@ -3,7 +3,7 @@ export interface AutoCompleteService {
     /**
      * the literal name of the title attribute
      */
-    labelAttribute: string;
+    labelAttribute?: string;
 
     /**
      * this method should return an array of objects (results)
