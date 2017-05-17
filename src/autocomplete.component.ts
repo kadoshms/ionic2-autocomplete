@@ -12,7 +12,9 @@ const defaultOpts = {
   spellcheck: 'off',
   type: 'search',
   value: '',
-  noItems: ''
+  noItems: '',
+  clearOnEdit: false,
+  clearInput: false
 };
 
 @Component({
@@ -20,7 +22,17 @@ const defaultOpts = {
     '(document:click)': 'documentClickHandler($event)',
   },
   template: `
-      <ion-searchbar (ionInput)="getItems($event)"
+        <ion-input (keyup)="getItems($event)" *ngIf="useIonInput"
+                     (tap)="showResultsFirst && getItems()"
+                     [(ngModel)]="keyword"
+                     [placeholder]="options.placeholder == null ? defaultOpts.placeholder : options.placeholder"
+                     [type]="options.type == null ? defaultOpts.type : options.type"
+                     [clearOnEdit]="options.clearOnEdit == null ? defaultOpts.clearOnEdit : options.clearOnEdit"
+                     [clearInput]="options.clearInput == null ? defaultOpts.clearInput : options.clearInput"
+                     [ngClass]="['ion-auto-complete']"
+                     >
+      </ion-input>
+      <ion-searchbar (ionInput)="getItems($event)" *ngIf="!useIonInput"
                      (tap)="showResultsFirst && getItems()"
                      [(ngModel)]="keyword"
                      [cancelButtonText]="options.cancelButtonText == null ? defaultOpts.cancelButtonText : options.cancelButtonText"
@@ -31,6 +43,7 @@ const defaultOpts = {
                      [autocorrect]="options.autocorrect == null ? defaultOpts.autocorrect : options.autocorrect"
                      [spellcheck]="options.spellcheck == null ? defaultOpts.spellcheck : options.spellcheck"
                      [type]="options.type == null ? defaultOpts.type : options.type"
+                     [ngClass]="['ion-auto-complete']"
       >
       </ion-searchbar>
       <ng-template #defaultTemplate let-attrs="attrs">
@@ -55,6 +68,7 @@ export class AutoCompleteComponent {
   @Input() public keyword:      string;
   @Input() public showResultsFirst: boolean;
   @Input() public template: TemplateRef<any>;
+  @Input() public useIonInput: boolean;
   @Output() public itemSelected:  EventEmitter<any>;
   @Output() public ionAutoInput:  EventEmitter<string>;
 
@@ -155,7 +169,7 @@ export class AutoCompleteComponent {
 
   /**
 
-  /**
+   /**
    * clear current input value
    */
   public clearValue(hideItemList: boolean = false) {
@@ -171,7 +185,10 @@ export class AutoCompleteComponent {
    * @param event
    */
   private documentClickHandler(event) {
-    if (event.srcElement.className != "searchbar-input") {
+    let target = event.target;
+    let parent = event.target.parentElement;
+
+    if (target.className.split(" ").indexOf("ion-auto-complete") == -1 && parent.className.split(" ").indexOf("ion-auto-complete") == -1) {
       this.hideItemList();
     }
   }

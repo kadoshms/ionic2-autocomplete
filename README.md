@@ -237,7 +237,7 @@ You can override these default values by adding the `[options]` attribute to the
 In addition to the searchbar options, ion-auto-complete also supports the following option attributes:
 
 * **[template]** (TemplateRef) - custom template reference for your auto complete items (see below)
-* **[showResultsFirst]** (Boolean) - for small lists it might be nicer to show all options on first tap
+* **[showResultsFirst]** (Boolean) - for small lists it might be nicer to show all options on first tap (you might need to modify your service to handle an empty `keyword`)
 
 Will set the Searchbar's placeholder to *Lorem Ipsum*
 
