@@ -146,6 +146,8 @@ ion-auto-complete {
 ```
 ### Custom Templates (for versions 1.5.0 and above) ###
 
+**NOTE** this feature uses ng-template which was introduced in Angular versions 4.0.0 and later, it might not work in earlier versions.
+
 Ionic2-auto-complete also supports custom templates for the list items.
 Actually, you can display any attribute associated with your data items by simply accessing it from the `data` input class member in the template.
 
