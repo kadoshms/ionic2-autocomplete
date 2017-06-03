@@ -7,6 +7,10 @@ ion-auto-complete {
     padding: 1px !important;
   }
 
+  .hidden {
+    display: none;
+  }
+
   ul {
     position: absolute;
     width: inherit;

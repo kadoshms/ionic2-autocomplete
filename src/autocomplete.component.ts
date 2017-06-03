@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, TemplateRef} from '@angular/core';
+import {Component, Input, Output, EventEmitter, TemplateRef, ViewChild, ElementRef} from '@angular/core';
 import {Observable} from 'rxjs';
 
 // searchbar default options
@@ -22,28 +22,32 @@ const defaultOpts = {
     '(document:click)': 'documentClickHandler($event)',
   },
   template: `
-        <ion-input (keyup)="getItems($event)" *ngIf="useIonInput"
-                     (tap)="showResultsFirst && getItems()"
-                     [(ngModel)]="keyword"
-                     [placeholder]="options.placeholder == null ? defaultOpts.placeholder : options.placeholder"
-                     [type]="options.type == null ? defaultOpts.type : options.type"
-                     [clearOnEdit]="options.clearOnEdit == null ? defaultOpts.clearOnEdit : options.clearOnEdit"
-                     [clearInput]="options.clearInput == null ? defaultOpts.clearInput : options.clearInput"
-                     [ngClass]="['ion-auto-complete']"
-                     >
+      <ion-input
+              #inputElem
+              (keyup)="getItems($event)" 
+              (tap)="showResultsFirst && getItems()"
+              [(ngModel)]="keyword"
+              [placeholder]="options.placeholder == null ? defaultOpts.placeholder : options.placeholder"
+              [type]="options.type == null ? defaultOpts.type : options.type"
+              [clearOnEdit]="options.clearOnEdit == null ? defaultOpts.clearOnEdit : options.clearOnEdit"
+              [clearInput]="options.clearInput == null ? defaultOpts.clearInput : options.clearInput"
+              [ngClass]="{'hidden': !useIonInput}"
+      >
       </ion-input>
-      <ion-searchbar (ionInput)="getItems($event)" *ngIf="!useIonInput"
-                     (tap)="showResultsFirst && getItems()"
-                     [(ngModel)]="keyword"
-                     [cancelButtonText]="options.cancelButtonText == null ? defaultOpts.cancelButtonText : options.cancelButtonText"
-                     [showCancelButton]="options.showCancelButton == null ? defaultOpts.showCancelButton : options.showCancelButton"
-                     [debounce]="options.debounce == null ? defaultOpts.debounce : options.debounce"
-                     [placeholder]="options.placeholder == null ? defaultOpts.placeholder : options.placeholder"
-                     [autocomplete]="options.autocomplete == null ? defaultOpts.autocomplete : options.autocomplete"
-                     [autocorrect]="options.autocorrect == null ? defaultOpts.autocorrect : options.autocorrect"
-                     [spellcheck]="options.spellcheck == null ? defaultOpts.spellcheck : options.spellcheck"
-                     [type]="options.type == null ? defaultOpts.type : options.type"
-                     [ngClass]="['ion-auto-complete']"
+      <ion-searchbar
+              #searchbarElem
+              (ionInput)="getItems($event)"
+              (tap)="showResultsFirst && getItems()"
+              [(ngModel)]="keyword"
+              [cancelButtonText]="options.cancelButtonText == null ? defaultOpts.cancelButtonText : options.cancelButtonText"
+              [showCancelButton]="options.showCancelButton == null ? defaultOpts.showCancelButton : options.showCancelButton"
+              [debounce]="options.debounce == null ? defaultOpts.debounce : options.debounce"
+              [placeholder]="options.placeholder == null ? defaultOpts.placeholder : options.placeholder"
+              [autocomplete]="options.autocomplete == null ? defaultOpts.autocomplete : options.autocomplete"
+              [autocorrect]="options.autocorrect == null ? defaultOpts.autocorrect : options.autocorrect"
+              [spellcheck]="options.spellcheck == null ? defaultOpts.spellcheck : options.spellcheck"
+              [type]="options.type == null ? defaultOpts.type : options.type"
+              [ngClass]="{'hidden': useIonInput}"
       >
       </ion-searchbar>
       <ng-template #defaultTemplate let-attrs="attrs">
@@ -51,9 +55,9 @@ const defaultOpts = {
       </ng-template>
       <ul *ngIf="suggestions.length > 0 && showList">
           <li *ngFor="let suggestion of suggestions" (tap)="select(suggestion)">
-              <ng-template 
-                        [ngTemplateOutlet]="template || defaultTemplate" 
-                        [ngOutletContext]="
+              <ng-template
+                      [ngTemplateOutlet]="template || defaultTemplate"
+                      [ngOutletContext]="
                         {attrs:{ data: suggestion, keyword: keyword, labelAttribute: dataProvider.labelAttribute }}"></ng-template>
           </li>
       </ul>
@@ -71,6 +75,9 @@ export class AutoCompleteComponent {
   @Input() public useIonInput: boolean;
   @Output() public itemSelected:  EventEmitter<any>;
   @Output() public ionAutoInput:  EventEmitter<string>;
+
+  @ViewChild('searchbarElem') searchbarElem;
+  @ViewChild('inputElem') inputElem;
 
   private suggestions:  string[];
   private showList:     boolean;
@@ -185,10 +192,11 @@ export class AutoCompleteComponent {
    * @param event
    */
   private documentClickHandler(event) {
-    let target = event.target;
-    let parent = event.target.parentElement;
-
-    if (target.className.split(" ").indexOf("ion-auto-complete") == -1 && parent.className.split(" ").indexOf("ion-auto-complete") == -1) {
+    if((this.searchbarElem
+         && !this.searchbarElem._elementRef.nativeElement.contains(event.target))
+        ||
+        (!this.inputElem && this.inputElem._elementRef.nativeElement.contains(event.target))
+    ) {
       this.hideItemList();
     }
   }
