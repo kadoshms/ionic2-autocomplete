@@ -144,7 +144,7 @@ ion-auto-complete {
   width: 50vw;
 }
 ```
-### Custom Templates ###
+### Custom Templates (for versions 1.5.0 and above) ###
 
 Ionic2-auto-complete also supports custom templates for the list items.
 Actually, you can display any attribute associated with your data items by simply accessing it from the `data` input class member in the template.
@@ -171,7 +171,7 @@ With that, you can easily of **different templates for different components**!
 **NOTE** the following is depreacted! (versions less than 1.5.0)
 
 
-**DEPREACTED (applies for<=1.5.0)** 
+**DEPREACTED (applies for<1.5.0)** 
 For that, we need to create a new file, let's call it for instance `comp-test-item.ts`:
 ```
 import {AutoCompleteItem, AutoCompleteItemComponent} from 'ionic2-auto-complete';
