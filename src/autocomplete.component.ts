@@ -1,5 +1,5 @@
 import {Component, Input, Output, EventEmitter, TemplateRef, ViewChild, ElementRef} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Observable,Subject} from 'rxjs';
 
 // searchbar default options
 const defaultOpts = {
@@ -110,7 +110,8 @@ export class AutoCompleteComponent {
     }
 
     let result = this.dataProvider.getResults(this.keyword);
-
+    // if result is instanceof Subject, convert it to observable
+    result = result instanceof Subject?result.asObservable():result;
     // if query is async
     if (result instanceof Observable) {
       result
