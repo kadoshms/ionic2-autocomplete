@@ -110,8 +110,10 @@ export class AutoCompleteComponent {
     }
 
     let result = this.dataProvider.getResults(this.keyword);
-    // if result is instanceof Subject, convert it to observable
-    result = result instanceof Subject?result.asObservable():result;
+    // if result is instanceof Subject, use it asObservable
+    if(result instanceof Subject){
+      result = result.asObservable();
+    }
     // if query is async
     if (result instanceof Observable) {
       result
