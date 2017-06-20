@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, TemplateRef, ViewChild, ElementRef} from '@angular/core';
+import { Component, Input, Output, EventEmitter, TemplateRef, ViewChild, ElementRef, HostListener } from '@angular/core';
 import {Observable} from 'rxjs';
 
 // searchbar default options
@@ -18,11 +18,8 @@ const defaultOpts = {
 };
 
 @Component({
-  host: {
-    '(document:click)': 'documentClickHandler($event)',
-  },
-  templateUrl: './autocomplete.html',
-  selector      : 'ion-auto-complete'
+  selector: 'ion-auto-complete',
+  templateUrl: './autocomplete.html'
 })
 export class AutoCompleteComponent {
 
@@ -150,8 +147,9 @@ export class AutoCompleteComponent {
    * handle document click
    * @param event
    */
+  @HostListener('document:click', ['$event'])
   private documentClickHandler(event) {
-    if((this.searchbarElem
+    if ((this.searchbarElem
          && !this.searchbarElem._elementRef.nativeElement.contains(event.target))
         ||
         (!this.inputElem && this.inputElem._elementRef.nativeElement.contains(event.target))
