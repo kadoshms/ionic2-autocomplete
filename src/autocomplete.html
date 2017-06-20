@@ -1,6 +1,6 @@
 <ion-input #inputElem
            (keyup)="getItems($event)"
-           (tap)="showResultsFirst && getItems()"
+           (tap)="(showResultsFirst || keyword.length > 0) && getItems()"
            [(ngModel)]="keyword"
            [placeholder]="options.placeholder == null ? defaultOpts.placeholder : options.placeholder"
            [type]="options.type == null ? defaultOpts.type : options.type"
@@ -9,7 +9,7 @@
            [ngClass]="{'hidden': !useIonInput}"></ion-input>
 <ion-searchbar #searchbarElem
                (ionInput)="getItems($event)"
-               (tap)="showResultsFirst && getItems()"
+               (tap)="(showResultsFirst || keyword.length > 0) && getItems()"
                [(ngModel)]="keyword"
                [cancelButtonText]="options.cancelButtonText == null ? defaultOpts.cancelButtonText : options.cancelButtonText"
                [showCancelButton]="options.showCancelButton == null ? defaultOpts.showCancelButton : options.showCancelButton"

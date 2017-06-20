@@ -1,5 +1,5 @@
-import { Component, Input, Output, EventEmitter, TemplateRef, ViewChild, ElementRef, HostListener } from '@angular/core';
-import {Observable} from 'rxjs';
+import { Component, Input, Output, EventEmitter, TemplateRef, ViewChild, HostListener } from '@angular/core';
+import { Observable } from 'rxjs';
 
 // searchbar default options
 const defaultOpts = {
@@ -23,27 +23,27 @@ const defaultOpts = {
 })
 export class AutoCompleteComponent {
 
-  @Input() public dataProvider:   any;
-  @Input() public options:        any;
-  @Input() public keyword:      string;
+  @Input() public dataProvider: any;
+  @Input() public options: any;
+  @Input() public keyword: string;
   @Input() public showResultsFirst: boolean;
   @Input() public template: TemplateRef<any>;
   @Input() public useIonInput: boolean;
-  @Output() public itemSelected:  EventEmitter<any>;
-  @Output() public ionAutoInput:  EventEmitter<string>;
+  @Output() public itemSelected: EventEmitter<any>;
+  @Output() public ionAutoInput: EventEmitter<string>;
 
   @ViewChild('searchbarElem') searchbarElem;
   @ViewChild('inputElem') inputElem;
 
-  private suggestions:  string[];
-  private showList:     boolean;
-  private defaultOpts:  any;
+  private suggestions: string[];
+  private showList: boolean;
+  private defaultOpts: any;
 
   /**
    * create a new instace
    */
   public constructor() {
-    this.keyword = null;
+    this.keyword = '';
     this.suggestions = [];
     this.showList = false;
     this.itemSelected = new EventEmitter<any>();
@@ -58,9 +58,7 @@ export class AutoCompleteComponent {
    * get items for auto-complete
    */
   public getItems() {
-    if (this.showResultsFirst && !this.keyword) {
-      this.keyword = '';
-    } else if (this.keyword.trim() === '') {
+     if (!this.showResultsFirst && this.keyword.trim() === '') {
       this.suggestions = [];
       return;
     }
@@ -70,13 +68,13 @@ export class AutoCompleteComponent {
     // if query is async
     if (result instanceof Observable) {
       result
-          .subscribe(
-              (results: any) => {
-                this.suggestions = results;
-                this.showItemList();
-              },
-              (error: any) =>  console.error(error)
-          )
+        .subscribe(
+          (results: any) => {
+            this.suggestions = results;
+            this.showItemList();
+          },
+          (error: any) => console.error(error)
+        )
       ;
     } else {
       this.suggestions = result;
@@ -107,7 +105,7 @@ export class AutoCompleteComponent {
    */
   public select(selection: any): void {
     this.keyword = this.dataProvider.labelAttribute == null || selection[this.dataProvider.labelAttribute] == null
-        ? selection : selection[this.dataProvider.labelAttribute];
+      ? selection : selection[this.dataProvider.labelAttribute];
     this.hideItemList();
 
     // emit selection event
@@ -126,7 +124,7 @@ export class AutoCompleteComponent {
    * set current input value
    */
   public setValue(value: string) {
-    this.keyword = value
+    this.keyword = value || '';
     return;
   }
 
@@ -136,7 +134,7 @@ export class AutoCompleteComponent {
    * clear current input value
    */
   public clearValue(hideItemList: boolean = false) {
-    this.keyword = null;
+    this.keyword = '';
     if (hideItemList) {
       this.hideItemList();
     }
@@ -150,9 +148,9 @@ export class AutoCompleteComponent {
   @HostListener('document:click', ['$event'])
   private documentClickHandler(event) {
     if ((this.searchbarElem
-         && !this.searchbarElem._elementRef.nativeElement.contains(event.target))
-        ||
-        (!this.inputElem && this.inputElem._elementRef.nativeElement.contains(event.target))
+      && !this.searchbarElem._elementRef.nativeElement.contains(event.target))
+      ||
+      (!this.inputElem && this.inputElem._elementRef.nativeElement.contains(event.target))
     ) {
       this.hideItemList();
     }
