@@ -1,5 +1,7 @@
 import { Component, Input, Output, EventEmitter, TemplateRef, ViewChild, HostListener } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { noop } from 'rxjs/util/noop';
 
 // searchbar default options
 const defaultOpts = {
@@ -19,9 +21,12 @@ const defaultOpts = {
 
 @Component({
   selector: 'ion-auto-complete',
-  templateUrl: './autocomplete.html'
+  templateUrl: './autocomplete.html',
+  providers: [
+    {provide: NG_VALUE_ACCESSOR, useExisting: AutoCompleteComponent, multi: true}
+  ]
 })
-export class AutoCompleteComponent {
+export class AutoCompleteComponent implements ControlValueAccessor {
 
   @Input() public dataProvider: any;
   @Input() public options: any;
@@ -38,6 +43,8 @@ export class AutoCompleteComponent {
   private suggestions: string[];
   private showList: boolean;
   private defaultOpts: any;
+  private onTouchedCallback: () => void = noop;
+  private onChangeCallback: (_: any) => void = noop;
 
   /**
    * create a new instace
@@ -52,6 +59,24 @@ export class AutoCompleteComponent {
 
     // set default options
     this.defaultOpts = defaultOpts;
+  }
+
+  public writeValue(value: any) {
+    if (value !== this.keyword) {
+      this.keyword = value || '';
+    }
+  }
+
+  public registerOnChange(fn: any) {
+    this.onChangeCallback = fn;
+  }
+
+  public registerOnTouched(fn: any) {
+    this.onTouchedCallback = fn;
+  }
+
+  public updateModel() {
+    this.onChangeCallback(this.keyword);
   }
 
   /**
@@ -110,6 +135,7 @@ export class AutoCompleteComponent {
 
     // emit selection event
     this.itemSelected.emit(selection);
+    this.updateModel();
   }
 
   /**
