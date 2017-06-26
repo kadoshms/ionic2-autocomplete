@@ -240,6 +240,8 @@ In addition to the searchbar options, ion-auto-complete also supports the follow
 
 * **[template]** (TemplateRef) - custom template reference for your auto complete items (see below)
 * **[showResultsFirst]** (Boolean) - for small lists it might be nicer to show all options on first tap (you might need to modify your service to handle an empty `keyword`)
+* **[alwaysShowList]** (Boolean) - always show the list - defaults to false)
+* **[hideListOnSelection]** (Boolean) - if allowing multiple selections, it might be nice not to dismiss the list after each selection - defaults to true)
 
 Will set the Searchbar's placeholder to *Lorem Ipsum*
 

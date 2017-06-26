@@ -71,6 +71,8 @@ export class AutoCompleteComponent {
   @Input() public options:        any;
   @Input() public keyword:      string;
   @Input() public showResultsFirst: boolean;
+  @Input() public alwaysShowList: boolean;
+  @Input() public hideListOnSelection: boolean = true;
   @Input() public template: TemplateRef<any>;
   @Input() public useIonInput: boolean;
   @Output() public itemSelected:  EventEmitter<any>;
@@ -145,7 +147,7 @@ export class AutoCompleteComponent {
    * hide item list
    */
   private hideItemList(): void {
-    this.showList = false;
+    this.showList = this.alwaysShowList;
   }
 
   /**
@@ -155,7 +157,10 @@ export class AutoCompleteComponent {
   public select(selection: any): void {
     this.keyword = this.dataProvider.labelAttribute == null || selection[this.dataProvider.labelAttribute] == null
         ? selection : selection[this.dataProvider.labelAttribute];
-    this.hideItemList();
+    
+    if(this.hideListOnSelection) {
+      this.hideItemList();
+    }
 
     // emit selection event
     this.itemSelected.emit(selection);
