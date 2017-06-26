@@ -13,6 +13,8 @@ const defaultOpts = {
   type: 'search',
   value: '',
   noItems: '',
+  alwaysShowList: false,
+  hideListOnSelection: true,
   clearOnEdit: false,
   clearInput: false
 };
@@ -145,7 +147,7 @@ export class AutoCompleteComponent {
    * hide item list
    */
   private hideItemList(): void {
-    this.showList = false;
+    this.showList = this.options.alwaysShowList;
   }
 
   /**
@@ -155,7 +157,10 @@ export class AutoCompleteComponent {
   public select(selection: any): void {
     this.keyword = this.dataProvider.labelAttribute == null || selection[this.dataProvider.labelAttribute] == null
         ? selection : selection[this.dataProvider.labelAttribute];
-    this.hideItemList();
+    
+    if(this.options.hideListOnSelection) {
+      this.hideItemList();
+    }
 
     // emit selection event
     this.itemSelected.emit(selection);
