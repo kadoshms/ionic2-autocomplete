@@ -1,0 +1,44 @@
+ion-auto-complete {
+  overflow    : hidden !important;
+  display: block;
+  width: 90vw;
+  display: inline-block;
+  ion-searchbar {
+    padding: 1px !important;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  ul {
+    position: absolute;
+    width: inherit;
+    margin-top: 0px;
+    background: #FFF;
+    list-style-type: none;
+    padding:0px;
+    left: 16px;
+    z-index: 999;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+
+    li {
+      padding: 15px;
+      border-bottom: 1px solid #c1c1c1;
+    }
+
+    ion-auto-complete-item {
+      height: 40px;
+      width: 100%;
+    }
+
+    li:last-child {
+      border: none;
+    }
+
+    li:hover {
+      cursor: pointer;
+      background: #f1f1f1
+    }
+  }
+}
