@@ -32,6 +32,7 @@ const defaultOpts = {
               [type]="options.type == null ? defaultOpts.type : options.type"
               [clearOnEdit]="options.clearOnEdit == null ? defaultOpts.clearOnEdit : options.clearOnEdit"
               [clearInput]="options.clearInput == null ? defaultOpts.clearInput : options.clearInput"
+              [disabled]="disabled"
               [ngClass]="{'hidden': !useIonInput}"
       >
       </ion-input>
@@ -49,13 +50,14 @@ const defaultOpts = {
               [autocorrect]="options.autocorrect == null ? defaultOpts.autocorrect : options.autocorrect"
               [spellcheck]="options.spellcheck == null ? defaultOpts.spellcheck : options.spellcheck"
               [type]="options.type == null ? defaultOpts.type : options.type"
+              [disabled]="disabled"
               [ngClass]="{'hidden': useIonInput}"
       >
       </ion-searchbar>
       <ng-template #defaultTemplate let-attrs="attrs">
           <span [innerHTML]='(attrs.labelAttribute ? attrs.data[attrs.labelAttribute] : attrs.data) | boldprefix:attrs.keyword'></span>
       </ng-template>
-      <ul *ngIf="suggestions.length > 0 && showList">
+      <ul *ngIf="!disabled && suggestions.length > 0 && showList">
           <li *ngFor="let suggestion of suggestions" (tap)="select(suggestion)">
               <ng-template
                       [ngTemplateOutlet]="template || defaultTemplate"
@@ -73,6 +75,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
 
   @Input() public dataProvider: any;
   @Input() public options: any;
+  @Input() public disabled: any;
   @Input() public keyword: string;
   @Input() public showResultsFirst: boolean;
   @Input() public template: TemplateRef<any>;
