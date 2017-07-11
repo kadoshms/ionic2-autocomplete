@@ -1,5 +1,5 @@
-import {Component, Input, Output, EventEmitter, TemplateRef, ViewChild, ElementRef} from '@angular/core';
-import {Observable,Subject} from 'rxjs';
+import {Component, Input, Output, EventEmitter, TemplateRef, ViewChild} from '@angular/core';
+import {Observable, Subject} from 'rxjs';
 
 // searchbar default options
 const defaultOpts = {
@@ -24,7 +24,7 @@ const defaultOpts = {
   template: `
       <ion-input
               #inputElem
-              (keyup)="getItems($event)" 
+              (keyup)="getItems($event)"
               (tap)="showResultsFirst && getItems()"
               [(ngModel)]="keyword"
               [placeholder]="options.placeholder == null ? defaultOpts.placeholder : options.placeholder"

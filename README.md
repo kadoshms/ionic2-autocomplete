@@ -173,7 +173,7 @@ With that, you can easily of **different templates for different components**!
 **NOTE** the following is depreacted! (versions less than 1.5.0)
 
 
-**DEPREACTED (applies for<1.5.0)** 
+**DEPREACTED (applies for<1.5.0)**
 For that, we need to create a new file, let's call it for instance `comp-test-item.ts`:
 ```
 import {AutoCompleteItem, AutoCompleteItemComponent} from 'ionic2-auto-complete';
@@ -200,14 +200,14 @@ And we must also add this component to our module:
     CompTestItem
   ],
   ...
-  ... 
+  ...
   providers: [
     StatusBar,
     SplashScreen,
     CompleteTestService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
-  
+
 ```
 
 What is going on above is very simple.
@@ -217,7 +217,7 @@ In order to implement a custom Item component, you need to follow these steps:
 2. Use the `@AutoCompleteItem` decorator, which currently accepts `template` only (`templeteUrl` is currently not supported).
 3. Extend the AutoCompleteItemComponent class with your own class.
 
-**DEPREACTED** 
+**DEPREACTED**
 
 ## Events ##
 
@@ -233,6 +233,11 @@ You can override these default values by adding the `[options]` attribute to the
 ```
   <ion-auto-complete [dataProvider]="someProvider" [options]="{ placeholder : 'Lorem Ipsum' }"></ion-auto-complete>
 ```
+Options include, but not limited to:
+1. debounce (default is `250`)
+2. autocomplete ("on" and "off")
+3. type ("text", "password", "email", "number", "search", "tel", "url". Default "search".)
+4. placeholder (default "Search")
 
 ## Component specific options
 
@@ -264,3 +269,6 @@ And then, in the component tag we need to add `#searchbar`:
 
 By doing that, we can access the current value anywhere in the page simpprivate @ViewChild('searchbar') searchbar: anyly by calling `this.searchbar.getValue()`
 
+## Contributing ##
+
+To contribute, clone the repo. Then, run `npm install` to get the packages needed for the library to work. Running `gulp` will run a series of tasks that builds the files in `/src` into `/dist`. Replace the `/dist` into whatever Ionic application's `node_modules` where you're testing your changes to continously improve the library.
