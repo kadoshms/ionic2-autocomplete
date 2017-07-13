@@ -211,6 +211,15 @@ export class AutoCompleteComponent {
   }
 
   /**
+   * set focus of searchbar
+   */
+  public setFocus() {
+    if (this.searchbarElem) {
+      this.searchbarElem.setFocus();
+    }
+  }
+
+  /**
    * handle document click
    * @param event
    */
