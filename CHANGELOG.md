@@ -6,3 +6,8 @@
 ## [1.5.1] - beta 2017-06-26
 * fixed document click handler issue
 * support rxjs subject
+
+## [1.5.2] - beta 2017-07-13
+* bug fixes
+* added setFocus() method
+* added option to debounce the search

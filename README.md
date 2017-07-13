@@ -250,8 +250,7 @@ In addition to the searchbar options, ion-auto-complete also supports the follow
 
 Will set the Searchbar's placeholder to *Lorem Ipsum*
 
-
-## Accessing Searchbar value ##
+## Accessing Searchbar component ##
 
 By using the `@ViewChild()` decorator, and the built-in `getValue()` method we can easily access the actual value in the searchbar component.
 Just define a new property within the desired page, for instance (the chosen names are arbitrary):
@@ -267,7 +266,9 @@ And then, in the component tag we need to add `#searchbar`:
 <ion-auto-complete [dataProvider]="provider" #searchbar></ion-auto-complete>
 ```
 
-By doing that, we can access the current value anywhere in the page simpprivate @ViewChild('searchbar') searchbar: anyly by calling `this.searchbar.getValue()`
+By doing that, we can access the current value anywhere in the page simpprivate @ViewChild('searchbar') searchbar: any  by calling `this.searchbar.getValue()`
+In addition, you can set the event focus by calling setFocus: `this.searchbar.setFocus()`
+
 
 ## Contributing ##
 
