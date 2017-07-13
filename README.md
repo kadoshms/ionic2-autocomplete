@@ -266,8 +266,11 @@ And then, in the component tag we need to add `#searchbar`:
 <ion-auto-complete [dataProvider]="provider" #searchbar></ion-auto-complete>
 ```
 
-By doing that, we can access the current value anywhere in the page simpprivate @ViewChild('searchbar') searchbar: any  by calling `this.searchbar.getValue()`
-In addition, you can set the event focus by calling setFocus: `this.searchbar.setFocus()`
+Available methods:
+
+1. getValue(): `this.searchbar.getValue()` - get the string value of the selected item
+2. getSelection(): `this.searchbar.getSelection()` - get the selected object
+3. setFocus(): `this.searchbar.setFocus()` - focus on searchbar
 
 
 ## Contributing ##

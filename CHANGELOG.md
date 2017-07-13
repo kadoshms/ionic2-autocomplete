@@ -9,5 +9,6 @@
 
 ## [1.5.2] - beta 2017-07-13
 * bug fixes
-* added setFocus() method
+* added setFocus() metho
+* added getSelection() methodd
 * added option to debounce the search
