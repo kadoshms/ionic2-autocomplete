@@ -48,6 +48,7 @@ const defaultOpts = {
               [spellcheck]="options.spellcheck == null ? defaultOpts.spellcheck : options.spellcheck"
               [type]="options.type == null ? defaultOpts.type : options.type"
               [ngClass]="{'hidden': useIonInput}"
+              (ionClear)="clearValue(true)"
       >
       </ion-searchbar>
       <ng-template #defaultTemplate let-attrs="attrs">
@@ -82,6 +83,7 @@ export class AutoCompleteComponent {
   private suggestions:  string[];
   private showList:     boolean;
   private defaultOpts:  any;
+  private selection: any;
 
   /**
    * create a new instace
@@ -111,7 +113,7 @@ export class AutoCompleteComponent {
 
     let result = this.dataProvider.getResults(this.keyword);
     // if result is instanceof Subject, use it asObservable
-    if(result instanceof Subject){
+    if (result instanceof Subject) {
       result = result.asObservable();
     }
     // if query is async
@@ -159,6 +161,15 @@ export class AutoCompleteComponent {
 
     // emit selection event
     this.itemSelected.emit(selection);
+    this.selection = selection;
+  }
+
+  /**
+   * get current selection
+   * @returns {any}
+   */
+  public getSelection(): any {
+    return this.selection;
   }
 
   /**
@@ -184,9 +195,11 @@ export class AutoCompleteComponent {
    */
   public clearValue(hideItemList: boolean = false) {
     this.keyword = null;
+    this.selection = null;
     if (hideItemList) {
       this.hideItemList();
     }
+
     return;
   }
 
