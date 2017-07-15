@@ -82,8 +82,8 @@ export class AutoCompleteComponent {
   @ViewChild('searchbarElem') searchbarElem;
   @ViewChild('inputElem') inputElem;
 
-  private suggestions:  string[];
-  private showList:     boolean;
+  public suggestions:  string[];
+  public showList:     boolean;
   private defaultOpts:  any;
   private selection: any;
 
@@ -141,14 +141,14 @@ export class AutoCompleteComponent {
   /**
    * show item list
    */
-  private showItemList(): void {
+  public showItemList(): void {
     this.showList = true;
   }
 
   /**
    * hide item list
    */
-  private hideItemList(): void {
+  public hideItemList(): void {
     this.showList = this.alwaysShowList;
   }
 
