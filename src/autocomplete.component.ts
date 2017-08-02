@@ -77,15 +77,31 @@ export class AutoCompleteComponent {
   @Input() public template: TemplateRef<any>;
   @Input() public useIonInput: boolean;
   @Output() public itemSelected:  EventEmitter<any>;
+  @Output() public itemsShown:  EventEmitter<any>;
+  @Output() public itemsHidden:  EventEmitter<any>;
   @Output() public ionAutoInput:  EventEmitter<string>;
 
   @ViewChild('searchbarElem') searchbarElem;
   @ViewChild('inputElem') inputElem;
 
   public suggestions:  string[];
-  public showList:     boolean;
+
+  public get showList(): boolean {
+    return this._showList;
+  }
+  public set showList(value: boolean) {
+    if (this._showList === value) {
+      return;
+    }
+
+    this._showList = value;
+    this.showListChanged = true;
+  }
+  private _showList: boolean;
+
   private defaultOpts:  any;
   private selection: any;
+  private showListChanged: boolean = false;
 
   /**
    * create a new instace
@@ -93,13 +109,22 @@ export class AutoCompleteComponent {
   public constructor() {
     this.keyword = null;
     this.suggestions = [];
-    this.showList = false;
+    this._showList = false;
     this.itemSelected = new EventEmitter<any>();
+    this.itemsShown = new EventEmitter<any>();
+    this.itemsHidden = new EventEmitter<any>();
     this.ionAutoInput = new EventEmitter<string>();
     this.options = {};
 
     // set default options
     this.defaultOpts = defaultOpts;
+  }
+
+  ngAfterViewChecked() {
+    if (this.showListChanged) {
+      this.showListChanged = false;
+      this.showList ? this.itemsShown.emit() : this.itemsHidden.emit();
+    }
   }
 
   /**
