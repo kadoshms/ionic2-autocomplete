@@ -64,6 +64,11 @@ This is totatlly cool, for now. The exception shows up since we did not provide 
 
 **How does it work?** So, ionic2-auto-complete is not responsible for getting the data from the server. As a developer, you should implement your own service which eventually be responsible to get the data for the component to work, as well we determing how many results to show and/or their order of display.
 
+So there are two possibilities to provide data:
+
+1. A simple function that returns an Array of items
+2. An instance of 'AutocompleteService' (specified below)
+
 Let's start by creating the service:
 
 ```

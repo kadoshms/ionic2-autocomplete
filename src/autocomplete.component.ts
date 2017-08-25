@@ -131,6 +131,8 @@ export class AutoCompleteComponent {
    * get items for auto-complete
    */
   public getItems() {
+    let result;
+
     if (this.showResultsFirst && !this.keyword) {
       this.keyword = '';
     } else if (this.keyword.trim() === '') {
@@ -138,11 +140,17 @@ export class AutoCompleteComponent {
       return;
     }
 
-    let result = this.dataProvider.getResults(this.keyword);
+    if (typeof this.dataProvider === 'function') {
+        result = this.dataProvider(this.keyword);
+    } else {
+        result = this.dataProvider.getResults(this.keyword);
+    }
+
     // if result is instanceof Subject, use it asObservable
     if (result instanceof Subject) {
       result = result.asObservable();
     }
+
     // if query is async
     if (result instanceof Observable) {
       result
