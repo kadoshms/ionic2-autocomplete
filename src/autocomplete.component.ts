@@ -32,6 +32,8 @@ const defaultOpts = {
               [clearOnEdit]="options.clearOnEdit == null ? defaultOpts.clearOnEdit : options.clearOnEdit"
               [clearInput]="options.clearInput == null ? defaultOpts.clearInput : options.clearInput"
               [ngClass]="{'hidden': !useIonInput}"
+              (ionFocus)="onFocus()"
+              (ionBlur)="onBlur()"
       >
       </ion-input>
       <ion-searchbar
@@ -49,6 +51,8 @@ const defaultOpts = {
               [type]="options.type == null ? defaultOpts.type : options.type"
               [ngClass]="{'hidden': useIonInput}"
               (ionClear)="clearValue(true)"
+              (ionFocus)="onFocus()"
+              (ionBlur)="onBlur()"
       >
       </ion-searchbar>
       <ng-template #defaultTemplate let-attrs="attrs">
@@ -76,6 +80,8 @@ export class AutoCompleteComponent {
   @Input() public hideListOnSelection: boolean = true;
   @Input() public template: TemplateRef<any>;
   @Input() public useIonInput: boolean;
+  @Output() public autoFocus: EventEmitter<any>;
+  @Output() public autoBlur: EventEmitter<any>;
   @Output() public itemSelected:  EventEmitter<any>;
   @Output() public itemsShown:  EventEmitter<any>;
   @Output() public itemsHidden:  EventEmitter<any>;
@@ -114,6 +120,8 @@ export class AutoCompleteComponent {
     this.itemsShown = new EventEmitter<any>();
     this.itemsHidden = new EventEmitter<any>();
     this.ionAutoInput = new EventEmitter<string>();
+    this.autoFocus = new EventEmitter<any>();
+    this.autoBlur = new EventEmitter<any>();
     this.options = {};
 
     // set default options
@@ -250,6 +258,20 @@ export class AutoCompleteComponent {
     if (this.searchbarElem) {
       this.searchbarElem.setFocus();
     }
+  }
+
+  /**
+   * fired when the input focused
+   */
+  onFocus() {
+    this.autoFocus.emit();
+  }
+
+  /**
+   * fired when the input focused
+   */
+  onBlur() {
+    this.autoBlur.emit();
   }
 
   /**
