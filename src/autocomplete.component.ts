@@ -138,7 +138,14 @@ export class AutoCompleteComponent implements ControlValueAccessor {
 
   public writeValue(value: any) {
     if (value !== this.keyword) {
-      this.keyword = value || '';
+      let parsedValue;
+      if (value) {
+        const { labelAttribute } = this.dataProvider;
+        parsedValue = this.dataProvider.labelAttribute && typeof value === 'object' ? value[labelAttribute] : value;
+        this.selection = value || null;
+      }
+
+      this.keyword = parsedValue || '';
     }
   }
 
@@ -233,7 +240,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
 
     // emit selection event
     this.updateModel();
-    
+
     if(this.hideListOnSelection) {
       this.hideItemList();
     }
