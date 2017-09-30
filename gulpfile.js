@@ -6,7 +6,7 @@ var gulp = require('gulp'),
   rename = require('gulp-rename'),
   del = require('del'),
   runSequence = require('run-sequence'),
-  inlineResources = require('./tools/gulp/inline-resources');
+  inlineResources = require('gulp-inline-source');
 
 const rootFolder = path.join(__dirname);
 const srcFolder = path.join(rootFolder, 'src');

@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, TemplateRef, ViewChild, HostListener } from '@angular/core';
-import { Observable } from 'rxjs';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { noop } from 'rxjs/util/noop';
+import {Observable, Subject} from 'rxjs';
 
 // searchbar default options
 const defaultOpts = {
@@ -34,6 +34,8 @@ const defaultOpts = {
               [clearInput]="options.clearInput == null ? defaultOpts.clearInput : options.clearInput"
               [disabled]="disabled"
               [ngClass]="{'hidden': !useIonInput}"
+              (ionFocus)="onFocus()"
+              (ionBlur)="onBlur()"
       >
       </ion-input>
       <ion-searchbar
@@ -52,13 +54,16 @@ const defaultOpts = {
               [type]="options.type == null ? defaultOpts.type : options.type"
               [disabled]="disabled"
               [ngClass]="{'hidden': useIonInput}"
+              (ionClear)="clearValue(true)"
+              (ionFocus)="onFocus()"
+              (ionBlur)="onBlur()"
       >
       </ion-searchbar>
       <ng-template #defaultTemplate let-attrs="attrs">
           <span [innerHTML]='(attrs.labelAttribute ? attrs.data[attrs.labelAttribute] : attrs.data) | boldprefix:attrs.keyword'></span>
       </ng-template>
       <ul *ngIf="!disabled && suggestions.length > 0 && showList">
-          <li *ngFor="let suggestion of suggestions" (tap)="select(suggestion)">
+          <li *ngFor="let suggestion of suggestions" (tap)="select(suggestion);$event.srcEvent.stopPropagation()">
               <ng-template
                       [ngTemplateOutlet]="template || defaultTemplate"
                       [ngOutletContext]="
@@ -78,19 +83,39 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   @Input() public disabled: any;
   @Input() public keyword: string;
   @Input() public showResultsFirst: boolean;
+  @Input() public alwaysShowList: boolean;
+  @Input() public hideListOnSelection: boolean = true;
   @Input() public template: TemplateRef<any>;
   @Input() public useIonInput: boolean;
-  @Output() public itemSelected: EventEmitter<any>;
-  @Output() public ionAutoInput: EventEmitter<string>;
-
+  @Output() public autoFocus: EventEmitter<any>;
+  @Output() public autoBlur: EventEmitter<any>;
+  @Output() public itemSelected:  EventEmitter<any>;
+  @Output() public itemsShown:  EventEmitter<any>;
+  @Output() public itemsHidden:  EventEmitter<any>;
+  @Output() public ionAutoInput:  EventEmitter<string>;
   @ViewChild('searchbarElem') searchbarElem;
   @ViewChild('inputElem') inputElem;
 
-  private suggestions: string[];
-  private showList: boolean;
-  private defaultOpts: any;
   private onTouchedCallback: () => void = noop;
   private onChangeCallback: (_: any) => void = noop;
+  public suggestions:  string[];
+
+  public get showList(): boolean {
+    return this._showList;
+  }
+  public set showList(value: boolean) {
+    if (this._showList === value) {
+      return;
+    }
+
+    this._showList = value;
+    this.showListChanged = true;
+  }
+  private _showList: boolean;
+
+  private defaultOpts:  any;
+  private selection: any;
+  private showListChanged: boolean = false;
 
   /**
    * create a new instace
@@ -98,9 +123,13 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   public constructor() {
     this.keyword = '';
     this.suggestions = [];
-    this.showList = false;
+    this._showList = false;
     this.itemSelected = new EventEmitter<any>();
+    this.itemsShown = new EventEmitter<any>();
+    this.itemsHidden = new EventEmitter<any>();
     this.ionAutoInput = new EventEmitter<string>();
+    this.autoFocus = new EventEmitter<any>();
+    this.autoBlur = new EventEmitter<any>();
     this.options = {};
 
     // set default options
@@ -125,16 +154,37 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     this.onChangeCallback(this.keyword);
   }
 
+  ngAfterViewChecked() {
+    if (this.showListChanged) {
+      this.showListChanged = false;
+      this.showList ? this.itemsShown.emit() : this.itemsHidden.emit();
+    }
+  }
+
   /**
    * get items for auto-complete
    */
   public getItems() {
-     if (!this.showResultsFirst && this.keyword.trim() === '') {
+    if (!this.showResultsFirst && this.keyword.trim() === '') {
+    let result;
+
+    if (this.showResultsFirst && !this.keyword) {
+      this.keyword = '';
+    } else if (this.keyword.trim() === '') {
       this.suggestions = [];
       return;
     }
 
-    let result = this.dataProvider.getResults(this.keyword);
+    if (typeof this.dataProvider === 'function') {
+        result = this.dataProvider(this.keyword);
+    } else {
+        result = this.dataProvider.getResults(this.keyword);
+    }
+
+    // if result is instanceof Subject, use it asObservable
+    if (result instanceof Subject) {
+      result = result.asObservable();
+    }
 
     // if query is async
     if (result instanceof Observable) {
@@ -159,29 +209,48 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   /**
    * show item list
    */
-  private showItemList(): void {
+  public showItemList(): void {
     this.showList = true;
   }
 
   /**
    * hide item list
    */
-  private hideItemList(): void {
-    this.showList = false;
+  public hideItemList(): void {
+    this.showList = this.alwaysShowList;
   }
 
   /**
    * select item from list
-   * @param item
-   */
+   *
+   * @param event
+   * @param selection
+   **/
   public select(selection: any): void {
-    this.keyword = this.dataProvider.labelAttribute == null || selection[this.dataProvider.labelAttribute] == null
+    this.keyword = this.dataProvider.labelAttribute == null || selection[this.dataProvider.labelAttribute] == null 
       ? selection : selection[this.dataProvider.labelAttribute];
     this.hideItemList();
 
     // emit selection event
     this.itemSelected.emit(selection);
     this.updateModel();
+
+    
+    if(this.hideListOnSelection) {
+      this.hideItemList();
+    }
+
+    // emit selection event
+    this.itemSelected.emit(selection);
+    this.selection = selection;
+  }
+
+  /**
+   * get current selection
+   * @returns {any}
+   */
+  public getSelection(): any {
+    return this.selection;
   }
 
   /**
@@ -207,10 +276,36 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    */
   public clearValue(hideItemList: boolean = false) {
     this.keyword = '';
+    this.selection = null;
+
     if (hideItemList) {
       this.hideItemList();
     }
+
     return;
+  }
+
+  /**
+   * set focus of searchbar
+   */
+  public setFocus() {
+    if (this.searchbarElem) {
+      this.searchbarElem.setFocus();
+    }
+  }
+
+  /**
+   * fired when the input focused
+   */
+  onFocus() {
+    this.autoFocus.emit();
+  }
+
+  /**
+   * fired when the input focused
+   */
+  onBlur() {
+    this.autoBlur.emit();
   }
 
   /**
