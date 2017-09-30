@@ -165,45 +165,46 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    * get items for auto-complete
    */
   public getItems() {
-    if (!this.showResultsFirst && this.keyword.trim() === '') {
-    let result;
+      if (!this.showResultsFirst && this.keyword.trim() === '') {
+          let result;
 
-    if (this.showResultsFirst && !this.keyword) {
-      this.keyword = '';
-    } else if (this.keyword.trim() === '') {
-      this.suggestions = [];
-      return;
-    }
+          if (this.showResultsFirst && !this.keyword) {
+              this.keyword = '';
+          } else if (this.keyword.trim() === '') {
+              this.suggestions = [];
+              return;
+          }
 
-    if (typeof this.dataProvider === 'function') {
-        result = this.dataProvider(this.keyword);
-    } else {
-        result = this.dataProvider.getResults(this.keyword);
-    }
+          if (typeof this.dataProvider === 'function') {
+              result = this.dataProvider(this.keyword);
+          } else {
+              result = this.dataProvider.getResults(this.keyword);
+          }
 
-    // if result is instanceof Subject, use it asObservable
-    if (result instanceof Subject) {
-      result = result.asObservable();
-    }
+          // if result is instanceof Subject, use it asObservable
+          if (result instanceof Subject) {
+              result = result.asObservable();
+          }
 
-    // if query is async
-    if (result instanceof Observable) {
-      result
-        .subscribe(
-          (results: any) => {
-            this.suggestions = results;
-            this.showItemList();
-          },
-          (error: any) => console.error(error)
-        )
-      ;
-    } else {
-      this.suggestions = result;
-      this.showItemList();
-    }
+          // if query is async
+          if (result instanceof Observable) {
+              result
+                  .subscribe(
+                      (results: any) => {
+                          this.suggestions = results;
+                          this.showItemList();
+                      },
+                      (error: any) => console.error(error)
+                  )
+              ;
+          } else {
+              this.suggestions = result;
+              this.showItemList();
+          }
 
-    // emit event
-    this.ionAutoInput.emit(this.keyword);
+          // emit event
+          this.ionAutoInput.emit(this.keyword);
+      }
   }
 
   /**
