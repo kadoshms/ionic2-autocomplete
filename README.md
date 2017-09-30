@@ -281,6 +281,12 @@ Available methods:
 2. getSelection(): `this.searchbar.getSelection()` - get the selected object
 3. setFocus(): `this.searchbar.setFocus()` - focus on searchbar
 
+## ngModel (since 1.5.3) ##
+
+Many thanks to [bushybuffalo](https://github.com/bushybuffalo) for contributing this cool feature.
+You can now bind the component with an ngModel.
+Please note that if you use an object as your model, the component will try to achieve the initial keyword value using the labelAttribute.
+For plain string models, it will just use the value itself.
 
 ## Contributing ##
 

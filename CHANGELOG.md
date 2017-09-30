@@ -12,3 +12,7 @@
 * added setFocus() metho
 * added getSelection() methodd
 * added option to debounce the search
+
+## [1.5.3] - beta 2017-09-30
+* bug fixes
+* support for ngModel (see docs)
