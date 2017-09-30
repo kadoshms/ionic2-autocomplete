@@ -1,4 +1,6 @@
-import {Component, Input, Output, EventEmitter, TemplateRef, ViewChild} from '@angular/core';
+import { Component, Input, Output, EventEmitter, TemplateRef, ViewChild, HostListener } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { noop } from 'rxjs/util/noop';
 import {Observable, Subject} from 'rxjs';
 
 // searchbar default options
@@ -18,19 +20,19 @@ const defaultOpts = {
 };
 
 @Component({
-  host: {
-    '(document:click)': 'documentClickHandler($event)',
-  },
+  selector: 'ion-auto-complete',
   template: `
       <ion-input
               #inputElem
-              (keyup)="getItems($event)"
-              (tap)="showResultsFirst && getItems()"
+              (keyup)="getItems($event)" 
+              (tap)="(showResultsFirst || keyword.length > 0) && getItems()"
               [(ngModel)]="keyword"
+              (ngModelChange)="updateModel()"
               [placeholder]="options.placeholder == null ? defaultOpts.placeholder : options.placeholder"
               [type]="options.type == null ? defaultOpts.type : options.type"
               [clearOnEdit]="options.clearOnEdit == null ? defaultOpts.clearOnEdit : options.clearOnEdit"
               [clearInput]="options.clearInput == null ? defaultOpts.clearInput : options.clearInput"
+              [disabled]="disabled"
               [ngClass]="{'hidden': !useIonInput}"
               (ionFocus)="onFocus()"
               (ionBlur)="onBlur()"
@@ -39,8 +41,9 @@ const defaultOpts = {
       <ion-searchbar
               #searchbarElem
               (ionInput)="getItems($event)"
-              (tap)="showResultsFirst && getItems()"
+              (tap)="(showResultsFirst || keyword.length > 0) && getItems()"
               [(ngModel)]="keyword"
+              (ngModelChange)="updateModel()"
               [cancelButtonText]="options.cancelButtonText == null ? defaultOpts.cancelButtonText : options.cancelButtonText"
               [showCancelButton]="options.showCancelButton == null ? defaultOpts.showCancelButton : options.showCancelButton"
               [debounce]="options.debounce == null ? defaultOpts.debounce : options.debounce"
@@ -49,6 +52,7 @@ const defaultOpts = {
               [autocorrect]="options.autocorrect == null ? defaultOpts.autocorrect : options.autocorrect"
               [spellcheck]="options.spellcheck == null ? defaultOpts.spellcheck : options.spellcheck"
               [type]="options.type == null ? defaultOpts.type : options.type"
+              [disabled]="disabled"
               [ngClass]="{'hidden': useIonInput}"
               (ionClear)="clearValue(true)"
               (ionFocus)="onFocus()"
@@ -58,7 +62,7 @@ const defaultOpts = {
       <ng-template #defaultTemplate let-attrs="attrs">
           <span [innerHTML]='(attrs.labelAttribute ? attrs.data[attrs.labelAttribute] : attrs.data) | boldprefix:attrs.keyword'></span>
       </ng-template>
-      <ul *ngIf="suggestions.length > 0 && showList">
+      <ul *ngIf="!disabled && suggestions.length > 0 && showList">
           <li *ngFor="let suggestion of suggestions" (tap)="select(suggestion);$event.srcEvent.stopPropagation()">
               <ng-template
                       [ngTemplateOutlet]="template || defaultTemplate"
@@ -68,13 +72,16 @@ const defaultOpts = {
       </ul>
       <p *ngIf="suggestions.length == 0 && showList && options.noItems">{{ options.noItems }}</p>
   `,
-  selector      : 'ion-auto-complete'
+  providers: [
+    {provide: NG_VALUE_ACCESSOR, useExisting: AutoCompleteComponent, multi: true}
+  ]
 })
-export class AutoCompleteComponent {
+export class AutoCompleteComponent implements ControlValueAccessor {
 
-  @Input() public dataProvider:   any;
-  @Input() public options:        any;
-  @Input() public keyword:      string;
+  @Input() public dataProvider: any;
+  @Input() public options: any;
+  @Input() public disabled: any;
+  @Input() public keyword: string;
   @Input() public showResultsFirst: boolean;
   @Input() public alwaysShowList: boolean;
   @Input() public hideListOnSelection: boolean = true;
@@ -86,10 +93,11 @@ export class AutoCompleteComponent {
   @Output() public itemsShown:  EventEmitter<any>;
   @Output() public itemsHidden:  EventEmitter<any>;
   @Output() public ionAutoInput:  EventEmitter<string>;
-
   @ViewChild('searchbarElem') searchbarElem;
   @ViewChild('inputElem') inputElem;
 
+  private onTouchedCallback: () => void = noop;
+  private onChangeCallback: (_: any) => void = noop;
   public suggestions:  string[];
 
   public get showList(): boolean {
@@ -113,7 +121,7 @@ export class AutoCompleteComponent {
    * create a new instace
    */
   public constructor() {
-    this.keyword = null;
+    this.keyword = '';
     this.suggestions = [];
     this._showList = false;
     this.itemSelected = new EventEmitter<any>();
@@ -128,6 +136,24 @@ export class AutoCompleteComponent {
     this.defaultOpts = defaultOpts;
   }
 
+  public writeValue(value: any) {
+    if (value !== this.keyword) {
+      this.keyword = value || '';
+    }
+  }
+
+  public registerOnChange(fn: any) {
+    this.onChangeCallback = fn;
+  }
+
+  public registerOnTouched(fn: any) {
+    this.onTouchedCallback = fn;
+  }
+
+  public updateModel() {
+    this.onChangeCallback(this.keyword);
+  }
+
   ngAfterViewChecked() {
     if (this.showListChanged) {
       this.showListChanged = false;
@@ -139,6 +165,7 @@ export class AutoCompleteComponent {
    * get items for auto-complete
    */
   public getItems() {
+    if (!this.showResultsFirst && this.keyword.trim() === '') {
     let result;
 
     if (this.showResultsFirst && !this.keyword) {
@@ -162,13 +189,13 @@ export class AutoCompleteComponent {
     // if query is async
     if (result instanceof Observable) {
       result
-          .subscribe(
-              (results: any) => {
-                this.suggestions = results;
-                this.showItemList();
-              },
-              (error: any) =>  console.error(error)
-          )
+        .subscribe(
+          (results: any) => {
+            this.suggestions = results;
+            this.showItemList();
+          },
+          (error: any) => console.error(error)
+        )
       ;
     } else {
       this.suggestions = result;
@@ -200,8 +227,14 @@ export class AutoCompleteComponent {
    * @param selection
    **/
   public select(selection: any): void {
-    this.keyword = this.dataProvider.labelAttribute == null || selection[this.dataProvider.labelAttribute] == null
-        ? selection : selection[this.dataProvider.labelAttribute];
+    this.keyword = this.dataProvider.labelAttribute == null || selection[this.dataProvider.labelAttribute] == null 
+      ? selection : selection[this.dataProvider.labelAttribute];
+    this.hideItemList();
+
+    // emit selection event
+    this.itemSelected.emit(selection);
+    this.updateModel();
+
     
     if(this.hideListOnSelection) {
       this.hideItemList();
@@ -232,7 +265,7 @@ export class AutoCompleteComponent {
    * set current input value
    */
   public setValue(value: string) {
-    this.keyword = value
+    this.keyword = value || '';
     return;
   }
 
@@ -242,8 +275,9 @@ export class AutoCompleteComponent {
    * clear current input value
    */
   public clearValue(hideItemList: boolean = false) {
-    this.keyword = null;
+    this.keyword = '';
     this.selection = null;
+
     if (hideItemList) {
       this.hideItemList();
     }
@@ -278,11 +312,12 @@ export class AutoCompleteComponent {
    * handle document click
    * @param event
    */
+  @HostListener('document:click', ['$event'])
   private documentClickHandler(event) {
-    if((this.searchbarElem
-         && !this.searchbarElem._elementRef.nativeElement.contains(event.target))
-        ||
-        (!this.inputElem && this.inputElem._elementRef.nativeElement.contains(event.target))
+    if ((this.searchbarElem
+      && !this.searchbarElem._elementRef.nativeElement.contains(event.target))
+      ||
+      (!this.inputElem && this.inputElem._elementRef.nativeElement.contains(event.target))
     ) {
       this.hideItemList();
     }
