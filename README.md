@@ -103,11 +103,15 @@ By implementing an AutoCompleteService interface, you must implement two propert
 1. **labelAttribute** [string] - which is the name of the object's descriptive property (leaving it null is also an option for non-object results)
 2. **getResults(keyword)** [() => any] - which is the method responsible for getting the data from server.
 
+The **getResults** method can return one of:
+- an Observable that produces an array
+- a Subject (like an Observable)
+- a Promise that provides an array
+- directly an array of values
+
 In the above example, we fetch countries data from the amazing https://restcountries.eu/ project, and we filter the results accordingly.
 
 **Important!** the above example is just an example! the best practice would be to let the server to the filtering for us! Here, since I used the countries-api, that's the best I could do.
-
-Another thing - the `getResults` method can also return static data, it does not have to return an Observable object.
 
 Now, we need to let ionic2-auto-complete that we want to use CompleteTestService as the data provider, edit *home.ts* and add `private completeTestService: CompleteTestService` to the constructor argument list.
 Should look like that:
@@ -140,6 +144,126 @@ Now, everything should be up and ready :)
 
 ----------------------------------------------------------------------------
 
+### Use auto-complete in Angular FormGroup ###
+
+#### Use labelAttribute as both label and form value (default behavior) ####
+
+By default, if your **dataProvider** provides an array of objects, the `labelAttribute` property is used to take the good field of each object to display in the suggestion list. For backward compatibility, if nothing is specified, this attribute is also used to grab the value used in the form.
+
+The page should look like this:
+
+```
+import { Component } from '@angular/core';
+import { NavController } from 'ionic-angular';
+import { CompleteTestService } from '../../providers/CompleteTestService';
+import { FormGroup, Validators, FormControl } from '@angular/forms'
+
+
+@Component({
+  selector: 'page-home',
+  templateUrl: 'home.html'
+})
+export class HomePage {
+  myForm: FormGroup
+
+  constructor(public navCtrl: NavController, public completeTestService: CompleteTestService) {
+  }
+
+  ngOnInit(): void {
+    this.myForm = new FormGroup({
+      country: new FormControl('', [
+        Validators.required
+      ])
+    })
+  }
+
+  submit(): void {
+    let country = this.myForm.value.country
+  }
+
+}
+```
+
+Then, in *home.html* place the auto-complete component in the form group and add the `formControlName` attribute:
+```
+<form [formGroup]="myForm" (ngSubmit)="submit()" novalidate>
+  <div class="ion-form-group">
+    <ion-auto-complete [dataProvider]="completeTestService" formControlName="country"></ion-auto-complete>
+  </div>
+  <button ion-button type="submit" block>Add country</button>
+</form>
+```
+
+Now when the `submit` method is called, the `country` is the selected country **name**.
+
+**NOTE** As said above by default for backward compatibility, only the name is used as value not the country object.
+
+
+#### How to use another field as form value ? ####
+
+To indicate that you don't want the label as value but another field of the country object returned by the REST service, you can specify the attribute **formValueAttribute** on your dataProvider. For example, we want to use the country numeric code as value and still use the country name as label.
+
+Let's update the service (juste declare `formValueAttribute` property):
+
+```
+import {AutoCompleteService} from 'ionic2-auto-complete';
+import { Http } from '@angular/http';
+import {Injectable} from "@angular/core";
+import 'rxjs/add/operator/map'
+
+@Injectable()
+export class CompleteTestService implements AutoCompleteService {
+  labelAttribute = "name";
+  formValueAttribute = "numericCode"
+
+  constructor(private http:Http) {
+  }
+
+  getResults(keyword:string) {
+    return this.http.get("https://restcountries.eu/rest/v1/name/"+keyword)
+      .map(
+        result =>
+        {
+          return result.json()
+            .filter(item => item.name.toLowerCase().startsWith(keyword.toLowerCase()) )
+        });
+  }
+}
+```
+
+Now when the `submit` method is called, the `country` is the selected country **numericCode**. The name is still used as the label.
+
+#### How to use the whole object as form value ? ####
+
+Simply set `formValueAttribute` to empty string:
+```
+import {AutoCompleteService} from 'ionic2-auto-complete';
+import { Http } from '@angular/http';
+import {Injectable} from "@angular/core";
+import 'rxjs/add/operator/map'
+
+@Injectable()
+export class CompleteTestService implements AutoCompleteService {
+  labelAttribute = "name";
+  formValueAttribute = ""
+
+  constructor(private http:Http) {
+  }
+
+  getResults(keyword:string) {
+    return this.http.get("https://restcountries.eu/rest/v1/name/"+keyword)
+      .map(
+        result =>
+        {
+          return result.json()
+            .filter(item => item.name.toLowerCase().startsWith(keyword.toLowerCase()) )
+        });
+  }
+}
+```
+
+
+----------------------------------------------------------------------------
 
 ### Styling ###
 
@@ -149,6 +273,43 @@ ion-auto-complete {
   width: 50vw;
 }
 ```
+
+### How to concatenate several fields as label ? ###
+
+
+The auto-complete component allows you to use templates for customize the display of each suggestion. But in many cases, the default template is good. However, you need to concatenate several fields (like firstname and lastname) to produce a full label. In that case, you can declare a method named `getItemLabel` instead of using `labelAttribute`.
+
+For example, we want to display the country name and the population:
+```
+import {AutoCompleteService} from 'ionic2-auto-complete';
+import { Http } from '@angular/http';
+import {Injectable} from "@angular/core";
+import 'rxjs/add/operator/map'
+
+@Injectable()
+export class CompleteTestService implements AutoCompleteService {
+  formValueAttribute = ""
+
+  constructor(private http:Http) {
+  }
+
+  getResults(keyword:string) {
+    return this.http.get("https://restcountries.eu/rest/v1/name/"+keyword)
+      .map(
+        result =>
+        {
+          return result.json()
+            .filter(item => item.name.toLowerCase().startsWith(keyword.toLowerCase()) )
+        });
+  }
+
+  getItemLabel(country: any) {
+    return country.name + ' (' + country.population + ')'
+  }
+}
+```
+
+
 ### Custom Templates (for versions 1.5.0 and above) ###
 
 **NOTE** this feature uses ng-template which was introduced in Angular versions 4.0.0 and later, it might not work in earlier versions.

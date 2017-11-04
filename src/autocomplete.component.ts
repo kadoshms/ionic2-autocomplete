@@ -60,14 +60,20 @@ const defaultOpts = {
       >
       </ion-searchbar>
       <ng-template #defaultTemplate let-attrs="attrs">
-          <span [innerHTML]='(attrs.labelAttribute ? attrs.data[attrs.labelAttribute] : attrs.data) | boldprefix:attrs.keyword'></span>
+          <span [innerHTML]='attrs.label | boldprefix:attrs.keyword'></span>
       </ng-template>
       <ul *ngIf="!disabled && suggestions.length > 0 && showList">
           <li *ngFor="let suggestion of suggestions" (tap)="select(suggestion);$event.srcEvent.stopPropagation()">
               <ng-template
                       [ngTemplateOutlet]="template || defaultTemplate"
                       [ngOutletContext]="
-                        {attrs:{ data: suggestion, keyword: keyword, labelAttribute: dataProvider.labelAttribute }}"></ng-template>
+                        {attrs:{ 
+                          data: suggestion, 
+                          label: getLabel(suggestion),
+                          keyword: keyword,
+                          formValue: getFormValue(suggestion), 
+                          labelAttribute: dataProvider.labelAttribute, 
+                          formValueAttribute: dataProvider.formValueAttribute }}"></ng-template>
           </li>
       </ul>
       <p *ngIf="suggestions.length == 0 && showList && options.noItems">{{ options.noItems }}</p>
@@ -98,8 +104,9 @@ export class AutoCompleteComponent implements ControlValueAccessor {
 
   private onTouchedCallback: () => void = noop;
   private onChangeCallback: (_: any) => void = noop;
-  public suggestions:  string[];
-
+  public suggestions:  any[];
+  public formValue: any;
+  
   public get showList(): boolean {
     return this._showList;
   }
@@ -137,15 +144,10 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   }
 
   public writeValue(value: any) {
-    if (value !== this.keyword) {
-      let parsedValue;
-      if (value) {
-        const { labelAttribute } = this.dataProvider;
-        parsedValue = this.dataProvider.labelAttribute && typeof value === 'object' ? value[labelAttribute] : value;
-        this.selection = value || null;
-      }
-
-      this.keyword = parsedValue || '';
+    if (value !== this.selection) {
+      this.selection = value || null;
+      this.formValue = this.getFormValue(this.selection);
+      this.keyword = this.getLabel(this.selection);
     }
   }
 
@@ -158,7 +160,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   }
 
   public updateModel() {
-    this.onChangeCallback(this.keyword);
+    this.onChangeCallback(this.formValue);
   }
 
   ngAfterViewChecked() {
@@ -193,11 +195,15 @@ export class AutoCompleteComponent implements ControlValueAccessor {
           result = result.asObservable();
       }
 
+      if (result instanceof Promise) {
+          result = Observable.fromPromise(result);
+      }
+
       // if query is async
       if (result instanceof Observable) {
           result
               .subscribe(
-                  (results: any) => {
+                  (results: any[]) => {
                       this.suggestions = results;
                       this.showItemList();
                   },
@@ -234,8 +240,8 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    * @param selection
    **/
   public select(selection: any): void {
-    this.keyword = this.dataProvider.labelAttribute == null || selection[this.dataProvider.labelAttribute] == null 
-      ? selection : selection[this.dataProvider.labelAttribute];
+    this.keyword = this.getLabel(selection);
+    this.formValue = this.getFormValue(selection);
     this.hideItemList();
 
     // emit selection event
@@ -263,14 +269,15 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    * @returns {string}
    */
   public getValue() {
-    return this.keyword;
+    return this.formValue;
   }
 
   /**
    * set current input value
    */
-  public setValue(value: string) {
-    this.keyword = value || '';
+  public setValue(selection: any) {
+    this.formValue = this.getFormValue(selection);
+    this.keyword = this.getLabel(selection);
     return;
   }
 
@@ -282,6 +289,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   public clearValue(hideItemList: boolean = false) {
     this.keyword = '';
     this.selection = null;
+    this.formValue = null;
 
     if (hideItemList) {
       this.hideItemList();
@@ -326,5 +334,31 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     ) {
       this.hideItemList();
     }
+  }
+
+  private getFormValue(selection: any): any {
+    if (selection == null) {
+      return null;
+    }
+    let attr = this.dataProvider.formValueAttribute == null ? this.dataProvider.labelAttribute : this.dataProvider.formValueAttribute;
+    if (typeof selection === 'object' && attr) {
+      return selection[attr];
+    }
+    return selection;
+  }
+
+  private getLabel(selection: any): string {
+    if (selection == null) {
+      return '';
+    }
+    let attr = this.dataProvider.labelAttribute;
+    let value = selection;
+    if (this.dataProvider.getItemLabel) {
+      value = this.dataProvider.getItemLabel(value);
+    }
+    if (typeof value === 'object' && attr) {
+      return value[attr] || '';
+    }
+    return value || '';
   }
 }
