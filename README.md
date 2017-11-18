@@ -274,6 +274,7 @@ ion-auto-complete {
 }
 ```
 
+<!--
 ### How to concatenate several fields as label ? ###
 
 
@@ -308,6 +309,7 @@ export class CompleteTestService implements AutoCompleteService {
   }
 }
 ```
+-->
 
 
 ### Custom Templates (for versions 1.5.0 and above) ###
