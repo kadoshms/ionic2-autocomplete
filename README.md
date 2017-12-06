@@ -7,6 +7,15 @@ This is a **free software** please feel free to contribute! :)
 
 ![](example.gif)
 
+### Angular 5.0 Support
+
+Since Angular 5.0 was out, a several issues occured. 
+Thanks to @CoreyCole, most of them are gone now :)
+
+If you encounter another issues regrading Angular 5, pleae file an issue!
+
+For more info: https://github.com/kadoshms/ionic2-autocomplete/issues/128
+
 ### Installation
 ```
 $ npm install ionic2-auto-complete --save
