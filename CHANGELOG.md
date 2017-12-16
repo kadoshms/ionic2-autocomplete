@@ -17,6 +17,6 @@
 * bug fixes
 * support for ngModel (see docs)
 
-## [1.6.1] - alpha 2017-12-16
+## [1.6.2] - alpha 2017-12-16
 * bug fixes
 * support for Angular 5.0
