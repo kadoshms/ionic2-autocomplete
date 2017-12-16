@@ -2,6 +2,7 @@
   "name": "ionic2-auto-complete",
   "version": "1.6.1-alpha",
   "scripts": {
+    "publish": "npm publish dist",
     "build": "gulp build",
     "build:watch": "gulp",
     "docs": "npm run docs:build",
