@@ -104,6 +104,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
 
     private onTouchedCallback: () => void = noop;
     private onChangeCallback: (_: any) => void = noop;
+    public defaultOpts: any;
     public suggestions: any[];
     public formValue: any;
 
@@ -122,7 +123,6 @@ export class AutoCompleteComponent implements ControlValueAccessor {
 
     private _showList: boolean;
 
-    private defaultOpts: any;
     private selection: any;
     private showListChanged: boolean = false;
 
@@ -149,7 +149,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
      * handle tap
      * @param event
      */
-    private handleTap(event) {
+    public handleTap(event) {
         if (this.showResultsFirst || this.keyword.length > 0) {
             this.getItems();
         }
@@ -185,7 +185,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     /**
      * get items for auto-complete
      */
-    public getItems() {
+    public getItems(e?: Event) {
 
         let result;
 
