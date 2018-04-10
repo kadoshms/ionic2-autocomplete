@@ -403,12 +403,12 @@ In order to implement a custom Item component, you need to follow these steps:
 
 ## Events ##
 
-**itemSelected($event)** - fired when item is selected (clicked)
-**itemsShown($event)** - fired when items are shown
-**itemsHidden($event)** - fired when items are hidden
-**ionAutoInput($event)** - fired when user inputs
-**autoFocus($event)** - fired when the input is focused
-**autoBlur($event)** - fired when the input is blured
+**itemSelected($event)** - fired when item is selected (clicked)  
+**itemsShown($event)** - fired when items are shown  
+**itemsHidden($event)** - fired when items are hidden  
+**ionAutoInput($event)** - fired when user inputs  
+**autoFocus($event)** - fired when the input is focused  
+**autoBlur($event)** - fired when the input is blured  
 
 ## Searchbar options ##
 
