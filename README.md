@@ -1,5 +1,60 @@
 # Ionic2-auto-complete
 
+Bug #107 of tap event propogation Fixed
+
+## Multiple Select  ##
+Can be used as multiselect in this way ->
+In this example adduser is model for the Selected item in current Selection,removelist is array of all selected items to show as buttons to remove them from list and userlist is string of all selected items seperated by comma
+
+``` <div class="rm" *ngFor="let item of removelist; let i = index" style="float:left;"> 
+<button (click)="RemoveItem(i)" style="float:left;"> {{item }} (x)</button>
+</div>
+<ion-auto-complete name="adduser" (itemSelected)="GetValue($event)"  [(ngModel)]="adduser" [dataProvider]="UsersearchProvider"   [options]="{ placeholder : 'Search Select And Add Username' }" ##searchbar ></ion-auto-complete>
+```
+On ts file (removelist is an array and selectedlist is string list of selected items seperated by a comma)  ->
+```
+GetValue(ev: any)
+{
+if(this.selectedlist.includes(this.adduser)===false)
+{
+	if(this.selectedlist==='')
+	{
+		this.selectedlist=this.adduser;
+        }
+	else
+         {
+         this.selectedlist=this.selectedlist+","+this.adduser; 
+           }
+	this.removelist =  this.selectedlist.split(","); 
+	 
+}
+     this.adduser="";
+}
+
+RemoveItem(i)
+{
+var item= this.removelist[i];
+if(this.selectedlist.includes(","+item)===true)
+{
+this.selectedlist = this.selectedlist.replace(","+item,"");	
+}
+else if(this.removelist.length===1)
+{
+this.selectedlist = this.selectedlist.replace(item,"");	
+}
+else
+{
+	this.selectedlist = this.selectedlist.replace(item+",","");	
+}
+this.removelist = [];
+if(this.selectedlist!='')
+{
+this.removelist =  this.selectedlist.split(",");
+}
+}
+```
+
+
 ## Disclaimer ##
 Due to a very little free time, I am not fully available for mainting and supporting this project, so contributions are very welcome!!!
 
