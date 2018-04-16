@@ -4,7 +4,7 @@ Bug #107 of tap event propogation Fixed
 
 ## Multiple Select  ##
 Can be used as multiselect in this way ->
-on html file ->
+In this example adduser is model for the Selected item in current Selection,removelist is array of all selected items to show as buttons to remove them from list and userlist is string of all selected items seperated by comma
 
 ``` <div class="rm" *ngFor="let item of removelist; let i = index" style="float:left;"> 
 <button (click)="RemoveItem(i)" style="float:left;"> {{item }} (x)</button>
