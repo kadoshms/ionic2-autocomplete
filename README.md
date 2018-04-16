@@ -29,7 +29,6 @@ if(this.selectedlist.includes(this.adduser)===false)
 	 
 }
      this.adduser="";
-document.getElementsByName('datesdiv')[0].style.marginTop="0px";
 }
 
 RemoveItem(i)
