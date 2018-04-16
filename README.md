@@ -6,13 +6,13 @@ Bug #107 of tap event propogation Fixed
 Can be used as multiselect in this way ->
 on html file ->
 
-<div class="rm" *ngFor="let item of removelist; let i = index" style="float:left;"> 
+``` <div class="rm" *ngFor="let item of removelist; let i = index" style="float:left;"> 
 <button (click)="RemoveItem(i)" style="float:left;"> {{item }} (x)</button>
 </div>
 <ion-auto-complete name="adduser" (itemSelected)="GetValue($event)"  [(ngModel)]="adduser" [dataProvider]="UsersearchProvider"   [options]="{ placeholder : 'Search Select And Add Username' }" ##searchbar ></ion-auto-complete>
-
-On ts file (removelist is an array and selectedlist is string list of selected items seperated by a comma)   ->
-
+```
+On ts file (removelist is an array and selectedlist is string list of selected items seperated by a comma)  ->
+```
 GetValue(ev: any)
 {
 if(this.selectedlist.includes(this.adduser)===false)
@@ -53,9 +53,7 @@ if(this.selectedlist!='')
 this.removelist =  this.selectedlist.split(",");
 }
 }
-
-
-
+```
 
 
 ## Disclaimer ##
