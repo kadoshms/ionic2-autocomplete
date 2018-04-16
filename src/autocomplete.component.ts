@@ -22,22 +22,24 @@ const defaultOpts = {
 @Component({
     selector: 'ion-auto-complete',
     template: `
-        <ion-input
-                #inputElem
-                (keyup)="getItems($event)"
-                (tap)="handleTap($event)"
-                [(ngModel)]="keyword"
-                (ngModelChange)="updateModel()"
-                [placeholder]="options.placeholder == null ? defaultOpts.placeholder : options.placeholder"
-                [type]="options.type == null ? defaultOpts.type : options.type"
-                [clearOnEdit]="options.clearOnEdit == null ? defaultOpts.clearOnEdit : options.clearOnEdit"
-                [clearInput]="options.clearInput == null ? defaultOpts.clearInput : options.clearInput"
-                [disabled]="disabled"
-                [ngClass]="{'hidden': !useIonInput}"
-                (ionFocus)="onFocus()"
-                (ionBlur)="onBlur()"
-        >
-        </ion-input>
+        <ion-item [ngClass]="{'hidden': !useIonInput}">
+            <ion-input
+                    #inputElem
+                    (keyup)="getItems($event)"
+                    (tap)="handleTap($event)"
+                    [(ngModel)]="keyword"
+                    (ngModelChange)="updateModel()"
+                    [placeholder]="options.placeholder == null ? defaultOpts.placeholder : options.placeholder"
+                    [type]="options.type == null ? defaultOpts.type : options.type"
+                    [clearOnEdit]="options.clearOnEdit == null ? defaultOpts.clearOnEdit : options.clearOnEdit"
+                    [clearInput]="options.clearInput == null ? defaultOpts.clearInput : options.clearInput"
+                    [disabled]="disabled"
+                    [ngClass]="{'hidden': !useIonInput}"
+                    (ionFocus)="onFocus()"
+                    (ionBlur)="onBlur()"
+            >
+            </ion-input>
+        </ion-item>
         <ion-searchbar
                 #searchbarElem
                 (ionInput)="getItems($event)"
