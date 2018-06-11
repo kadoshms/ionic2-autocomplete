@@ -74,7 +74,7 @@ Oh no! something is wrong. You probably see an excpetion similiar to :
 
 `EXCEPTION: Error in ./AutoCompleteComponent class AutoCompleteComponent - inline template:1:21`
 
-This is totatlly cool, for now. The exception shows up since we did not provide a **dataProvider** to the autocomplete component.
+This is totally cool, for now. The exception shows up since we did not provide a **dataProvider** to the autocomplete component.
 
 **How does it work?** So, ionic2-auto-complete is not responsible for getting the data from the server. As a developer, you should implement your own service which eventually be responsible to get the data for the component to work, as well we determing how many results to show and/or their order of display.
 
