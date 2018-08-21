@@ -1,7 +1,7 @@
 # Ionic2-auto-complete
 
 ## Disclaimer ##
-Due to a very little free time, I am not fully available for mainting and supporting this project, so contributions are very welcome!!!
+Due to a very little free time, I am not available for mainting and supporting this project, so contributions are very welcome!!!
 
 
 ## About ##
