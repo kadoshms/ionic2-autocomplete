@@ -1,7 +1,4 @@
-# Ionic2-auto-complete
-
-## Disclaimer ##
-Due to a very little free time, I am not available for mainting and supporting this project, so contributions are very welcome!!!
+# Ionic4-auto-complete
 
 
 ## About ##
@@ -12,18 +9,9 @@ This is a **free software** please feel free to contribute! :)
 
 ![](example.gif)
 
-### Angular 5.0 Support
-
-Since Angular 5.0 was out, a several issues occured. 
-Thanks to @CoreyCole, most of them are gone now :)
-
-If you encounter another issues regrading Angular 5, pleae file an issue!
-
-For more info: https://github.com/kadoshms/ionic2-autocomplete/issues/128
-
 ### Installation
 ```
-$ npm install ionic2-auto-complete --save
+TODO: $ npm install ionic4-auto-complete --save
 ```
 
 #### Usage guide
@@ -31,7 +19,7 @@ $ npm install ionic2-auto-complete --save
 Open `app.module.ts` and add the following import statetment:
 
 ``
-import { AutoCompleteModule } from 'ionic2-auto-complete';
+import { AutoCompleteModule } from 'ionic4-auto-complete';
 ``
 
 Then, add the `AutoCompleteModule` to the `imports` array:
@@ -58,7 +46,7 @@ export class AppModule {}
 ```
 Now let's import the styling file. Open `app.scss` and add the following:
 
-`@import "../../node_modules/ionic2-auto-complete/auto-complete";`
+`@import "../../node_modules/ionic4-auto-complete/auto-complete";`
 
 Now, let's add the component to our app!
 
@@ -76,7 +64,7 @@ Oh no! something is wrong. You probably see an excpetion similiar to :
 
 This is totally cool, for now. The exception shows up since we did not provide a **dataProvider** to the autocomplete component.
 
-**How does it work?** So, ionic2-auto-complete is not responsible for getting the data from the server. As a developer, you should implement your own service which eventually be responsible to get the data for the component to work, as well we determing how many results to show and/or their order of display.
+**How does it work?** So, ionic4-auto-complete is not responsible for getting the data from the server. As a developer, you should implement your own service which eventually be responsible to get the data for the component to work, as well we determing how many results to show and/or their order of display.
 
 So there are two possibilities to provide data:
 
@@ -86,7 +74,7 @@ So there are two possibilities to provide data:
 Let's start by creating the service:
 
 ```
-import {AutoCompleteService} from 'ionic2-auto-complete';
+import {AutoCompleteService} from 'ionic4-auto-complete';
 import { Http } from '@angular/http';
 import {Injectable} from "@angular/core";
 import 'rxjs/add/operator/map'
@@ -127,7 +115,7 @@ In the above example, we fetch countries data from the amazing https://restcount
 
 **Important!** the above example is just an example! the best practice would be to let the server to the filtering for us! Here, since I used the countries-api, that's the best I could do.
 
-Now, we need to let ionic2-auto-complete that we want to use CompleteTestService as the data provider, edit *home.ts* and add `private completeTestService: CompleteTestService` to the constructor argument list.
+Now, we need to let ionic4-auto-complete that we want to use CompleteTestService as the data provider, edit *home.ts* and add `private completeTestService: CompleteTestService` to the constructor argument list.
 Should look like that:
 ```
 import { Component } from '@angular/core';
@@ -220,7 +208,7 @@ To indicate that you don't want the label as value but another field of the coun
 Let's update the service (juste declare `formValueAttribute` property):
 
 ```
-import {AutoCompleteService} from 'ionic2-auto-complete';
+import {AutoCompleteService} from 'ionic4-auto-complete';
 import { Http } from '@angular/http';
 import {Injectable} from "@angular/core";
 import 'rxjs/add/operator/map'
@@ -251,7 +239,7 @@ Now when the `submit` method is called, the `country` is the selected country **
 
 Simply set `formValueAttribute` to empty string:
 ```
-import {AutoCompleteService} from 'ionic2-auto-complete';
+import {AutoCompleteService} from 'ionic4-auto-complete';
 import { Http } from '@angular/http';
 import {Injectable} from "@angular/core";
 import 'rxjs/add/operator/map'
@@ -296,7 +284,7 @@ The auto-complete component allows you to use templates for customize the displa
 
 For example, we want to display the country name and the population:
 ```
-import {AutoCompleteService} from 'ionic2-auto-complete';
+import {AutoCompleteService} from 'ionic4-auto-complete';
 import { Http } from '@angular/http';
 import {Injectable} from "@angular/core";
 import 'rxjs/add/operator/map'
@@ -330,7 +318,7 @@ export class CompleteTestService implements AutoCompleteService {
 
 **NOTE** this feature uses ng-template which was introduced in Angular versions 4.0.0 and later, it might not work in earlier versions.
 
-Ionic2-auto-complete also supports custom templates for the list items.
+Ionic4-auto-complete also supports custom templates for the list items.
 Actually, you can display any attribute associated with your data items by simply accessing it from the `data` input class member in the template.
 
 For example:
@@ -358,7 +346,7 @@ With that, you can easily of **different templates for different components**!
 **DEPREACTED (applies for<1.5.0)**
 For that, we need to create a new file, let's call it for instance `comp-test-item.ts`:
 ```
-import {AutoCompleteItem, AutoCompleteItemComponent} from 'ionic2-auto-complete';
+import {AutoCompleteItem, AutoCompleteItemComponent} from 'ionic4-auto-complete';
 
 @AutoCompleteItem({
   template: `<img src="assets/image/flags/{{data.name}}.png" class="flag" /> <span [innerHTML]="data.name | boldprefix:keyword"></span>`
@@ -412,7 +400,7 @@ In order to implement a custom Item component, you need to follow these steps:
 
 ## Searchbar options ##
 
-Ionic2-auto-complete supports the regular Ionic's Searchbar options, which are set to their default values as specified in the [docs](http://ionicframework.com/docs/v2/api/components/searchbar/Searchbar/).
+Ionic4-auto-complete supports the regular Ionic's Searchbar options, which are set to their default values as specified in the [docs](http://ionicframework.com/docs/v2/api/components/searchbar/Searchbar/).
 
 You can override these default values by adding the `[options]` attribute to the `<ion-auto-complete>` tag, for instance:
 
