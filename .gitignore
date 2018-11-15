@@ -24,3 +24,5 @@ Desktop.ini
 
 dist
 *.sh
+.idea/
+.tmp/

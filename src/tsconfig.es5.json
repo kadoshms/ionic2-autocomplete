@@ -21,8 +21,8 @@
     "annotateForClosureCompiler": true,
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true,
-    "flatModuleOutFile": "ionic2-auto-complete.js",
-    "flatModuleId": "ionic2-auto-complete"
+    "flatModuleOutFile": "ionic4-auto-complete.js",
+    "flatModuleId": "ionic4-auto-complete"
   },
   "files": [
     "./index.ts"

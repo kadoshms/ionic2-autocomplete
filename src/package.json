@@ -1,9 +1,9 @@
 {
-  "name": "ionic2-auto-complete",
-  "version": "1.6.2-alpha",
+  "name": "ionic4-auto-complete",
+  "version": "0.0.2",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kadoshms/ionic2-autocomplete"
+    "url": "https://github.com/jrquick17/ionic4-auto-complete"
   },
   "author": {
     "name": "mor",
@@ -14,10 +14,10 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kadoshms/ionic2-autocomplete/issues"
+    "url": "https://github.com/jrquick17/ionic4-auto-complete/issues"
   },
-  "module": "ionic2-auto-complete.js",
-  "typings": "ionic2-auto-complete.d.ts",
+  "module": "ionic4-auto-complete.js",
+  "typings": "ionic4-auto-complete.d.ts",
   "peerDependencies": {
     "@angular/core": "^4.0.0",
     "rxjs": "^5.1.0",

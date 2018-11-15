@@ -1,9 +1,6 @@
-import {Component, Input, Output, EventEmitter, TemplateRef, ViewChild, HostListener} from '@angular/core';
+import {Component, Input, Output, EventEmitter, TemplateRef, ViewChild, HostListener, ElementRef} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {noop} from 'rxjs/util/noop';
-import {Observable} from 'rxjs/Observable';
-import {Subject} from 'rxjs/Subject';
-import {fromPromise} from 'rxjs/observable/fromPromise';
+import {from, noop, Observable, Subject} from 'rxjs';
 
 // searchbar default options
 const defaultOpts = {
@@ -101,8 +98,10 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     @Output() public itemsShown: EventEmitter<any>;
     @Output() public itemsHidden: EventEmitter<any>;
     @Output() public ionAutoInput: EventEmitter<string>;
-    @ViewChild('searchbarElem') searchbarElem;
-    @ViewChild('inputElem') inputElem;
+
+    @ViewChild('searchbarElem') searchbarElem: ElementRef;
+
+    @ViewChild('inputElem') inputElem: any;
 
     private onTouchedCallback: () => void = noop;
     private onChangeCallback: (_: any) => void = noop;
@@ -110,10 +109,12 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     public suggestions: any[];
     public formValue: any;
 
+    // @ts-ignore
     public get showList(): boolean {
         return this._showList;
     }
 
+    // @ts-ignore
     public set showList(value: boolean) {
         if (this._showList === value) {
             return;
@@ -184,7 +185,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
         this.onChangeCallback(this.formValue);
     }
 
-    ngAfterViewChecked() {
+    ngAfterViewInit() {
         if (this.showListChanged) {
             this.showListChanged = false;
             this.showList ? this.itemsShown.emit() : this.itemsHidden.emit();
@@ -195,7 +196,6 @@ export class AutoCompleteComponent implements ControlValueAccessor {
      * get items for auto-complete
      */
     public getItems(e?: Event) {
-
         let result;
 
         if (this.showResultsFirst && this.keyword.trim() === '') {
@@ -217,7 +217,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
         }
 
         if (result instanceof Promise) {
-            result = fromPromise(result);
+            result = from(result);
         }
 
         // if query is async
@@ -279,7 +279,6 @@ export class AutoCompleteComponent implements ControlValueAccessor {
 
     /**
      * get current selection
-     * @returns {any}
      */
     public getSelection(): any {
         return this.selection;
@@ -287,7 +286,6 @@ export class AutoCompleteComponent implements ControlValueAccessor {
 
     /**
      * get current input value
-     * @returns {string}
      */
     public getValue() {
         return this.formValue;
@@ -323,9 +321,10 @@ export class AutoCompleteComponent implements ControlValueAccessor {
      * set focus of searchbar
      */
     public setFocus() {
-        if (this.searchbarElem) {
-            this.searchbarElem.setFocus();
-        }
+        // TODO
+        // if (this.searchbarElem) {
+        //     this.searchbarElem.setFocus();
+        // }
     }
 
     /**
@@ -348,13 +347,14 @@ export class AutoCompleteComponent implements ControlValueAccessor {
      */
     @HostListener('document:click', ['$event'])
     private documentClickHandler(event) {
-        if ((this.searchbarElem
-                && !this.searchbarElem._elementRef.nativeElement.contains(event.target))
-            ||
-            (!this.inputElem && this.inputElem._elementRef.nativeElement.contains(event.target))
-        ) {
+        // TODO
+        // if ((this.searchbarElem
+        //         && !this.searchbarElem.nativeElement.contains(event.target))
+        //     ||
+        //     (!this.inputElem && this.inputElem.nativeElement.contains(event.target))
+        // ) {
             this.hideItemList();
-        }
+        // }
     }
 
     private getFormValue(selection: any): any {
