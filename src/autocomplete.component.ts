@@ -59,9 +59,9 @@ import {from, noop, Observable, Subject} from 'rxjs';
                         [ngTemplateOutletContext]="
                         {attrs:{ 
                           data: suggestion, 
-                          label: getLabel(suggestion),
+                          label: _getLabel(suggestion),
                           keyword: keyword,
-                          formValue: getFormValue(suggestion), 
+                          formValue: _getFormValue(suggestion), 
                           labelAttribute: dataProvider.labelAttribute, 
                           formValueAttribute: dataProvider.formValueAttribute }}"></ng-template>
             </li>
@@ -73,30 +73,30 @@ import {from, noop, Observable, Subject} from 'rxjs';
     ]
 })
 export class AutoCompleteComponent implements ControlValueAccessor {
-
+    @Input() public alwaysShowList: boolean;
     @Input() public dataProvider: any;
-    @Input() public options: any;
     @Input() public disabled: any;
+    @Input() public hideListOnSelection: boolean = true;
     @Input() public keyword: string;
     @Input() public location: string = 'top';
     @Input() public options: any;
     @Input() public showResultsFirst: boolean;
-    @Input() public alwaysShowList: boolean;
-    @Input() public hideListOnSelection: boolean = true;
     @Input() public template: TemplateRef<any>;
     @Input() public useIonInput: boolean;
+
     @Output() public autoFocus: EventEmitter<any>;
     @Output() public autoBlur: EventEmitter<any>;
+    @Output() public ionAutoInput: EventEmitter<string>;
+    @Output() public itemsHidden: EventEmitter<any>;
     @Output() public itemSelected: EventEmitter<any>;
     @Output() public itemsShown: EventEmitter<any>;
-    @Output() public itemsHidden: EventEmitter<any>;
-    @Output() public ionAutoInput: EventEmitter<string>;
 
     @ViewChild('searchbarElem', { read: ElementRef }) private searchbarElem: ElementRef;
-    @ViewChild('inputElem') inputElem: any;
+    @ViewChild('inputElem', { read: ElementRef }) private inputElem: ElementRef;
 
     private onTouchedCallback: () => void = noop;
     private onChangeCallback: (_: any) => void = noop;
+
     public defaultOpts: any;
     public suggestions: any[];
     public formValue: any;
@@ -180,8 +180,8 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     public writeValue(value: any) {
         if (value !== this.selection) {
             this.selection = value || null;
-            this.formValue = this.getFormValue(this.selection);
-            this.keyword = this.getLabel(this.selection);
+            this.formValue = this._getFormValue(this.selection);
+            this.keyword = this._getLabel(this.selection);
         }
     }
 
@@ -207,23 +207,19 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     /**
      * get items for auto-complete
      */
-    public getItems(e?) {
-        this.keyword = e.detail.target.value;
+    public getItems(event?) {
+        if (event) {
+            this.keyword = event.detail.target.value;
+        }
 
         let result;
 
         if (this.showResultsFirst && this.keyword.trim() === '') {
             this.keyword = '';
-        } else if (this.keyword.trim() === '') {
-            this.suggestions = [];
-            return;
         }
 
-        if (typeof this.dataProvider === 'function') {
-            result = this.dataProvider(this.keyword);
-        } else {
-            result = this.dataProvider.getResults(this.keyword);
-        }
+        result = (typeof this.dataProvider === 'function') ?
+            this.dataProvider(this.keyword) : this.dataProvider.getResults(this.keyword);
 
         // if result is instanceof Subject, use it asObservable
         if (result instanceof Subject) {
@@ -275,8 +271,8 @@ export class AutoCompleteComponent implements ControlValueAccessor {
      * @param selection
      **/
     public select(selection: any): void {
-        this.keyword = this.getLabel(selection);
-        this.formValue = this.getFormValue(selection);
+        this.keyword = this._getLabel(selection);
+        this.formValue = this._getFormValue(selection);
         this.hideItemList();
 
         // emit selection event
@@ -319,8 +315,8 @@ export class AutoCompleteComponent implements ControlValueAccessor {
      * set current input value
      */
     public setValue(selection: any) {
-        this.formValue = this.getFormValue(selection);
-        this.keyword = this.getLabel(selection);
+        this.formValue = this._getFormValue(selection);
+        this.keyword = this._getLabel(selection);
         return;
     }
 
@@ -354,6 +350,8 @@ export class AutoCompleteComponent implements ControlValueAccessor {
      * fired when the input focused
      */
     onFocus() {
+        this.getItems();
+
         this.autoFocus.emit();
     }
 
@@ -369,17 +367,17 @@ export class AutoCompleteComponent implements ControlValueAccessor {
      * @param event
      */
     @HostListener('document:click', ['$event'])
-    private documentClickHandler(event) {
-        if ((this.searchbarElem
-                && !this.searchbarElem.nativeElement.contains(event.target))
+    private _documentClickHandler(event) {
+        if (
+            (this.searchbarElem && this.searchbarElem.nativeElement && !this.searchbarElem.nativeElement.contains(event.target))
             ||
-            (!this.inputElem && this.inputElem._elementRef.nativeElement.contains(event.target))
+            (!this.inputElem && this.inputElem.nativeElement && this.inputElem.nativeElement.contains(event.target))
         ) {
             this.hideItemList();
         }
     }
 
-    private getFormValue(selection: any): any {
+    private _getFormValue(selection: any): any {
         if (selection == null) {
             return null;
         }
@@ -390,7 +388,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
         return selection;
     }
 
-    private getLabel(selection: any): string {
+    private _getLabel(selection: any): string {
         if (selection == null) {
             return '';
         }
