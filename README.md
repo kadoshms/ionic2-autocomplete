@@ -2,7 +2,7 @@
 
 
 ## About ##
-This is a component based on Ionic's search-bar component, with the addition of auto-complete abillity.
+This is a component based on Ionic's search-bar component, with the addition of auto-complete ability.
 This component is super simple and light-weight. Just provide the data, and let the fun begin.
 
 This is a **free software** please feel free to contribute! :)
@@ -16,7 +16,7 @@ TODO: $ npm install ionic4-auto-complete --save
 
 #### Usage guide
 
-Open `app.module.ts` and add the following import statetment:
+Open `app.module.ts` and add the following import statement:
 
 ``
 import { AutoCompleteModule } from 'ionic4-auto-complete';
@@ -198,14 +198,12 @@ Then, in *home.html* place the auto-complete component in the form group and add
 
 Now when the `submit` method is called, the `country` is the selected country **name**.
 
-**NOTE** As said above by default for backward compatibility, only the name is used as value not the country object.
-
 
 #### How to use another field as form value ? ####
 
 To indicate that you don't want the label as value but another field of the country object returned by the REST service, you can specify the attribute **formValueAttribute** on your dataProvider. For example, we want to use the country numeric code as value and still use the country name as label.
 
-Let's update the service (juste declare `formValueAttribute` property):
+Let's update the service (just declare `formValueAttribute` property):
 
 ```
 import {AutoCompleteService} from 'ionic4-auto-complete';
@@ -314,9 +312,7 @@ export class CompleteTestService implements AutoCompleteService {
 -->
 
 
-### Custom Templates (for versions 1.5.0 and above) ###
-
-**NOTE** this feature uses ng-template which was introduced in Angular versions 4.0.0 and later, it might not work in earlier versions.
+### Custom Templates ###
 
 Ionic4-auto-complete also supports custom templates for the list items.
 Actually, you can display any attribute associated with your data items by simply accessing it from the `data` input class member in the template.
@@ -338,56 +334,6 @@ On the page where your `ion-auto-complete` is located:
 Please note that you must add the `let-attrs="attrs"` attribute to your template.
 
 With that, you can easily of **different templates for different components**!
-
-#### Old custom templates mechanism (depreacted) ####
-**NOTE** the following is depreacted! (versions less than 1.5.0)
-
-
-**DEPREACTED (applies for<1.5.0)**
-For that, we need to create a new file, let's call it for instance `comp-test-item.ts`:
-```
-import {AutoCompleteItem, AutoCompleteItemComponent} from 'ionic4-auto-complete';
-
-@AutoCompleteItem({
-  template: `<img src="assets/image/flags/{{data.name}}.png" class="flag" /> <span [innerHTML]="data.name | boldprefix:keyword"></span>`
-})
-export class CompTestItem extends AutoCompleteItemComponent{
-
-}
-
-```
-
-And we must also add this component to our module:
-
-```
-@NgModule({
-  declarations: [
-    MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
-    TabsPage,
-    CompTestItem
-  ],
-  ...
-  ...
-  providers: [
-    StatusBar,
-    SplashScreen,
-    CompleteTestService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
-  ]
-
-```
-
-What is going on above is very simple.
-In order to implement a custom Item component, you need to follow these steps:
-
-1. Import all neccessary classes.
-2. Use the `@AutoCompleteItem` decorator, which currently accepts `template` only (`templeteUrl` is currently not supported).
-3. Extend the AutoCompleteItemComponent class with your own class.
-
-**DEPREACTED**
 
 ## Events ##
 
@@ -446,13 +392,19 @@ Available methods:
 2. getSelection(): `this.searchbar.getSelection()` - get the selected object
 3. setFocus(): `this.searchbar.setFocus()` - focus on searchbar
 
-## ngModel (since 1.5.3) ##
-
-Many thanks to [bushybuffalo](https://github.com/bushybuffalo) for contributing this cool feature.
-You can now bind the component with an ngModel.
-Please note that if you use an object as your model, the component will try to achieve the initial keyword value using the labelAttribute.
-For plain string models, it will just use the value itself.
-
 ## Contributing ##
 
-To contribute, clone the repo. Then, run `npm install` to get the packages needed for the library to work. Running `gulp` will run a series of tasks that builds the files in `/src` into `/dist`. Replace the `/dist` into whatever Ionic application's `node_modules` where you're testing your changes to continously improve the library.
+To contribute, clone the repo. Then, run `npm install` to get the packages needed for the library to work. Running `gulp` will run a series of tasks that builds the files in `/src` into `/dist`. Replace the `/dist` into whatever Ionic application's `node_modules` where you're testing your changes to continuously improve the library.
+
+### Versioning ##
+
+Follows [Semantic Versioning (2.0.0)](https://semver.org/)
+
+### NPM Release ###
+
+Run `npm publish` from dist/ directory.
+
+### Thanks ###
+
+[kadoshms](https://github.com/kadoshms)
+[bushybuffalo](https://github.com/bushybuffalo)
