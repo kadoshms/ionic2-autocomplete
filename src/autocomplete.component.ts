@@ -51,7 +51,8 @@ import {from, noop, Observable, Subject} from 'rxjs';
         <ng-template #defaultTemplate let-attrs="attrs">
             <span [innerHTML]='attrs.label | boldprefix:attrs.keyword'></span>
         </ng-template>
-        <ul *ngIf="!disabled && suggestions.length > 0 && showList">
+        <ul *ngIf="!disabled && suggestions.length > 0 && showList"
+            [ngStyle]="getStyle()">
             <li *ngFor="let suggestion of suggestions" (tap)="handleSelectTap($event, suggestion)">
                 <ng-template
                         [ngTemplateOutlet]="template || defaultTemplate"
@@ -77,6 +78,8 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     @Input() public options: any;
     @Input() public disabled: any;
     @Input() public keyword: string;
+    @Input() public location: string = 'top';
+    @Input() public options: any;
     @Input() public showResultsFirst: boolean;
     @Input() public alwaysShowList: boolean;
     @Input() public hideListOnSelection: boolean = true;
@@ -293,6 +296,16 @@ export class AutoCompleteComponent implements ControlValueAccessor {
      */
     public getSelection(): any {
         return this.selection;
+    }
+
+    public getStyle() {
+        if (this.location === 'bottom') {
+            return {};
+        } else {
+            return {
+                'bottom': '37px'
+            };
+        }
     }
 
     /**
