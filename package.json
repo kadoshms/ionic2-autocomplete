@@ -1,6 +1,6 @@
 {
   "name": "ionic4-auto-complete",
-  "version": "1.0.1",
+  "version": "1.1.2",
   "scripts": {
     "publish": "npm publish dist",
     "build": "gulp build",
