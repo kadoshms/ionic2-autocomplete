@@ -99,8 +99,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     @Output() public itemsHidden: EventEmitter<any>;
     @Output() public ionAutoInput: EventEmitter<string>;
 
-    @ViewChild('searchbarElem') searchbarElem: ElementRef;
-
+    @ViewChild('searchbarElem', { read: ElementRef }) private searchbarElem: ElementRef;
     @ViewChild('inputElem') inputElem: any;
 
     private onTouchedCallback: () => void = noop;
@@ -185,7 +184,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
         this.onChangeCallback(this.formValue);
     }
 
-    ngAfterViewInit() {
+    ngAfterViewChecked() {
         if (this.showListChanged) {
             this.showListChanged = false;
             this.showList ? this.itemsShown.emit() : this.itemsHidden.emit();
@@ -321,10 +320,9 @@ export class AutoCompleteComponent implements ControlValueAccessor {
      * set focus of searchbar
      */
     public setFocus() {
-        // TODO
-        // if (this.searchbarElem) {
-        //     this.searchbarElem.setFocus();
-        // }
+        if (this.searchbarElem) {
+            this.searchbarElem.nativeElement.setFocus();
+        }
     }
 
     /**
@@ -347,14 +345,13 @@ export class AutoCompleteComponent implements ControlValueAccessor {
      */
     @HostListener('document:click', ['$event'])
     private documentClickHandler(event) {
-        // TODO
-        // if ((this.searchbarElem
-        //         && !this.searchbarElem.nativeElement.contains(event.target))
-        //     ||
-        //     (!this.inputElem && this.inputElem.nativeElement.contains(event.target))
-        // ) {
+        if ((this.searchbarElem
+                && !this.searchbarElem.nativeElement.contains(event.target))
+            ||
+            (!this.inputElem && this.inputElem._elementRef.nativeElement.contains(event.target))
+        ) {
             this.hideItemList();
-        // }
+        }
     }
 
     private getFormValue(selection: any): any {
