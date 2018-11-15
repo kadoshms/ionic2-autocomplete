@@ -204,7 +204,9 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     /**
      * get items for auto-complete
      */
-    public getItems(e?: Event) {
+    public getItems(e?) {
+        this.keyword = e.detail.target.value;
+
         let result;
 
         if (this.showResultsFirst && this.keyword.trim() === '') {
