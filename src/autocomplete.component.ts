@@ -78,7 +78,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     @Input() public disabled: any;
     @Input() public hideListOnSelection: boolean = true;
     @Input() public keyword: string;
-    @Input() public location: string = 'top';
+    @Input() public location: string = 'auto';
     @Input() public options: any;
     @Input() public showResultsFirst: boolean;
     @Input() public template: TemplateRef<any>;
@@ -295,7 +295,22 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     }
 
     public getStyle() {
-        if (this.location === 'bottom') {
+        let location = this.location;
+        if (this.location === 'auto') {
+            const elementY = this._getPosition(
+                this.searchbarElem.nativeElement
+            ).y;
+
+            const windowY = window.innerHeight;
+
+            if (elementY > windowY - elementY) {
+                location = 'top';
+            } else {
+                location = 'bottom';
+            }
+        }
+
+        if (location === 'bottom') {
             return {};
         } else {
             return {
@@ -401,5 +416,29 @@ export class AutoCompleteComponent implements ControlValueAccessor {
             return value[attr] || '';
         }
         return value || '';
+    }
+
+    private _getPosition(el) {
+        let xPos = 0;
+        let yPos = 0;
+
+        while (el) {
+            if (el.tagName === 'BODY') {
+                const xScroll = el.scrollLeft || document.documentElement.scrollLeft;
+                const yScroll = el.scrollTop || document.documentElement.scrollTop;
+
+                xPos += (el.offsetLeft - xScroll + el.clientLeft);
+                yPos += (el.offsetTop - yScroll + el.clientTop);
+            } else {
+                xPos += (el.offsetLeft - el.scrollLeft + el.clientLeft);
+                yPos += (el.offsetTop - el.scrollTop + el.clientTop);
+            }
+
+            el = el.offsetParent;
+        }
+        return {
+            x: xPos,
+            y: yPos
+        };
     }
 }
