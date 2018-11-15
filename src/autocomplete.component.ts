@@ -1,22 +1,7 @@
 import {Component, Input, Output, EventEmitter, TemplateRef, ViewChild, HostListener, ElementRef} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {Platform} from '@ionic/angular';
 import {from, noop, Observable, Subject} from 'rxjs';
-
-// searchbar default options
-const defaultOpts = {
-    cancelButtonText: 'Cancel',
-    showCancelButton: false,
-    debounce: 250,
-    placeholder: 'Search',
-    autocomplete: 'off',
-    autocorrect: 'off',
-    spellcheck: 'off',
-    type: 'search',
-    value: '',
-    noItems: '',
-    clearOnEdit: false,
-    clearInput: false
-};
 
 @Component({
     selector: 'ion-auto-complete',
@@ -31,6 +16,7 @@ const defaultOpts = {
                 [type]="options.type == null ? defaultOpts.type : options.type"
                 [clearOnEdit]="options.clearOnEdit == null ? defaultOpts.clearOnEdit : options.clearOnEdit"
                 [clearInput]="options.clearInput == null ? defaultOpts.clearInput : options.clearInput"
+                [mode]="options.mode == null ? defaultOpts.mode : options.mode"
                 [disabled]="disabled"
                 [ngClass]="{'hidden': !useIonInput}"
                 (ionFocus)="onFocus()"
@@ -43,12 +29,16 @@ const defaultOpts = {
                 (tap)="handleTap($event)"
                 [(ngModel)]="keyword"
                 (ngModelChange)="updateModel()"
+                [cancelButtonIcon]="options.cancelButtonIcon == null ? defaultOpts.cancelButtonIcon : options.cancelButtonIcon"
                 [cancelButtonText]="options.cancelButtonText == null ? defaultOpts.cancelButtonText : options.cancelButtonText"
+                [clearIcon]="options.clearIcon == null ? defaultOpts.clearIcon : options.clearIcon"
                 [showCancelButton]="options.showCancelButton == null ? defaultOpts.showCancelButton : options.showCancelButton"
                 [debounce]="options.debounce == null ? defaultOpts.debounce : options.debounce"
                 [placeholder]="options.placeholder == null ? defaultOpts.placeholder : options.placeholder"
                 [autocomplete]="options.autocomplete == null ? defaultOpts.autocomplete : options.autocomplete"
                 [autocorrect]="options.autocorrect == null ? defaultOpts.autocorrect : options.autocorrect"
+                [mode]="options.mode == null ? defaultOpts.mode : options.mode"
+                [searchIcon]="options.searchIcon == null ? defaultOpts.searchIcon : options.searchIcon"
                 [spellcheck]="options.spellcheck == null ? defaultOpts.spellcheck : options.spellcheck"
                 [type]="options.type == null ? defaultOpts.type : options.type"
                 [disabled]="disabled"
@@ -131,7 +121,9 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     /**
      * create a new instace
      */
-    public constructor() {
+    public constructor(
+        private platform: Platform
+    ) {
         this.keyword = '';
         this.suggestions = [];
         this._showList = false;
@@ -143,8 +135,26 @@ export class AutoCompleteComponent implements ControlValueAccessor {
         this.autoBlur = new EventEmitter<any>();
         this.options = {};
 
-        // set default options
-        this.defaultOpts = defaultOpts;
+        // searchbar default options
+        this.defaultOpts = {
+            animated: false,
+            autocomplete: 'off',
+            autocorrect: 'off',
+            cancelButtonIcon: 'md-arrow-back',
+            cancelButtonText: 'Cancel',
+            clearIcon: this.platform.is('ios') ? 'close-circle' : 'close',
+            clearInput: false,
+            clearOnEdit: false,
+            debounce: 250,
+            mode: this.platform.is('ios') ? 'ios' : 'md',
+            noItems: '',
+            placeholder: 'Search',
+            searchIcon: 'search',
+            showCancelButton: false,
+            spellcheck: 'off',
+            type: 'search',
+            value: ''
+        };
     }
 
     /**
