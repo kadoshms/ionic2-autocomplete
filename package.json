@@ -1,6 +1,6 @@
 {
   "name": "ionic4-auto-complete",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "scripts": {
     "publish": "npm publish dist",
     "build": "gulp build",
@@ -47,7 +47,7 @@
     "@ionic/pro": "2.0.3",
     "@ionic/storage": "2.2.0",
     "@types/jasmine": "2.8.11",
-    "@types/node": "~10.12.8",
+    "@types/node": "~10.12.9",
     "codelyzer": "~4.5.0",
     "core-js": "^2.5.7",
     "del": "^3.0.0",
