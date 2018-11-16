@@ -6,73 +6,9 @@ import {Platform} from '@ionic/angular';
 import {from, noop, Observable, Subject} from 'rxjs';
 import {finalize} from 'rxjs/operators';
 
-import {AutoCompleteOptions} from './auto-complete-options.model';
+import {AutoCompleteOptions} from '../auto-complete-options.model';
 
 @Component({
-    selector: 'ion-auto-complete',
-    template: `
-        <ion-input
-                #inputElem
-                (keyup)="getItems($event)"
-                (tap)="handleTap($event)"
-                [(ngModel)]="keyword"
-                (ngModelChange)="updateModel()"
-                [placeholder]="options.placeholder == null ? defaultOpts.placeholder : options.placeholder"
-                [type]="options.type == null ? defaultOpts.type : options.type"
-                [clearOnEdit]="options.clearOnEdit == null ? defaultOpts.clearOnEdit : options.clearOnEdit"
-                [clearInput]="options.clearInput == null ? defaultOpts.clearInput : options.clearInput"
-                [mode]="options.mode == null ? defaultOpts.mode : options.mode"
-                [disabled]="disabled"
-                [ngClass]="{ 'hidden': !useIonInput, 'loading': isLoading }"
-                (ionFocus)="onFocus()"
-                (ionBlur)="onBlur()"
-        >
-        </ion-input>
-        <ion-searchbar
-                #searchbarElem
-                (ionInput)="getItems($event)"
-                (tap)="handleTap($event)"
-                [(ngModel)]="keyword"
-                (ngModelChange)="updateModel()"
-                [cancelButtonIcon]="options.cancelButtonIcon == null ? defaultOpts.cancelButtonIcon : options.cancelButtonIcon"
-                [cancelButtonText]="options.cancelButtonText == null ? defaultOpts.cancelButtonText : options.cancelButtonText"
-                [clearIcon]="options.clearIcon == null ? defaultOpts.clearIcon : options.clearIcon"
-                [showCancelButton]="options.showCancelButton == null ? defaultOpts.showCancelButton : options.showCancelButton"
-                [debounce]="options.debounce == null ? defaultOpts.debounce : options.debounce"
-                [placeholder]="options.placeholder == null ? defaultOpts.placeholder : options.placeholder"
-                [autocomplete]="options.autocomplete == null ? defaultOpts.autocomplete : options.autocomplete"
-                [autocorrect]="options.autocorrect == null ? defaultOpts.autocorrect : options.autocorrect"
-                [mode]="options.mode == null ? defaultOpts.mode : options.mode"
-                [searchIcon]="options.searchIcon == null ? defaultOpts.searchIcon : options.searchIcon"
-                [spellcheck]="options.spellcheck == null ? defaultOpts.spellcheck : options.spellcheck"
-                [type]="options.type == null ? defaultOpts.type : options.type"
-                [disabled]="disabled"
-                [ngClass]="{ 'hidden': useIonInput, 'loading': isLoading }"
-                (ionClear)="clearValue(true)"
-                (ionFocus)="onFocus()"
-                (ionBlur)="onBlur()"
-        >
-        </ion-searchbar>
-        <ng-template #defaultTemplate let-attrs="attrs">
-            <span [innerHTML]='attrs.label | boldprefix:attrs.keyword'></span>
-        </ng-template>
-        <ul *ngIf="!disabled && suggestions.length > 0 && showList"
-            [ngStyle]="getStyle()">
-            <li *ngFor="let suggestion of suggestions" (tap)="handleSelectTap($event, suggestion)">
-                <ng-template
-                        [ngTemplateOutlet]="template || defaultTemplate"
-                        [ngTemplateOutletContext]="
-                        {attrs:{ 
-                          data: suggestion, 
-                          label: _getLabel(suggestion),
-                          keyword: keyword,
-                          formValue: _getFormValue(suggestion), 
-                          labelAttribute: dataProvider.labelAttribute, 
-                          formValueAttribute: dataProvider.formValueAttribute }}"></ng-template>
-            </li>
-        </ul>
-        <p *ngIf="suggestions.length == 0 && showList && options.noItems">{{ options.noItems }}</p>
-    `,
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
@@ -80,6 +16,10 @@ import {AutoCompleteOptions} from './auto-complete-options.model';
             multi: true
         }
     ]
+})
+@Component({
+    selector:    'ion-auto-complete',
+    templateUrl: 'auto-complete.component.html'
 })
 export class AutoCompleteComponent implements ControlValueAccessor {
     @Input() public alwaysShowList:boolean;

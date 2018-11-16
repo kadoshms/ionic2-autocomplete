@@ -6,7 +6,8 @@ var gulp = require('gulp'),
   rename = require('gulp-rename'),
   del = require('del'),
   runSequence = require('run-sequence'),
-  inlineResources = require('gulp-inline-source');
+  inlineResources = require('gulp-inline-source'),
+  inlineTemplate = require('gulp-inline-ng2-template');
 
 const rootFolder = path.join(__dirname);
 const srcFolder = path.join(rootFolder, 'src');
@@ -52,6 +53,15 @@ gulp.task(
             .then(() => inlineResources(tmpFolder));
     }
 );
+
+gulp.task(
+    'inline-templates',
+    function() {
+        return gulp.src(srcFolder + '/**/*.ts')
+            .pipe(inlineTemplate({ base: 'src/auto-complete' })).pipe(gulp.dest(tmpFolder));
+    }
+);
+
 
 
 /**
@@ -203,8 +213,8 @@ gulp.task('clean:build', function () {
 });
 
 gulp.task('scss', function() {
-  return gulp.src(['src/auto-complete.scss', `dist/auto-complete.scss`])
-      .pipe(gulp.dest(distFolder))
+    return gulp.src(['src/auto-complete.scss', `dist/auto-complete.scss`])
+        .pipe(gulp.dest(distFolder))
 });
 
 gulp.task('compile', function () {
@@ -212,6 +222,7 @@ gulp.task('compile', function () {
     'clean:dist',
     'copy:source',
     'inline-resources',
+    'inline-templates',
     'ngc',
     'rollup:fesm',
     'rollup:umd',

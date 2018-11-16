@@ -52,6 +52,7 @@
     "core-js": "^2.5.7",
     "del": "^3.0.0",
     "gulp": "^3.9.1",
+    "gulp-inline-ng2-template": "^5.0.1",
     "gulp-inline-source": "^3.2.0",
     "gulp-rename": "^1.4.0",
     "gulp-rollup": "^2.16.2",
