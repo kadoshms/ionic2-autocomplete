@@ -2,6 +2,9 @@ import {Component, Input, Output, EventEmitter, TemplateRef, ViewChild, HostList
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {Platform} from '@ionic/angular';
 import {from, noop, Observable, Subject} from 'rxjs';
+import {finalize} from 'rxjs/operators';
+
+import {AutoCompleteOptions} from './auto-complete-options.model';
 
 @Component({
     selector: 'ion-auto-complete',
@@ -73,23 +76,23 @@ import {from, noop, Observable, Subject} from 'rxjs';
     ]
 })
 export class AutoCompleteComponent implements ControlValueAccessor {
-    @Input() public alwaysShowList: boolean;
-    @Input() public dataProvider: any;
-    @Input() public disabled: any;
-    @Input() public hideListOnSelection: boolean = true;
-    @Input() public keyword: string;
-    @Input() public location: string = 'auto';
-    @Input() public options: any;
-    @Input() public showResultsFirst: boolean;
-    @Input() public template: TemplateRef<any>;
-    @Input() public useIonInput: boolean;
+    @Input() public alwaysShowList:boolean;
+    @Input() public dataProvider:any;
+    @Input() public disabled:any;
+    @Input() public hideListOnSelection:boolean = true;
+    @Input() public keyword:string;
+    @Input() public location:string = 'auto';
+    @Input() public options:AutoCompleteOptions;
+    @Input() public showResultsFirst:boolean;
+    @Input() public template:TemplateRef<any>;
+    @Input() public useIonInput:boolean;
 
-    @Output() public autoFocus: EventEmitter<any>;
-    @Output() public autoBlur: EventEmitter<any>;
-    @Output() public ionAutoInput: EventEmitter<string>;
-    @Output() public itemsHidden: EventEmitter<any>;
-    @Output() public itemSelected: EventEmitter<any>;
-    @Output() public itemsShown: EventEmitter<any>;
+    @Output() public autoFocus:EventEmitter<any>;
+    @Output() public autoBlur:EventEmitter<any>;
+    @Output() public ionAutoInput:EventEmitter<string>;
+    @Output() public itemsHidden:EventEmitter<any>;
+    @Output() public itemSelected:EventEmitter<any>;
+    @Output() public itemsShown:EventEmitter<any>;
 
     @ViewChild('searchbarElem', { read: ElementRef }) private searchbarElem: ElementRef;
     @ViewChild('inputElem', { read: ElementRef }) private inputElem: ElementRef;
@@ -136,28 +139,11 @@ export class AutoCompleteComponent implements ControlValueAccessor {
         this.ionAutoInput = new EventEmitter<string>();
         this.autoFocus = new EventEmitter<any>();
         this.autoBlur = new EventEmitter<any>();
-        this.options = {};
+        this.options = new AutoCompleteOptions();
 
-        // searchbar default options
-        this.defaultOpts = {
-            animated: false,
-            autocomplete: 'off',
-            autocorrect: 'off',
-            cancelButtonIcon: 'md-arrow-back',
-            cancelButtonText: 'Cancel',
-            clearIcon: this.platform.is('ios') ? 'close-circle' : 'close',
-            clearInput: false,
-            clearOnEdit: false,
-            debounce: 250,
-            mode: this.platform.is('ios') ? 'ios' : 'md',
-            noItems: '',
-            placeholder: 'Search',
-            searchIcon: 'search',
-            showCancelButton: false,
-            spellcheck: 'off',
-            type: 'search',
-            value: ''
-        };
+        this.defaultOpts = new AutoCompleteOptions();
+        this.defaultOpts.clearIcon = this.platform.is('ios') ? 'close-circle' : 'close';
+        this.defaultOpts.clearIcon = this.platform.is('ios') ? 'ios' : 'md';
     }
 
     /**
