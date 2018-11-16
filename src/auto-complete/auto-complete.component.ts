@@ -268,6 +268,8 @@ export class AutoCompleteComponent implements ControlValueAccessor {
         this.selected.splice(i, 1);
       }
     }
+
+    this.itemSelected.emit(this.selected);
   }
 
   /**
