@@ -45,7 +45,9 @@
 </ng-template>
 <ul *ngIf="!disabled && suggestions.length > 0 && showList"
     [ngStyle]="getStyle()">
-    <li *ngFor="let suggestion of suggestions" (tap)="handleSelectTap($event, suggestion)">
+    <li *ngFor="let suggestion of suggestions"
+        (click)="handleSelectTap($event, suggestion)"
+        (tap)="handleSelectTap($event, suggestion)">
         <ng-template
                 [ngTemplateOutlet]="template || defaultTemplate"
                 [ngTemplateOutletContext]="
