@@ -1,5 +1,4 @@
 export interface AutoCompleteService {
-
     /**
      * the literal name of the title attribute
      */
