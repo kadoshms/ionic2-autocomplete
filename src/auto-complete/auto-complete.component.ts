@@ -120,7 +120,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   /**
    *
    */
-  ngAfterViewChecked() {
+  ngAfterViewChecked():void {
     if (this.showListChanged) {
       this.showListChanged = false;
       this.showList ? this.itemsShown.emit() : this.itemsHidden.emit();
@@ -135,7 +135,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    * @private
    */
   @HostListener('document:click', ['$event'])
-  private _documentClickHandler(event) {
+  private _documentClickHandler(event:Event):void {
     if (
       (this.searchbarElem && this.searchbarElem.nativeElement && !this.searchbarElem.nativeElement.contains(event.target))
       ||
@@ -152,7 +152,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    *
    * @private
    */
-  private _getFormValue(selection: any): any {
+  private _getFormValue(selection:any): any {
     if (selection == null) {
       return null;
     }
@@ -170,7 +170,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    *
    * @private
    */
-  private _getPosition(el) {
+  private _getPosition(el):any {
     let xPos = 0;
     let yPos = 0;
 
@@ -199,7 +199,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    *
    * @param hideItemList
    */
-  public clearValue(hideItemList: boolean = false) {
+  public clearValue(hideItemList:boolean = false):void {
     this.keyword = '';
     this.selection = null;
     this.formValue = null;
@@ -216,7 +216,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    *
    * @param event
    */
-  public getItems(event?) {
+  public getItems(event?):void {
     if (event) {
       this.keyword = event.detail.target.value;
     }
@@ -266,7 +266,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    *
    * @param selection
    */
-  public getLabel(selection: any): string {
+  public getLabel(selection:any):string {
     if (selection == null) {
       return '';
     }
@@ -295,7 +295,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   /**
    * Get menu style
    */
-  public getStyle() {
+  public getStyle():any {
     let location = this.location;
     if (this.location === 'auto') {
       const elementY = this._getPosition(
@@ -323,7 +323,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   /**
    * Get current input value
    */
-  public getValue() {
+  public getValue():any {
     return this.formValue;
   }
 
@@ -332,7 +332,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    *
    * @param event
    */
-  public handleTap(event) {
+  public handleTap(event):void {
     if (this.showResultsFirst || this.keyword.length > 0) {
       this.getItems();
     }
@@ -344,7 +344,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    * @param $event
    * @param suggestion
    */
-  public handleSelectTap($event, suggestion): boolean {
+  public handleSelectTap($event, suggestion:any):boolean {
     this.selectItem(suggestion);
 
     if ($event.srcEvent) {
@@ -364,14 +364,14 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   /**
    * Hide item list
    */
-  public hideItemList(): void {
+  public hideItemList():void {
     this.showList = this.alwaysShowList;
   }
 
   /**
    * Fired when the input focused
    */
-  onFocus() {
+  onFocus():void {
     this.getItems();
 
     this.autoFocus.emit();
@@ -380,7 +380,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   /**
    * Fired when the input focused
    */
-  onBlur() {
+  onBlur():void {
     this.autoBlur.emit();
   }
 
@@ -389,7 +389,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    *
    * @param fn
    */
-  public registerOnChange(fn: any) {
+  public registerOnChange(fn:any):void {
     this.onChangeCallback = fn;
   }
 
@@ -398,7 +398,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    *
    * @param fn
    */
-  public registerOnTouched(fn: any) {
+  public registerOnTouched(fn:any):void {
     this.onTouchedCallback = fn;
   }
 
@@ -407,7 +407,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    *
    * @param suggestions
    */
-  public removeDuplicates(suggestions):any[] {
+  public removeDuplicates(suggestions:any[]):any[] {
     const selectedCount = this.selected.length;
     const suggestionCount = suggestions.length;
 
@@ -435,7 +435,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    *
    * @param selection
    */
-  public removeItem(selection:any) {
+  public removeItem(selection:any):void {
     const count = this.selected.length;
     for (let i = 0; i < count; i++) {
       const item = this.selected[i];
@@ -456,7 +456,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    *
    * @param selection
    **/
-  public selectItem(selection: any): void {
+  public selectItem(selection:any):void {
     this.keyword = this.getLabel(selection);
     this.formValue = this._getFormValue(selection);
     this.hideItemList();
@@ -483,7 +483,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   /**
    * Set focus of searchbar
    */
-  public setFocus() {
+  public setFocus():void {
     if (this.searchbarElem) {
       this.searchbarElem.nativeElement.setFocus();
     }
@@ -494,7 +494,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    *
    * @param suggestions
    */
-  public setSuggestions(suggestions) {
+  public setSuggestions(suggestions):void {
     if (this.removeDuplicateSuggestions) {
       suggestions = this.removeDuplicates(suggestions);
     }
@@ -508,7 +508,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    *
    * @param selection
    */
-  public setValue(selection: any) {
+  public setValue(selection: any):void {
     this.formValue = this._getFormValue(selection);
     this.keyword = this.getLabel(selection);
     return;
@@ -517,14 +517,14 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   /**
    * Show item list
    */
-  public showItemList(): void {
+  public showItemList():void {
     this.showList = true;
   }
 
   /**
    * Update the model
    */
-  public updateModel() {
+  public updateModel():void {
       this.onChangeCallback(this.formValue);
   }
 
@@ -533,7 +533,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    *
    * @param value
    */
-  public writeValue(value: any) {
+  public writeValue(value:any):void {
     if (value !== this.selection) {
       this.selection = value || null;
       this.formValue = this._getFormValue(this.selection);
