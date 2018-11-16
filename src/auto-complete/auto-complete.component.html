@@ -1,14 +1,15 @@
-<ion-row>
-    <ion-col *ngFor="let item of selected">
-        <ion-button [fill]="'outline'"
-                    [shape]="'round'"
-                    (click)="removeItem(item)">
-            {{ getLabel(item) }}
-            <ion-icon [name]="'close'"
-                      [slot]="'end'"></ion-icon>
-        </ion-button>
-    </ion-col>
-</ion-row>
+<div class="selected-items"
+     *ngFor="let item of selected">
+    <ion-button class="{{ removeButtonClasses }}"
+                [color]="removeButtonColor"
+                [fill]="'outline'"
+                [shape]="'round'"
+                (click)="removeItem(item)">
+        {{ getLabel(item) }}
+        <ion-icon [name]="removeButtonIcon"
+                  [slot]="removeButtonSlot"></ion-icon>
+    </ion-button>
+</div>
 <ion-input
         #inputElem
         (keyup)="getItems($event)"
