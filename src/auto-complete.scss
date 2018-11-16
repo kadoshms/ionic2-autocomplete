@@ -46,4 +46,20 @@ ion-auto-complete {
     background:      white url(/assets/loading.gif) no-repeat right center;
     background-size: 25px 25px;
   }
+
+  .selected-item {
+    background-color: lightgray;
+    border-radius: 50px 50px;
+    border-style: solid;
+    border-width: 0 2px 2px 0;
+    border-color: gray;
+    color: white;
+    padding: 10px;
+    display: inline-block;
+    margin: 4px 2px;
+  }
+
+  .selected-item:hover {
+    border-width: 1px 1px 1px 1px !important;
+  }
 }

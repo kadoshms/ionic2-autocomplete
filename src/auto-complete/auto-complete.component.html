@@ -1,3 +1,14 @@
+<ion-row>
+    <ion-col *ngFor="let item of selected">
+        <ion-button [fill]="'outline'"
+                    [shape]="'round'"
+                    (click)="removeItem(item)">
+            {{ getLabel(item) }}
+            <ion-icon [name]="'close'"
+                      [slot]="'end'"></ion-icon>
+        </ion-button>
+    </ion-col>
+</ion-row>
 <ion-input
         #inputElem
         (keyup)="getItems($event)"
@@ -53,7 +64,7 @@
                 [ngTemplateOutletContext]="
                         {attrs:{ 
                           data: suggestion, 
-                          label: _getLabel(suggestion),
+                          label: getLabel(suggestion),
                           keyword: keyword,
                           formValue: _getFormValue(suggestion), 
                           labelAttribute: dataProvider.labelAttribute, 

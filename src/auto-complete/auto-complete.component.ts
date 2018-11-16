@@ -28,6 +28,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   @Input() public hideListOnSelection:boolean = true;
   @Input() public keyword:string;
   @Input() public location:string = 'auto';
+  @Input() public multi:boolean = false;
   @Input() public options:AutoCompleteOptions;
   @Input() public showResultsFirst:boolean;
   @Input() public template:TemplateRef<any>;
@@ -62,6 +63,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   public defaultOpts:AutoCompleteOptions;
   public isLoading:boolean;
   public formValue:any;
+  public selected:any[];
   public suggestions:any[];
 
   // @ts-ignore
@@ -104,6 +106,8 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     this.defaultOpts = new AutoCompleteOptions();
     this.defaultOpts.clearIcon = this.platform.is('ios') ? 'close-circle' : 'close';
     this.defaultOpts.clearIcon = this.platform.is('ios') ? 'ios' : 'md';
+
+    this.selected = [];
   }
 
   /**
@@ -138,7 +142,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     if (value !== this.selection) {
       this.selection = value || null;
       this.formValue = this._getFormValue(this.selection);
-      this.keyword = this._getLabel(this.selection);
+      this.keyword = this.getLabel(this.selection);
     }
   }
 
@@ -226,32 +230,72 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     this.showList = this.alwaysShowList;
   }
 
+  public removeItem(selection:any) {
+    const count = this.selected.length;
+    for (let i = 0; i < count; i++) {
+      const item = this.selected[i];
+
+      const selectedLabel = this.getLabel(selection);
+      const itemLabel = this.getLabel(item);
+
+      if (selectedLabel === itemLabel) {
+        this.selected.splice(i, 1);
+      }
+    }
+  }
+
   /**
    * select item from list
    *
    * @param selection
    **/
   public selectItem(selection: any): void {
-    this.keyword = this._getLabel(selection);
+    this.keyword = this.getLabel(selection);
     this.formValue = this._getFormValue(selection);
     this.hideItemList();
 
-    // emit selection event
     this.updateModel();
 
     if (this.hideListOnSelection) {
       this.hideItemList();
     }
 
-    this.selection = selection;
-    this.itemSelected.emit(selection);
+    if (this.multi) {
+      this.clearValue();
+
+      this.selected.push(selection);
+      this.itemSelected.emit(this.selected);
+    } else {
+        this.selection = selection;
+
+        this.itemSelected.emit(selection);
+    }
+  }
+
+  public getLabel(selection: any): string {
+      if (selection == null) {
+          return '';
+      }
+      let attr = this.dataProvider.labelAttribute;
+      let value = selection;
+      if (this.dataProvider.getItemLabel) {
+          value = this.dataProvider.getItemLabel(value);
+      }
+      if (typeof value === 'object' && attr) {
+          return value[attr] || '';
+      }
+      return value || '';
   }
 
   /**
    * get current selection
    */
-  public getSelection(): any {
-    return this.selection;
+  public getSelection():any|any[] {
+    if (this.multi) {
+        return this.selection;
+    } else {
+      return this.selected;
+    }
   }
 
   public getStyle() {
@@ -291,7 +335,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    */
   public setValue(selection: any) {
     this.formValue = this._getFormValue(selection);
-    this.keyword = this._getLabel(selection);
+    this.keyword = this.getLabel(selection);
     return;
   }
 
@@ -361,21 +405,6 @@ export class AutoCompleteComponent implements ControlValueAccessor {
       return selection[attr];
     }
     return selection;
-  }
-
-  private _getLabel(selection: any): string {
-    if (selection == null) {
-      return '';
-    }
-    let attr = this.dataProvider.labelAttribute;
-    let value = selection;
-    if (this.dataProvider.getItemLabel) {
-      value = this.dataProvider.getItemLabel(value);
-    }
-    if (typeof value === 'object' && attr) {
-      return value[attr] || '';
-    }
-    return value || '';
   }
 
   private _getPosition(el) {
