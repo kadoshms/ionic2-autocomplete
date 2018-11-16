@@ -92,7 +92,9 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   private showListChanged: boolean = false;
 
   /**
-   * create a new instance
+   * Create a new instance
+   *
+   * @param platform
    */
   public constructor(
     private platform: Platform
@@ -115,6 +117,9 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     this.selected = [];
   }
 
+  /**
+   *
+   */
   ngAfterViewChecked() {
     if (this.showListChanged) {
       this.showListChanged = false;
@@ -123,8 +128,11 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   }
 
   /**
-   * handle document click
+   * Handle document click
+   *
    * @param event
+   *
+   * @private
    */
   @HostListener('document:click', ['$event'])
   private _documentClickHandler(event) {
@@ -137,6 +145,13 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     }
   }
 
+  /**
+   * Get value from form
+   *
+   * @param selection
+   *
+   * @private
+   */
   private _getFormValue(selection: any): any {
     if (selection == null) {
       return null;
@@ -148,6 +163,13 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     return selection;
   }
 
+  /**
+   * Get element's position on screen
+   *
+   * @param el
+   *
+   * @private
+   */
   private _getPosition(el) {
     let xPos = 0;
     let yPos = 0;
@@ -173,7 +195,9 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   }
 
   /**
-   * clear current input value
+   * Clear current input value
+   *
+   * @param hideItemList
    */
   public clearValue(hideItemList: boolean = false) {
     this.keyword = '';
@@ -188,7 +212,9 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   }
 
   /**
-   * get items for auto-complete
+   * Get items for auto-complete
+   *
+   * @param event
    */
   public getItems(event?) {
     if (event) {
@@ -235,6 +261,11 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     this.ionAutoInput.emit(this.keyword);
   }
 
+  /**
+   * Get an item's label
+   *
+   * @param selection
+   */
   public getLabel(selection: any): string {
     if (selection == null) {
       return '';
@@ -251,7 +282,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   }
 
   /**
-   * get current selection
+   * Get current selection
    */
   public getSelection():any|any[] {
     if (this.multi) {
@@ -261,6 +292,9 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     }
   }
 
+  /**
+   * Get menu style
+   */
   public getStyle() {
     let location = this.location;
     if (this.location === 'auto') {
@@ -287,14 +321,15 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   }
 
   /**
-   * get current input value
+   * Get current input value
    */
   public getValue() {
     return this.formValue;
   }
 
   /**
-   * handle tap
+   * Handle tap
+   *
    * @param event
    */
   public handleTap(event) {
@@ -303,6 +338,12 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     }
   }
 
+  /**
+   * Handle tap when selecting an item
+   *
+   * @param $event
+   * @param suggestion
+   */
   public handleSelectTap($event, suggestion): boolean {
     this.selectItem(suggestion);
 
@@ -321,14 +362,14 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   }
 
   /**
-   * hide item list
+   * Hide item list
    */
   public hideItemList(): void {
     this.showList = this.alwaysShowList;
   }
 
   /**
-   * fired when the input focused
+   * Fired when the input focused
    */
   onFocus() {
     this.getItems();
@@ -337,20 +378,35 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   }
 
   /**
-   * fired when the input focused
+   * Fired when the input focused
    */
   onBlur() {
     this.autoBlur.emit();
   }
 
+  /**
+   * Register onChangeCallback
+   *
+   * @param fn
+   */
   public registerOnChange(fn: any) {
     this.onChangeCallback = fn;
   }
 
+  /**
+   * Register onTouchedCallback
+   *
+   * @param fn
+   */
   public registerOnTouched(fn: any) {
     this.onTouchedCallback = fn;
   }
 
+  /**
+   * Remove already selected suggestions
+   *
+   * @param suggestions
+   */
   public removeDuplicates(suggestions):any[] {
     const selectedCount = this.selected.length;
     const suggestionCount = suggestions.length;
@@ -374,6 +430,11 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     return suggestions;
   }
 
+  /**
+   * Remove item from selected
+   *
+   * @param selection
+   */
   public removeItem(selection:any) {
     const count = this.selected.length;
     for (let i = 0; i < count; i++) {
@@ -391,7 +452,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   }
 
   /**
-   * select item from list
+   * Select item from list
    *
    * @param selection
    **/
@@ -420,7 +481,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   }
 
   /**
-   * set focus of searchbar
+   * Set focus of searchbar
    */
   public setFocus() {
     if (this.searchbarElem) {
@@ -428,6 +489,11 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     }
   }
 
+  /**
+   * Set suggestions
+   *
+   * @param suggestions
+   */
   public setSuggestions(suggestions) {
     if (this.removeDuplicateSuggestions) {
       suggestions = this.removeDuplicates(suggestions);
@@ -438,7 +504,9 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   }
 
   /**
-   * set current input value
+   * Set current input value
+   *
+   * @param selection
    */
   public setValue(selection: any) {
     this.formValue = this._getFormValue(selection);
@@ -447,16 +515,24 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   }
 
   /**
-   * show item list
+   * Show item list
    */
   public showItemList(): void {
     this.showList = true;
   }
 
+  /**
+   * Update the model
+   */
   public updateModel() {
       this.onChangeCallback(this.formValue);
   }
 
+  /**
+   * Write value
+   *
+   * @param value
+   */
   public writeValue(value: any) {
     if (value !== this.selection) {
       this.selection = value || null;
