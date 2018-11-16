@@ -1,15 +1,10 @@
 ion-auto-complete {
   overflow: hidden !important;
-  display:  block;
   width:    90vw;
   display:  inline-block;
 
   ion-searchbar {
     padding: 1px !important;
-  }
-
-  .hidden {
-    display: none;
   }
 
   ul {
@@ -41,5 +36,14 @@ ion-auto-complete {
       cursor:     pointer;
       background: #f1f1f1
     }
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .loading input.searchbar-input {
+    background:      white url(/assets/loading.gif) no-repeat right center;
+    background-size: 25px 25px;
   }
 }

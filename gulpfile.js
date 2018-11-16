@@ -75,33 +75,33 @@ gulp.task(
  *    generated file into the /dist folder
  */
 gulp.task(
-    'rollup:fesm',
-    function() {
-        return gulp.src(`${buildFolder}/**/*.js`)
-            // transform the files here.
-            .pipe(
-                rollup(
-                    {
-                        // Bundle's entry point
-                        // See https://github.com/rollup/rollup/wiki/JavaScript-API#entry
-                        input: `${buildFolder}/index.js`,
+  'rollup:fesm',
+  function() {
+    return gulp.src(`${buildFolder}/**/*.js`)
+      // transform the files here.
+      .pipe(
+        rollup(
+          {
+            // Bundle's entry point
+            // See https://github.com/rollup/rollup/wiki/JavaScript-API#entry
+            input: `${buildFolder}/index.js`,
 
-                        // A list of IDs of modules that should remain external to the bundle
-                        // See https://github.com/rollup/rollup/wiki/JavaScript-API#external
-                        external: [
-                            '@angular/core',
-                            '@angular/common'
-                        ],
+            // A list of IDs of modules that should remain external to the bundle
+            // See https://github.com/rollup/rollup/wiki/JavaScript-API#external
+            external: [
+                '@angular/core',
+                '@angular/common'
+            ],
 
-                        // Format of generated bundle
-                        // See https://github.com/rollup/rollup/wiki/JavaScript-API#format
-                        format: 'es'
-                    }
-                )
-            ).pipe(
-                gulp.dest(distFolder)
-            );
-    }
+            // Format of generated bundle
+            // See https://github.com/rollup/rollup/wiki/JavaScript-API#format
+            format: 'es'
+          }
+        )
+      ).pipe(
+          gulp.dest(distFolder)
+      );
+  }
 );
 
 /**
@@ -109,49 +109,49 @@ gulp.task(
  *    generated file into the /dist folder
  */
 gulp.task(
-    'rollup:umd',
-    function() {
-      return gulp.src(`${buildFolder}/**/*.js`)
-      // transform the files here.
-        .pipe(
-            rollup(
-                {
-                  // Bundle's entry point
-                  // See https://github.com/rollup/rollup/wiki/JavaScript-API#entry
-                    input: `${buildFolder}/index.js`,
+  'rollup:umd',
+  function() {
+    return gulp.src(`${buildFolder}/**/*.js`)
+    // transform the files here.
+      .pipe(
+        rollup(
+          {
+            // Bundle's entry point
+            // See https://github.com/rollup/rollup/wiki/JavaScript-API#entry
+              input: `${buildFolder}/index.js`,
 
-                  // A list of IDs of modules that should remain external to the bundle
-                  // See https://github.com/rollup/rollup/wiki/JavaScript-API#external
-                  external: [
-                    '@angular/core',
-                    '@angular/common'
-                  ],
+            // A list of IDs of modules that should remain external to the bundle
+            // See https://github.com/rollup/rollup/wiki/JavaScript-API#external
+            external: [
+              '@angular/core',
+              '@angular/common'
+            ],
 
-                  // Format of generated bundle
-                  // See https://github.com/rollup/rollup/wiki/JavaScript-API#format
-                  format: 'umd',
+            // Format of generated bundle
+            // See https://github.com/rollup/rollup/wiki/JavaScript-API#format
+            format: 'umd',
 
-                  // Export mode to use
-                  // See https://github.com/rollup/rollup/wiki/JavaScript-API#exports
-                  exports: 'named',
+            // Export mode to use
+            // See https://github.com/rollup/rollup/wiki/JavaScript-API#exports
+            exports: 'named',
 
-                  // The name to use for the module for UMD/IIFE bundles
-                  // (required for bundles with exports)
-                  // See https://github.com/rollup/rollup/wiki/JavaScript-API#modulename
-                  name: 'ionic4-auto-complete',
+            // The name to use for the module for UMD/IIFE bundles
+            // (required for bundles with exports)
+            // See https://github.com/rollup/rollup/wiki/JavaScript-API#modulename
+            name: 'ionic4-auto-complete',
 
-                  // See https://github.com/rollup/rollup/wiki/JavaScript-API#globals
-                  globals: {
-                    typescript: 'ts'
-                  }
-                }
-            )
-        ).pipe(
-          rename('ionic4-auto-complete.umd.js')
-        ).pipe(
-            gulp.dest(distFolder)
-        );
-    }
+            // See https://github.com/rollup/rollup/wiki/JavaScript-API#globals
+            globals: {
+              typescript: 'ts'
+            }
+          }
+        )
+      ).pipe(
+        rename('ionic4-auto-complete.umd.js')
+      ).pipe(
+          gulp.dest(distFolder)
+      );
+  }
 );
 
 /**
@@ -165,7 +165,15 @@ gulp.task('copy:build', function () {
 });
 
 /**
- * 8. Copy package.json from /src to /dist
+ * 8. Copy assets to /dist
+ */
+gulp.task('copy:assets', function () {
+  return gulp.src([`${srcFolder}/assets/*`])
+      .pipe(gulp.dest(`${distFolder}/assets/`));
+});
+
+/**
+ * 9. Copy package.json from /src to /dist
  */
 gulp.task('copy:manifest', function () {
   return gulp.src([`${srcFolder}/package.json`])
@@ -173,7 +181,7 @@ gulp.task('copy:manifest', function () {
 });
 
 /**
- * 9. Copy README.md from / to /dist
+ * 10. Copy README.md from / to /dist
  */
 gulp.task('copy:readme', function () {
   return gulp.src([path.join(rootFolder, 'README.MD')])
@@ -181,22 +189,22 @@ gulp.task('copy:readme', function () {
 });
 
 /**
- * 10. Delete /.tmp folder
+ * 11. Delete /.tmp folder
  */
 gulp.task('clean:tmp', function () {
   return deleteFolders([tmpFolder]);
 });
 
 /**
- * 11. Delete /build folder
+ * 12. Delete /build folder
  */
 gulp.task('clean:build', function () {
   return deleteFolders([buildFolder]);
 });
 
 gulp.task('scss', function() {
-    return gulp.src(['src/auto-complete.scss', `dist/auto-complete.scss`])
-        .pipe(gulp.dest(distFolder))
+  return gulp.src(['src/auto-complete.scss', `dist/auto-complete.scss`])
+      .pipe(gulp.dest(distFolder))
 });
 
 gulp.task('compile', function () {
@@ -208,6 +216,7 @@ gulp.task('compile', function () {
     'rollup:fesm',
     'rollup:umd',
     'copy:build',
+    'copy:assets',
     'copy:manifest',
     'copy:readme',
     'clean:build',
@@ -231,7 +240,7 @@ gulp.task('watch', function () {
 
 gulp.task('clean', ['clean:dist', 'clean:tmp', 'clean:build']);
 
-gulp.task('build', ['clean', 'compile','scss']);
+gulp.task('build', ['clean', 'compile', 'scss']);
 gulp.task('build:watch', ['build', 'watch']);
 gulp.task('default', ['build:watch']);
 

@@ -1,6 +1,8 @@
 import {Component, Input, Output, EventEmitter, TemplateRef, ViewChild, HostListener, ElementRef} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+
 import {Platform} from '@ionic/angular';
+
 import {from, noop, Observable, Subject} from 'rxjs';
 import {finalize} from 'rxjs/operators';
 
@@ -21,7 +23,7 @@ import {AutoCompleteOptions} from './auto-complete-options.model';
                 [clearInput]="options.clearInput == null ? defaultOpts.clearInput : options.clearInput"
                 [mode]="options.mode == null ? defaultOpts.mode : options.mode"
                 [disabled]="disabled"
-                [ngClass]="{'hidden': !useIonInput}"
+                [ngClass]="{ 'hidden': !useIonInput, 'loading': isLoading }"
                 (ionFocus)="onFocus()"
                 (ionBlur)="onBlur()"
         >
@@ -45,7 +47,7 @@ import {AutoCompleteOptions} from './auto-complete-options.model';
                 [spellcheck]="options.spellcheck == null ? defaultOpts.spellcheck : options.spellcheck"
                 [type]="options.type == null ? defaultOpts.type : options.type"
                 [disabled]="disabled"
-                [ngClass]="{'hidden': useIonInput}"
+                [ngClass]="{ 'hidden': useIonInput, 'loading': isLoading }"
                 (ionClear)="clearValue(true)"
                 (ionFocus)="onFocus()"
                 (ionBlur)="onBlur()"
@@ -72,7 +74,11 @@ import {AutoCompleteOptions} from './auto-complete-options.model';
         <p *ngIf="suggestions.length == 0 && showList && options.noItems">{{ options.noItems }}</p>
     `,
     providers: [
-        {provide: NG_VALUE_ACCESSOR, useExisting: AutoCompleteComponent, multi: true}
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: AutoCompleteComponent,
+            multi: true
+        }
     ]
 })
 export class AutoCompleteComponent implements ControlValueAccessor {
@@ -94,15 +100,29 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     @Output() public itemSelected:EventEmitter<any>;
     @Output() public itemsShown:EventEmitter<any>;
 
-    @ViewChild('searchbarElem', { read: ElementRef }) private searchbarElem: ElementRef;
-    @ViewChild('inputElem', { read: ElementRef }) private inputElem: ElementRef;
+    @ViewChild(
+        'searchbarElem',
+        {
+            read: ElementRef
+        }
+    )
+    private searchbarElem: ElementRef;
 
-    private onTouchedCallback: () => void = noop;
-    private onChangeCallback: (_: any) => void = noop;
+    @ViewChild(
+        'inputElem',
+        {
+            read: ElementRef
+        }
+    )
+    private inputElem: ElementRef;
 
-    public defaultOpts: any;
-    public suggestions: any[];
-    public formValue: any;
+    private onTouchedCallback:() => void = noop;
+    private onChangeCallback:(_: any) => void = noop;
+
+    public defaultOpts:AutoCompleteOptions;
+    public isLoading:boolean;
+    public formValue:any;
+    public suggestions:any[];
 
     // @ts-ignore
     public get showList(): boolean {
@@ -125,7 +145,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     private showListChanged: boolean = false;
 
     /**
-     * create a new instace
+     * create a new instance
      */
     public constructor(
         private platform: Platform
@@ -157,7 +177,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     }
 
     public handleSelectTap($event, suggestion): boolean {
-        this.select(suggestion);
+        this.selectItem(suggestion);
         $event.srcEvent.stopPropagation();
         $event.srcEvent.preventDefault();
         return false;
@@ -207,7 +227,6 @@ export class AutoCompleteComponent implements ControlValueAccessor {
         result = (typeof this.dataProvider === 'function') ?
             this.dataProvider(this.keyword) : this.dataProvider.getResults(this.keyword);
 
-        // if result is instanceof Subject, use it asObservable
         if (result instanceof Subject) {
             result = result.asObservable();
         }
@@ -216,16 +235,22 @@ export class AutoCompleteComponent implements ControlValueAccessor {
             result = from(result);
         }
 
-        // if query is async
         if (result instanceof Observable) {
-            result
-                .subscribe(
-                    (results: any[]) => {
-                        this.suggestions = results;
-                        this.showItemList();
-                    },
-                    (error: any) => console.error(error)
+            this.isLoading = true;
+
+            result.pipe(
+                finalize(
+                    () => {
+                        this.isLoading = false;
+                    }
                 )
+            ).subscribe(
+                (results: any[]) => {
+                    this.suggestions = results;
+                    this.showItemList();
+                },
+                (error: any) => console.error(error)
+            )
             ;
         } else {
             this.suggestions = result;
@@ -253,10 +278,9 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     /**
      * select item from list
      *
-     * @param event
      * @param selection
      **/
-    public select(selection: any): void {
+    public selectItem(selection: any): void {
         this.keyword = this._getLabel(selection);
         this.formValue = this._getFormValue(selection);
         this.hideItemList();

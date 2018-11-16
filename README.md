@@ -16,6 +16,16 @@ TODO: $ npm install ionic4-auto-complete --save
 
 #### Usage guide
 
+Open `angular.json` and add the following to the assets array:
+
+```
+{
+  "glob": "**/*",
+  "input": "node_modules/ionic4-auto-complete/assets/",
+  "output": "./assets/"
+}
+```
+
 Open `app.module.ts` and add the following import statement:
 
 ``
