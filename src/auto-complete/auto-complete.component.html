@@ -1,14 +1,16 @@
-<div class="selected-items"
-     *ngFor="let item of selected">
-    <ion-button class="{{ removeButtonClasses }}"
-                [color]="removeButtonColor"
-                [fill]="'outline'"
-                [shape]="'round'"
-                (click)="removeItem(item)">
-        {{ getLabel(item) }}
-        <ion-icon [name]="removeButtonIcon"
-                  [slot]="removeButtonSlot"></ion-icon>
-    </ion-button>
+<div *ngIf="multi">
+    <div *ngFor="let item of selected"
+         class="selected-items">
+        <ion-button class="{{ removeButtonClasses }}"
+                    [color]="removeButtonColor"
+                    [fill]="'outline'"
+                    [shape]="'round'"
+                    (click)="removeItem(item)">
+            {{ getLabel(item) }}
+            <ion-icon [name]="removeButtonIcon"
+                      [slot]="removeButtonSlot"></ion-icon>
+        </ion-button>
+    </div>
 </div>
 <ion-input
         #inputElem

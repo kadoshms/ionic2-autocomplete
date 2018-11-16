@@ -34,6 +34,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   @Input() public removeButtonColor:string = 'primary';
   @Input() public removeButtonIcon:string = 'close';
   @Input() public removeButtonSlot:string = 'end';
+  @Input() public removeDuplicateSuggestions:boolean = true;
   @Input() public showResultsFirst:boolean;
   @Input() public template:TemplateRef<any>;
   @Input() public useIonInput:boolean;
@@ -205,15 +206,13 @@ export class AutoCompleteComponent implements ControlValueAccessor {
         )
       ).subscribe(
         (results: any[]) => {
-          this.suggestions = results;
-          this.showItemList();
+          this.setSuggestions(results);
         },
         (error: any) => console.error(error)
       )
       ;
     } else {
-      this.suggestions = result;
-      this.showItemList();
+      this.setSuggestions(result);
     }
 
     // emit event
@@ -232,6 +231,29 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    */
   public hideItemList(): void {
     this.showList = this.alwaysShowList;
+  }
+
+  public removeDuplicates(suggestions):any[] {
+    const selectedCount = this.selected.length;
+    const suggestionCount = suggestions.length;
+
+    for (let i = 0; i < selectedCount; i++) {
+      const selectedLabel = this.getLabel(
+        this.selected[i]
+      );
+
+      for (let j = 0; j < suggestionCount; j++) {
+        const suggestedLabel = this.getLabel(
+            suggestions[j]
+        );
+
+        if (selectedLabel === suggestedLabel) {
+          suggestions.splice(j, 1);
+        }
+      }
+    }
+
+    return suggestions;
   }
 
   public removeItem(selection:any) {
@@ -270,9 +292,10 @@ export class AutoCompleteComponent implements ControlValueAccessor {
       this.selected.push(selection);
       this.itemSelected.emit(this.selected);
     } else {
-        this.selection = selection;
+      this.selection = selection;
 
-        this.itemSelected.emit(selection);
+      this.selected = [selection];
+      this.itemSelected.emit(selection);
     }
   }
 
@@ -332,6 +355,15 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    */
   public getValue() {
     return this.formValue;
+  }
+
+  public setSuggestions(suggestions) {
+      if (this.removeDuplicateSuggestions) {
+          suggestions = this.removeDuplicates(suggestions);
+      }
+
+      this.suggestions = suggestions;
+      this.showItemList();
   }
 
   /**
