@@ -115,59 +115,76 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     this.selected = [];
   }
 
-  /**
-   * handle tap
-   * @param event
-   */
-  public handleTap(event) {
-    if (this.showResultsFirst || this.keyword.length > 0) {
-      this.getItems();
-    }
-  }
-
-  public handleSelectTap($event, suggestion): boolean {
-    this.selectItem(suggestion);
-
-    if ($event.srcEvent) {
-      if ($event.srcEvent.stopPropagation) {
-        $event.srcEvent.stopPropagation();
-      }
-
-      if ($event.srcEvent.preventDefault) {
-        $event.srcEvent.preventDefault();
-      }
-    } else if ($event.preventDefault) {
-        $event.preventDefault();
-    }
-
-    return false;
-  }
-
-  public writeValue(value: any) {
-    if (value !== this.selection) {
-      this.selection = value || null;
-      this.formValue = this._getFormValue(this.selection);
-      this.keyword = this.getLabel(this.selection);
-    }
-  }
-
-  public registerOnChange(fn: any) {
-    this.onChangeCallback = fn;
-  }
-
-  public registerOnTouched(fn: any) {
-    this.onTouchedCallback = fn;
-  }
-
-  public updateModel() {
-    this.onChangeCallback(this.formValue);
-  }
-
   ngAfterViewChecked() {
     if (this.showListChanged) {
       this.showListChanged = false;
       this.showList ? this.itemsShown.emit() : this.itemsHidden.emit();
     }
+  }
+
+  /**
+   * handle document click
+   * @param event
+   */
+  @HostListener('document:click', ['$event'])
+  private _documentClickHandler(event) {
+    if (
+      (this.searchbarElem && this.searchbarElem.nativeElement && !this.searchbarElem.nativeElement.contains(event.target))
+      ||
+      (!this.inputElem && this.inputElem.nativeElement && this.inputElem.nativeElement.contains(event.target))
+    ) {
+      this.hideItemList();
+    }
+  }
+
+  private _getFormValue(selection: any): any {
+    if (selection == null) {
+      return null;
+    }
+    let attr = this.dataProvider.formValueAttribute == null ? this.dataProvider.labelAttribute : this.dataProvider.formValueAttribute;
+    if (typeof selection === 'object' && attr) {
+      return selection[attr];
+    }
+    return selection;
+  }
+
+  private _getPosition(el) {
+    let xPos = 0;
+    let yPos = 0;
+
+    while (el) {
+      if (el.tagName === 'BODY') {
+        const xScroll = el.scrollLeft || document.documentElement.scrollLeft;
+        const yScroll = el.scrollTop || document.documentElement.scrollTop;
+
+        xPos += (el.offsetLeft - xScroll + el.clientLeft);
+        yPos += (el.offsetTop - yScroll + el.clientTop);
+      } else {
+        xPos += (el.offsetLeft - el.scrollLeft + el.clientLeft);
+        yPos += (el.offsetTop - el.scrollTop + el.clientTop);
+      }
+
+      el = el.offsetParent;
+    }
+    return {
+      x: xPos,
+      y: yPos
+    };
+  }
+
+  /**
+   * clear current input value
+   */
+  public clearValue(hideItemList: boolean = false) {
+    this.keyword = '';
+    this.selection = null;
+    this.formValue = null;
+
+    if (hideItemList) {
+      this.hideItemList();
+    }
+
+    return;
   }
 
   /**
@@ -215,15 +232,92 @@ export class AutoCompleteComponent implements ControlValueAccessor {
       this.setSuggestions(result);
     }
 
-    // emit event
     this.ionAutoInput.emit(this.keyword);
   }
 
+  public getLabel(selection: any): string {
+    if (selection == null) {
+      return '';
+    }
+    let attr = this.dataProvider.labelAttribute;
+    let value = selection;
+    if (this.dataProvider.getItemLabel) {
+      value = this.dataProvider.getItemLabel(value);
+    }
+    if (typeof value === 'object' && attr) {
+      return value[attr] || '';
+    }
+    return value || '';
+  }
+
   /**
-   * show item list
+   * get current selection
    */
-  public showItemList(): void {
-    this.showList = true;
+  public getSelection():any|any[] {
+    if (this.multi) {
+      return this.selection;
+    } else {
+      return this.selected;
+    }
+  }
+
+  public getStyle() {
+    let location = this.location;
+    if (this.location === 'auto') {
+      const elementY = this._getPosition(
+        this.searchbarElem.nativeElement
+      ).y;
+
+      const windowY = window.innerHeight;
+
+      if (elementY > windowY - elementY) {
+        location = 'top';
+      } else {
+        location = 'bottom';
+      }
+    }
+
+    if (location === 'bottom') {
+      return {};
+    } else {
+      return {
+        'bottom': '37px'
+      };
+    }
+  }
+
+  /**
+   * get current input value
+   */
+  public getValue() {
+    return this.formValue;
+  }
+
+  /**
+   * handle tap
+   * @param event
+   */
+  public handleTap(event) {
+    if (this.showResultsFirst || this.keyword.length > 0) {
+      this.getItems();
+    }
+  }
+
+  public handleSelectTap($event, suggestion): boolean {
+    this.selectItem(suggestion);
+
+    if ($event.srcEvent) {
+      if ($event.srcEvent.stopPropagation) {
+        $event.srcEvent.stopPropagation();
+      }
+      if ($event.srcEvent.preventDefault) {
+        $event.srcEvent.preventDefault();
+      }
+    } else if ($event.preventDefault) {
+      $event.preventDefault();
+    }
+
+    return false;
   }
 
   /**
@@ -231,6 +325,30 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    */
   public hideItemList(): void {
     this.showList = this.alwaysShowList;
+  }
+
+  /**
+   * fired when the input focused
+   */
+  onFocus() {
+    this.getItems();
+
+    this.autoFocus.emit();
+  }
+
+  /**
+   * fired when the input focused
+   */
+  onBlur() {
+    this.autoBlur.emit();
+  }
+
+  public registerOnChange(fn: any) {
+    this.onChangeCallback = fn;
+  }
+
+  public registerOnTouched(fn: any) {
+    this.onTouchedCallback = fn;
   }
 
   public removeDuplicates(suggestions):any[] {
@@ -244,7 +362,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
 
       for (let j = 0; j < suggestionCount; j++) {
         const suggestedLabel = this.getLabel(
-            suggestions[j]
+          suggestions[j]
         );
 
         if (selectedLabel === suggestedLabel) {
@@ -301,71 +419,22 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     }
   }
 
-  public getLabel(selection: any): string {
-      if (selection == null) {
-          return '';
-      }
-      let attr = this.dataProvider.labelAttribute;
-      let value = selection;
-      if (this.dataProvider.getItemLabel) {
-          value = this.dataProvider.getItemLabel(value);
-      }
-      if (typeof value === 'object' && attr) {
-          return value[attr] || '';
-      }
-      return value || '';
-  }
-
   /**
-   * get current selection
+   * set focus of searchbar
    */
-  public getSelection():any|any[] {
-    if (this.multi) {
-        return this.selection;
-    } else {
-      return this.selected;
+  public setFocus() {
+    if (this.searchbarElem) {
+      this.searchbarElem.nativeElement.setFocus();
     }
-  }
-
-  public getStyle() {
-    let location = this.location;
-    if (this.location === 'auto') {
-      const elementY = this._getPosition(
-        this.searchbarElem.nativeElement
-      ).y;
-
-      const windowY = window.innerHeight;
-
-      if (elementY > windowY - elementY) {
-        location = 'top';
-      } else {
-        location = 'bottom';
-      }
-    }
-
-    if (location === 'bottom') {
-      return {};
-    } else {
-      return {
-        'bottom': '37px'
-      };
-    }
-  }
-
-  /**
-   * get current input value
-   */
-  public getValue() {
-    return this.formValue;
   }
 
   public setSuggestions(suggestions) {
-      if (this.removeDuplicateSuggestions) {
-          suggestions = this.removeDuplicates(suggestions);
-      }
+    if (this.removeDuplicateSuggestions) {
+      suggestions = this.removeDuplicates(suggestions);
+    }
 
-      this.suggestions = suggestions;
-      this.showItemList();
+    this.suggestions = suggestions;
+    this.showItemList();
   }
 
   /**
@@ -378,94 +447,21 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   }
 
   /**
-
-   /**
-   * clear current input value
+   * show item list
    */
-  public clearValue(hideItemList: boolean = false) {
-    this.keyword = '';
-    this.selection = null;
-    this.formValue = null;
-
-    if (hideItemList) {
-      this.hideItemList();
-    }
-
-    return;
+  public showItemList(): void {
+    this.showList = true;
   }
 
-  /**
-   * set focus of searchbar
-   */
-  public setFocus() {
-    if (this.searchbarElem) {
-      this.searchbarElem.nativeElement.setFocus();
-    }
+  public updateModel() {
+      this.onChangeCallback(this.formValue);
   }
 
-  /**
-   * fired when the input focused
-   */
-  onFocus() {
-    this.getItems();
-
-    this.autoFocus.emit();
-  }
-
-  /**
-   * fired when the input focused
-   */
-  onBlur() {
-    this.autoBlur.emit();
-  }
-
-  /**
-   * handle document click
-   * @param event
-   */
-  @HostListener('document:click', ['$event'])
-  private _documentClickHandler(event) {
-    if (
-      (this.searchbarElem && this.searchbarElem.nativeElement && !this.searchbarElem.nativeElement.contains(event.target))
-      ||
-      (!this.inputElem && this.inputElem.nativeElement && this.inputElem.nativeElement.contains(event.target))
-    ) {
-      this.hideItemList();
+  public writeValue(value: any) {
+    if (value !== this.selection) {
+      this.selection = value || null;
+      this.formValue = this._getFormValue(this.selection);
+      this.keyword = this.getLabel(this.selection);
     }
-  }
-
-  private _getFormValue(selection: any): any {
-    if (selection == null) {
-      return null;
-    }
-    let attr = this.dataProvider.formValueAttribute == null ? this.dataProvider.labelAttribute : this.dataProvider.formValueAttribute;
-    if (typeof selection === 'object' && attr) {
-      return selection[attr];
-    }
-    return selection;
-  }
-
-  private _getPosition(el) {
-    let xPos = 0;
-    let yPos = 0;
-
-    while (el) {
-      if (el.tagName === 'BODY') {
-        const xScroll = el.scrollLeft || document.documentElement.scrollLeft;
-        const yScroll = el.scrollTop || document.documentElement.scrollTop;
-
-        xPos += (el.offsetLeft - xScroll + el.clientLeft);
-        yPos += (el.offsetTop - yScroll + el.clientTop);
-      } else {
-        xPos += (el.offsetLeft - el.scrollLeft + el.clientLeft);
-        yPos += (el.offsetTop - el.scrollTop + el.clientTop);
-      }
-
-      el = el.offsetParent;
-    }
-    return {
-      x: xPos,
-      y: yPos
-    };
   }
 }
