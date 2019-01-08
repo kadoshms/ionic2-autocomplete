@@ -70,6 +70,7 @@
     "rollup": "^0.41.6",
     "run-sequence": "^1.2.2",
     "rxjs": "^6.3.3",
+    "rxjs-compat": "^6.3.3",
     "sw-toolbox": "3.6.0",
     "ts-node": "~2.0.0",
     "tslint": "~4.5.0",
