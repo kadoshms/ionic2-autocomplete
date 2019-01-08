@@ -1,9 +1,6 @@
 import {Component, Input, Output, EventEmitter, TemplateRef, ViewChild, HostListener} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {noop} from 'rxjs/util/noop';
-import {Observable} from 'rxjs/Observable';
-import {Subject} from 'rxjs/Subject';
-import {fromPromise} from 'rxjs/observable/fromPromise';
+import { noop, Observable, Subject, from } from "rxjs";
 
 // searchbar default options
 const defaultOpts = {
@@ -217,7 +214,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
         }
 
         if (result instanceof Promise) {
-            result = fromPromise(result);
+            result = from(result);
         }
 
         // if query is async
