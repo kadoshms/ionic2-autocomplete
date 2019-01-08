@@ -1,5 +1,6 @@
 {
   "name": "ionic2-auto-complete",
+  "main": "dist/index.js",
   "version": "1.6.2-alpha",
   "scripts": {
     "publish": "npm publish dist",
