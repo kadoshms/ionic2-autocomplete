@@ -70,6 +70,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   public formValue:any;
   public selected:any[];
   public suggestions:any[];
+  public promise;
 
   // @ts-ignore
   public get showList(): boolean {
@@ -217,48 +218,57 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    * @param event
    */
   public getItems(event?):void {
-    if (event) {
-      this.keyword = event.detail.target.value;
+    if (this.promise) {
+      clearTimeout(this.promise);
     }
 
-    let result;
+    this.promise = setTimeout(
+      () => {
+        if (event) {
+          this.keyword = event.detail.target.value;
+        }
 
-    if (this.showResultsFirst && this.keyword.trim() === '') {
-      this.keyword = '';
-    }
+        let result;
 
-    result = (typeof this.dataProvider === 'function') ?
-      this.dataProvider(this.keyword) : this.dataProvider.getResults(this.keyword);
+        if (this.showResultsFirst && this.keyword.trim() === '') {
+          this.keyword = '';
+        }
 
-    if (result instanceof Subject) {
-      result = result.asObservable();
-    }
+        result = (typeof this.dataProvider === 'function') ?
+          this.dataProvider(this.keyword) : this.dataProvider.getResults(this.keyword);
 
-    if (result instanceof Promise) {
-      result = from(result);
-    }
+        if (result instanceof Subject) {
+          result = result.asObservable();
+        }
 
-    if (result instanceof Observable) {
-      this.isLoading = true;
+        if (result instanceof Promise) {
+          result = from(result);
+        }
 
-      result.pipe(
-        finalize(
-          () => {
-            this.isLoading = false;
-          }
-        )
-      ).subscribe(
-        (results: any[]) => {
-          this.setSuggestions(results);
-        },
-        (error: any) => console.error(error)
-      )
-      ;
-    } else {
-      this.setSuggestions(result);
-    }
+        if (result instanceof Observable) {
+          this.isLoading = true;
 
-    this.ionAutoInput.emit(this.keyword);
+          result.pipe(
+            finalize(
+              () => {
+                this.isLoading = false;
+              }
+            )
+          ).subscribe(
+            (results: any[]) => {
+              this.setSuggestions(results);
+            },
+            (error: any) => console.error(error)
+          )
+          ;
+        } else {
+          this.setSuggestions(result);
+        }
+
+        this.ionAutoInput.emit(this.keyword);
+      },
+      this.options.debounce
+    );
   }
 
   /**
