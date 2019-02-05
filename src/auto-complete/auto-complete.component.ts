@@ -39,6 +39,18 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   @Input() public template:TemplateRef<any>;
   @Input() public useIonInput:boolean;
 
+  @Input()
+  get model() {
+    return this.selected;
+  }
+
+  set model(selected) {
+    this.selected = selected;
+
+    this.keyword = this.getLabel(selected)
+  }
+
+  @Output() public modelChanged:EventEmitter<any>;
   @Output() public autoFocus:EventEmitter<any>;
   @Output() public autoBlur:EventEmitter<any>;
   @Output() public ionAutoInput:EventEmitter<string>;
@@ -103,6 +115,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     this.keyword = '';
     this.suggestions = [];
     this._showList = false;
+    this.modelChanged = new EventEmitter<any>();
     this.itemSelected = new EventEmitter<any>();
     this.itemsShown = new EventEmitter<any>();
     this.itemsHidden = new EventEmitter<any>();
@@ -536,6 +549,8 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    */
   public updateModel():void {
       this.onChangeCallback(this.formValue);
+
+      this.modelChanged.emit(this.selected);
   }
 
   /**
