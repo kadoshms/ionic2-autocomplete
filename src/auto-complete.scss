@@ -7,6 +7,11 @@ ion-auto-complete {
     padding: 1px !important;
   }
 
+  .disabled input.searchbar-input {
+    pointer-events: none;
+    cursor: default;
+  }
+
   ul {
     position:        absolute;
     width:           90vw;

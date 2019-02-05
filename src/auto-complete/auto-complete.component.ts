@@ -24,7 +24,6 @@ import {AutoCompleteOptions} from '../auto-complete-options.model';
 export class AutoCompleteComponent implements ControlValueAccessor {
   @Input() public alwaysShowList:boolean;
   @Input() public dataProvider:any;
-  @Input() public disabled:any;
   @Input() public hideListOnSelection:boolean = true;
   @Input() public keyword:string;
   @Input() public location:string = 'auto';
@@ -38,6 +37,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   @Input() public showResultsFirst:boolean;
   @Input() public template:TemplateRef<any>;
   @Input() public useIonInput:boolean;
+  @Input() public disabled:boolean = false;
 
   @Input()
   get model() {
