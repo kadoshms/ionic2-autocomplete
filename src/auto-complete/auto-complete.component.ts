@@ -41,7 +41,16 @@ export class AutoCompleteComponent implements ControlValueAccessor {
 
   @Input()
   get model() {
-    return this.selected;
+    let model = this.selected;
+    if (!this.multi && typeof this.selected.length !== 'undefined') {
+      if (this.selected.length === 0) {
+        model = null;
+      } else {
+        model = this.selected[0];
+      }
+    }
+
+    return model;
   }
 
   set model(selected) {
@@ -239,6 +248,10 @@ export class AutoCompleteComponent implements ControlValueAccessor {
       () => {
         if (event) {
           this.keyword = event.detail.target.value;
+
+          if (this.selected) {
+            this.selected = [];
+          }
         }
 
         let result;
