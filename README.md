@@ -347,7 +347,9 @@ With that, you can easily of **different templates for different components**!
 
 ## Events ##
 
-**itemSelected($event)** - fired when item is selected (clicked)  
+**itemChanged($event)** - fired when the selection changes (clicked)  
+**itemRemoved($event)** - fired when item is removed (clicked)  
+**itemSelected($event)** - fired when item is selected from suggestions (clicked)  
 **itemsShown($event)** - fired when items are shown  
 **itemsHidden($event)** - fired when items are hidden  
 **ionAutoInput($event)** - fired when user inputs  
