@@ -64,6 +64,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   @Output() public autoBlur:EventEmitter<any>;
   @Output() public ionAutoInput:EventEmitter<string>;
   @Output() public itemsHidden:EventEmitter<any>;
+  @Output() public itemRemoved:EventEmitter<any>;
   @Output() public itemSelected:EventEmitter<any>;
   @Output() public itemsShown:EventEmitter<any>;
 
@@ -125,6 +126,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     this.suggestions = [];
     this._showList = false;
     this.modelChanged = new EventEmitter<any>();
+    this.itemRemoved = new EventEmitter<any>();
     this.itemSelected = new EventEmitter<any>();
     this.itemsShown = new EventEmitter<any>();
     this.itemsHidden = new EventEmitter<any>();
@@ -484,7 +486,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
       }
     }
 
-    this.itemSelected.emit(this.selected);
+    this.itemRemoved.emit(this.selected);
   }
 
   /**
