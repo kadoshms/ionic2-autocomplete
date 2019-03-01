@@ -63,6 +63,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   @Output() public autoFocus:EventEmitter<any>;
   @Output() public autoBlur:EventEmitter<any>;
   @Output() public ionAutoInput:EventEmitter<string>;
+  @Output() public itemsChange:EventEmitter<any>;
   @Output() public itemsHidden:EventEmitter<any>;
   @Output() public itemRemoved:EventEmitter<any>;
   @Output() public itemSelected:EventEmitter<any>;
@@ -126,6 +127,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     this.suggestions = [];
     this._showList = false;
     this.modelChanged = new EventEmitter<any>();
+    this.itemsChange = new EventEmitter<any>();
     this.itemRemoved = new EventEmitter<any>();
     this.itemSelected = new EventEmitter<any>();
     this.itemsShown = new EventEmitter<any>();
@@ -487,6 +489,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     }
 
     this.itemRemoved.emit(this.selected);
+    this.itemsChange.emit(this.selected);
   }
 
   /**
@@ -510,11 +513,13 @@ export class AutoCompleteComponent implements ControlValueAccessor {
 
       this.selected.push(selection);
       this.itemSelected.emit(this.selected);
+      this.itemsChange.emit(this.selected);
     } else {
       this.selection = selection;
 
       this.selected = [selection];
       this.itemSelected.emit(selection);
+      this.itemsChange.emit(selection);
     }
   }
 
