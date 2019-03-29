@@ -54,9 +54,13 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   }
 
   set model(selected) {
-    this.selected = selected;
+    if (typeof selected !== 'undefined') {
+      this.isInitializing = false;
 
-    this.keyword = this.getLabel(selected)
+      this.selected = selected;
+
+      this.keyword = this.getLabel(selected)
+    }
   }
 
   @Output() public modelChanged:EventEmitter<any>;
@@ -89,7 +93,8 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   private onChangeCallback:(_: any) => void = noop;
 
   public defaultOpts:AutoCompleteOptions;
-  public isLoading:boolean;
+  public isInitializing:boolean = true;
+  public isLoading:boolean = false;
   public formValue:any;
   public selected:any[];
   public suggestions:any[];
