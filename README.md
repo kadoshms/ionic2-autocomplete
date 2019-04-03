@@ -431,3 +431,8 @@ Add updates to `CHANGELOG.md` in root.
 
 [kadoshms](https://github.com/kadoshms)
 [bushybuffalo](https://github.com/bushybuffalo)
+
+### To Do ###
+* Update README
+* Create demo page
+* Fix gulp (Scss does not always transfer, soft fail)
