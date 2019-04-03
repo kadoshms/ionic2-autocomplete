@@ -1,3 +1,9 @@
+## [1.6.1]
+* Add disable
+
+## [1.6.0]
+* Ionic 4, Angular 7 support
+
 ## [1.5.0] 2017-05-17
 * New custom-templates mechanism (please refer to the README file)
 * Added [showResultsFirst] option - calls `getItems()` when the component is tapped
