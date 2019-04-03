@@ -404,17 +404,28 @@ Available methods:
 2. getSelection(): `this.searchbar.getSelection()` - get the selected object
 3. setFocus(): `this.searchbar.setFocus()` - focus on searchbar
 
-## Contributing ##
+### Contributing ###
 
 To contribute, clone the repo. Then, run `npm install` to get the packages needed for the library to work. Running `gulp` will run a series of tasks that builds the files in `/src` into `/dist`. Replace the `/dist` into whatever Ionic application's `node_modules` where you're testing your changes to continuously improve the library.
 
-### Versioning ##
+### Deploy Procedure ###
 
-Follows [Semantic Versioning (2.0.0)](https://semver.org/)
+### Build ###
 
-### NPM Release ###
+Run `gulp build` from root.
 
-Run `npm publish` from dist/ directory.
+#### Update Version ###
+
+Update version `package.json` files in both the root and `dist/` directory following [Semantic Versioning (2.0.0)](https://semver.org/).
+Update `dist/package.json` to have `dependencies` to match root `package.json`.
+
+#### NPM Release ####
+
+Run `npm publish` from `dist/` directory.
+
+#### Update Changelog ####
+
+Add updates to `CHANGELOG.md` in root.
 
 ### Thanks ###
 
