@@ -1,6 +1,5 @@
 # ionic4-auto-complete
 
-
 ## About ##
 This is a component based on Ionic's search-bar component, with the addition of auto-complete ability.
 This component is super simple and light-weight. Just provide the data, and let the fun begin.
@@ -9,14 +8,16 @@ This is a **free software** please feel free to contribute! :)
 
 ![](example.gif)
 
-### Installation
+### Setup
+
+* #### Install Node ####
 ```
-TODO: $ npm install ionic4-auto-complete --save
+npm install ionic4-auto-complete --save
 ```
 
-#### Usage guide
+* #### Import assets ####
 
-Open `angular.json` and add the following to the assets array:
+Add the following to the `assets` array in `angular.json`:
 
 ```
 {
@@ -26,137 +27,141 @@ Open `angular.json` and add the following to the assets array:
 }
 ```
 
-Open `app.module.ts` and add the following import statement:
+* #### Import module
 
-``
-import { AutoCompleteModule } from 'ionic4-auto-complete';
-``
+Import `AutoCompleteModule` by adding the following to your parent module (i.e. `app.module.ts`):
 
-Then, add the `AutoCompleteModule` to the `imports` array:
+`import { AutoCompleteModule } from 'ionic4-auto-complete';`
+
+..
 
 ```
 @NgModule({
-  declarations: [
-    MyApp,
-    HomePage,
-    TabsPage,
-    MyItem
-  ],
-  imports: [
-    BrowserModule,
-    AutoCompleteModule,
-    FormsModule,
-    HttpModule,
-    IonicModule.forRoot(MyApp)
-  ],
   ...
+  imports: [
+    AutoCompleteModule,
+    ...
+  ],
   ...
 })
 export class AppModule {}
 ```
-Now let's import the styling file. Open `app.scss` and add the following:
+
+* #### Add styles ####
+Import scss stylesheet from `node_modules` (i.e. `app.scss`, `global.scss`):
 
 `@import "../../node_modules/ionic4-auto-complete/auto-complete";`
 
-Now, let's add the component to our app!
+* #### Create provider  
 
-Add the following tag to one of your pages, in this example I am using the Homepage:
+The component is not responsible for getting the data from the server. There are two options for providing data to the component.
 
-`<ion-auto-complete></ion-auto-complete>`
-
-Now let's see what wev'e done so far by running `ionic serve`.
-
-Now, when everything is up and running you should see a nice search-bar component. Open the **developer console** and try to type something.
-
-Oh no! something is wrong. You probably see an excpetion similiar to :
-
-`EXCEPTION: Error in ./AutoCompleteComponent class AutoCompleteComponent - inline template:1:21`
-
-This is totally cool, for now. The exception shows up since we did not provide a **dataProvider** to the autocomplete component.
-
-**How does it work?** So, ionic4-auto-complete is not responsible for getting the data from the server. As a developer, you should implement your own service which eventually be responsible to get the data for the component to work, as well we determing how many results to show and/or their order of display.
-
-So there are two possibilities to provide data:
-
-1. A simple function that returns an Array of items
-2. An instance of 'AutocompleteService' (specified below)
-
-Let's start by creating the service:
+1. ##### Option One: Simple function returning an array
 
 ```
+import {Component} from '@angular/core';
+
+@Component({
+  selector:    'auto-complete-component',
+  templateUrl: 'auto-complete-component.component.html',
+  styleUrls: [
+    'auto-complete-component.component.scss'
+  ],
+})
+export class AutoCompleteComponent {
+  public objects:any[];
+
+  constructor() {
+    const objects = [
+       ...
+    ]
+  }
+  
+  protected filter(keyword) {
+    keyword = keyword.toLowerCase();
+
+    return this.objects.filter(
+      (object) => {
+        const value = this.variableService.getString(
+          object[this.labelAttribute]
+        ).toLowerCase();
+
+        return value.includes(keyword);
+      }
+    );
+  }
+}
+```
+
+2. ##### Option Two: Create a Service
+
+When implementing an AutoCompleteService interface, you must implement two properties:
+
+1. **labelAttribute** [string] - which is the name of the object's descriptive property (leaving it null is also an option for non-object results)
+2. **getResults(keyword)** [() => any] - which is the method responsible for getting the data from server which returns either an:
+    - an Observable that produces an array
+    - a Subject (like an Observable)
+    - a Promise that provides an array
+    - directly an array of values
+
+```
+import {Http} from '@angular/http';
+import {Injectable} from '@angular/core';
+
+import {of} from 'rxjs';
+import {map} from 'rxjs/operators';
+
 import {AutoCompleteService} from 'ionic4-auto-complete';
-import { Http } from '@angular/http';
-import {Injectable} from "@angular/core";
-import 'rxjs/add/operator/map'
 
 @Injectable()
 export class CompleteTestService implements AutoCompleteService {
-  labelAttribute = "name";
+  private labelAttribute = 'name';
+  
+  private countries:any[];
 
   constructor(private http:Http) {
-
+     this.countries = [];
   }
-  getResults(keyword:string) {
-    return this.http.get("https://restcountries.eu/rest/v1/name/"+keyword)
-      .map(
-        result =>
-        {
-          return result.json()
-            .filter(item => item.name.toLowerCase().startsWith(keyword.toLowerCase()) )
-        });
+  
+  getResults(keyword:string):Observable<any[]> {
+     let observable:Observable;
+     
+     if (this.countries.length === 0) {
+        observable = this.http.get('https://restcountries.eu/rest/v1/name/' + keyword);
+     } else {
+        observable = of(this.countries);
+     }
+     
+     return observable.pipe(
+        map(
+           () => {
+              return result.json().filter(
+                 (item) => {
+                    item.name.toLowerCase().startsWith(
+                       keyword.toLowerCase()
+                    )
+                 }
+              );
+           }
+        )
+      )
   }
 }
-
-
 ```
 
-By implementing an AutoCompleteService interface, you must implement two properties:
+* #### HTML
 
-1. **labelAttribute** [string] - which is the name of the object's descriptive property (leaving it null is also an option for non-object results)
-2. **getResults(keyword)** [() => any] - which is the method responsible for getting the data from server.
+Add `ion-auto-complete` within the HTML of your parent module.
 
-The **getResults** method can return one of:
-- an Observable that produces an array
-- a Subject (like an Observable)
-- a Promise that provides an array
-- directly an array of values
+##### Option 1: Simple function
 
-In the above example, we fetch countries data from the amazing https://restcountries.eu/ project, and we filter the results accordingly.
+`<ion-auto-complete (on)="filter($event)"></ion-auto-complete>`
 
-**Important!** the above example is just an example! the best practice would be to let the server to the filtering for us! Here, since I used the countries-api, that's the best I could do.
+##### Option 2: Service
 
-Now, we need to let ionic4-auto-complete that we want to use CompleteTestService as the data provider, edit *home.ts* and add `private completeTestService: CompleteTestService` to the constructor argument list.
-Should look like that:
-```
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { CompleteTestService } from '../../providers/CompleteTestService';
+`<ion-auto-complete [dataProvider]="completeTestService"></ion-auto-complete>`
 
-@Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
-})
-export class HomePage {
-
-  constructor(public navCtrl: NavController, public completeTestService: CompleteTestService) {
-
-  }
-
-}
-
-```
-
-Than, in *home.html* modify `<ion-auto-complete>`:
-```
-<ion-auto-complete [dataProvider]="completeTestService"></ion-auto-complete>
-```
-
-Now, everything should be up and ready :)
-
-
-----------------------------------------------------------------------------
-
-### Use auto-complete in Angular FormGroup ###
+##### Option 3: Angular FormGroup
 
 #### Use labelAttribute as both label and form value (default behavior) ####
 
