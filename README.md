@@ -404,8 +404,9 @@ To contribute, clone the repo. Then, run `npm install` to get the packages neede
 
 ### Thanks ###
 
-[kadoshms](https://github.com/kadoshms)
-[bushybuffalo](https://github.com/bushybuffalo)
+* [bushybuffalo](https://github.com/bushybuffalo)
+* [jrquick17](https://github.com/jrquick17)
+* [kadoshms](https://github.com/kadoshms)
 
 ## Deploy ##
 
