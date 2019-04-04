@@ -79,6 +79,8 @@ export class AppModule {}
           ],
         })
         export class AutoCompleteComponent {
+          public labelAttribute:string;
+          
           public objects:any[];
         
           constructor() {
@@ -92,9 +94,7 @@ export class AppModule {}
         
             return this.objects.filter(
               (object) => {
-                const value = this.variableService.getString(
-                  object[this.labelAttribute]
-                ).toLowerCase();
+                const value = object[this.labelAttribute].toLowerCase();
         
                 return value.includes(keyword);
               }
@@ -430,10 +430,13 @@ To contribute, clone the repo. Then, run `npm install` to get the packages neede
     * Add updates to `CHANGELOG.md` in root.
 
 ### Future Plans ###
+
 * Create demo page
     * Simple function
     * Service and component
     * Angular Form
+    * Custom Template
+    
 * Fix gulp (Scss does not always transfer, soft fail)
 
 ## FAQ ##

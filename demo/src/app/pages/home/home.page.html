@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Demo: ionic4-auto-complete
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list style="height: 100%;">
+    <ion-segment (ionChange)="selectedSegment = $event.detail.value">
+      <ion-segment-button *ngFor="let segment of segments"
+                          [value]="segment"
+                          [checked]="segment === selectedSegment">
+        <ion-label>
+          {{ segment }}
+        </ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    <ion-item-divider></ion-item-divider>
+
+    <ion-card *ngIf="selectedSegment === 'simple-function'"
+              style="height: 100%;">
+      <ion-card-content>
+        <ion-row>
+          <ion-col class="label">
+            Select Anybody
+          </ion-col>
+          <ion-col [size]="12">
+            <simple-function></simple-function>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf="selectedSegment === 'simple-service'"
+              style="height: 100%;">
+      <ion-card-content>
+        <ion-row>
+          <ion-col class="label">
+            Select Anybody
+          </ion-col>
+          <ion-col [size]="12">
+            <simple-service></simple-service>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+</ion-content>
