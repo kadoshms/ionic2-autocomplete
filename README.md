@@ -6,9 +6,9 @@
 
 * [About](#about)
 * [Setup](#setup)
-* [Documentation](#setup)
+* [Documentation](#documentation)
 * [Contributing](#contributing)
-* [Deploy](#contributing)
+* [Deploy](#deploy)
 * [Future Plans](#future-plans)
 * [FAQ](#faq)
 
