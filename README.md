@@ -14,7 +14,7 @@
 
 ## About ## 
 
-This is a component based on Ionic's search-bar component, with the addition of auto-complete ability. This component is super simple and light-weight. Just provide the data, and let the fun begin. It is compatible with Angular 2+ and Ionic 2+. 
+This is a component based on Ionic's search-bar component, with the addition of auto-complete ability. This component is super simple and light-weight. Just provide the data, and let the fun begin. This package is compatible with Angular 2+ and Ionic 2+. 
 
 ## Setup
 
@@ -40,11 +40,11 @@ Add the following to the `assets` array in `angular.json`:
 
 Import `AutoCompleteModule` by adding the following to your parent module (i.e. `app.module.ts`):
 
-`import { AutoCompleteModule } from 'ionic4-auto-complete';`
-
-..
-
 ```
+import { AutoCompleteModule } from 'ionic4-auto-complete';
+
+...
+
 @NgModule({
   ...
   imports: [
@@ -57,182 +57,183 @@ export class AppModule {}
 ```
 
 * #### Add styles ####
-Import scss stylesheet from `node_modules` (i.e. `app.scss`, `global.scss`):
 
-`@import "../../node_modules/ionic4-auto-complete/auto-complete";`
+    * Import scss stylesheet from `node_modules` (i.e. `app.scss`, `global.scss`):
+
+        `@import "../../node_modules/ionic4-auto-complete/auto-complete";`
 
 * #### Create provider  
 
-The component is not responsible for getting the data from the server. There are two options for providing data to the component.
+    * The component is not responsible for getting the data from the server. There are two options for providing data to the component.
 
-1. ##### Option One: Simple function returning an array
+    1. ##### Option One: Simple function returning an array
+    
+        ```
+        import {Component} from '@angular/core';
+        
+        @Component({
+          selector:    'auto-complete-component',
+          templateUrl: 'auto-complete-component.component.html',
+          styleUrls: [
+            'auto-complete-component.component.scss'
+          ],
+        })
+        export class AutoCompleteComponent {
+          public objects:any[];
+        
+          constructor() {
+            const objects = [
+               ...
+            ]
+          }
+          
+          protected filter(keyword) {
+            keyword = keyword.toLowerCase();
+        
+            return this.objects.filter(
+              (object) => {
+                const value = this.variableService.getString(
+                  object[this.labelAttribute]
+                ).toLowerCase();
+        
+                return value.includes(keyword);
+              }
+            );
+          }
+        }
+        ```
 
-```
-import {Component} from '@angular/core';
+    2. ##### Option Two: Create a Service and Component
 
-@Component({
-  selector:    'auto-complete-component',
-  templateUrl: 'auto-complete-component.component.html',
-  styleUrls: [
-    'auto-complete-component.component.scss'
-  ],
-})
-export class AutoCompleteComponent {
-  public objects:any[];
+        * When implementing an AutoCompleteService interface, you must implement two properties:
 
-  constructor() {
-    const objects = [
-       ...
-    ]
-  }
-  
-  protected filter(keyword) {
-    keyword = keyword.toLowerCase();
+            1. **labelAttribute** [string] - which is the name of the object's descriptive property (leaving it null is also an option for non-object results)
+            2. **getResults(keyword)** [() => any] - which is the method responsible for getting the data from server which returns either an:
+                - an Observable that produces an array
+                - a Subject (like an Observable)
+                - a Promise that provides an array
+                - directly an array of values
 
-    return this.objects.filter(
-      (object) => {
-        const value = this.variableService.getString(
-          object[this.labelAttribute]
-        ).toLowerCase();
+        ```
+        import {Http} from '@angular/http';
+        import {Injectable} from '@angular/core';
+        
+        import {of} from 'rxjs';
+        import {map} from 'rxjs/operators';
+        
+        import {AutoCompleteService} from 'ionic4-auto-complete';
+        
+        @Injectable()
+        export class CompleteTestService implements AutoCompleteService {
+          private labelAttribute = 'name';
+          
+          private countries:any[];
+        
+          constructor(private http:Http) {
+             this.countries = [];
+          }
+          
+          getResults(keyword:string):Observable<any[]> {
+             let observable:Observable;
+             
+             if (this.countries.length === 0) {
+                observable = this.http.get('https://restcountries.eu/rest/v1/name/' + keyword);
+             } else {
+                observable = of(this.countries);
+             }
+             
+             return observable.pipe(
+                map(
+                   () => {
+                      return result.json().filter(
+                         (item) => {
+                            item.name.toLowerCase().startsWith(
+                               keyword.toLowerCase()
+                            )
+                         }
+                      );
+                   }
+                )
+              )
+          }
+        }
+        ```
 
-        return value.includes(keyword);
-      }
-    );
-  }
-}
-```
+    3. ##### Option Three: Create a service and component with a form
 
-2. ##### Option Two: Create a Service and Component
+        * To indicate that you don't want the label as value but another field of the country object returned by the REST service, you can specify the attribute **formValueAttribute** on your dataProvider. For example, we want to use the country numeric code as value and still use the country name as label.
 
-When implementing an AutoCompleteService interface, you must implement two properties:
+        * Create a service which includes the `formValueAttribute` property.
 
-1. **labelAttribute** [string] - which is the name of the object's descriptive property (leaving it null is also an option for non-object results)
-2. **getResults(keyword)** [() => any] - which is the method responsible for getting the data from server which returns either an:
-    - an Observable that produces an array
-    - a Subject (like an Observable)
-    - a Promise that provides an array
-    - directly an array of values
-
-```
-import {Http} from '@angular/http';
-import {Injectable} from '@angular/core';
-
-import {of} from 'rxjs';
-import {map} from 'rxjs/operators';
-
-import {AutoCompleteService} from 'ionic4-auto-complete';
-
-@Injectable()
-export class CompleteTestService implements AutoCompleteService {
-  private labelAttribute = 'name';
-  
-  private countries:any[];
-
-  constructor(private http:Http) {
-     this.countries = [];
-  }
-  
-  getResults(keyword:string):Observable<any[]> {
-     let observable:Observable;
-     
-     if (this.countries.length === 0) {
-        observable = this.http.get('https://restcountries.eu/rest/v1/name/' + keyword);
-     } else {
-        observable = of(this.countries);
-     }
-     
-     return observable.pipe(
-        map(
-           () => {
-              return result.json().filter(
-                 (item) => {
-                    item.name.toLowerCase().startsWith(
-                       keyword.toLowerCase()
-                    )
-                 }
-              );
-           }
-        )
-      )
-  }
-}
-```
-
-3. ##### Option Three: Create a service and component with a form
-
-To indicate that you don't want the label as value but another field of the country object returned by the REST service, you can specify the attribute **formValueAttribute** on your dataProvider. For example, we want to use the country numeric code as value and still use the country name as label.
-
-Create a service which includes the `formValueAttribute` property.
-
-```
-import {Injectable} from '@angular/core';
-import {map} from 'rxjs/operators';
-
-import {Http} from '@angular/http';
-
-import {AutoCompleteService} from 'ionic4-auto-complete';
-
-@Injectable()
-export class CompleteTestService implements AutoCompleteService {
-  labelAttribute = 'name';
-  formValueAttribute = 'numericCode';
-
-  constructor(private http:Http) {
-  
-  }
-
-  getResults(keyword:string) {
-     return this.http.get('https://restcountries.eu/rest/v1/name/' + keyword).map(
-        (result) => {
-           return result.json().filter(
-              (item) => {
-                 item.name.toLowerCase().startsWith(
-                    keyword.toLowerCase()
+            ```
+            import {Injectable} from '@angular/core';
+            import {map} from 'rxjs/operators';
+            
+            import {Http} from '@angular/http';
+            
+            import {AutoCompleteService} from 'ionic4-auto-complete';
+            
+            @Injectable()
+            export class CompleteTestService implements AutoCompleteService {
+              labelAttribute = 'name';
+              formValueAttribute = 'numericCode';
+            
+              constructor(private http:Http) {
+              
+              }
+            
+              getResults(keyword:string) {
+                 return this.http.get('https://restcountries.eu/rest/v1/name/' + keyword).map(
+                    (result) => {
+                       return result.json().filter(
+                          (item) => {
+                             item.name.toLowerCase().startsWith(
+                                keyword.toLowerCase()
+                             );
+                          }
+                       );
+                    }
                  );
               }
-           );
-        }
-     );
-  }
-}
-```
+            }
+            ```
 
-Once the form is submitted the `country` is the selected country's **numericCode** while the displayed name is the `labelAttribute`.
+            * Once the form is submitted the `country` is the selected country's **numericCode** while the displayed name is the `labelAttribute`.
 
-Create a component:
+        * Create a component:
 
-```
- import {Component} from '@angular/core';
- import {NavController} from 'ionic-angular';
- import {CompleteTestService} from '../../providers/CompleteTestService';
- import {FormGroup, Validators, FormControl } from '@angular/forms'
- 
- 
- @Component({
-   selector: 'page-home',
-   templateUrl: 'home.html'
- })
- export class HomePage {
-   myForm: FormGroup
- 
-   constructor(public navCtrl: NavController, public completeTestService: CompleteTestService) {
-   
-   }
- 
-   ngOnInit(): void {
-     this.myForm = new FormGroup({
-       country: new FormControl('', [
-         Validators.required
-       ])
-     })
-   }
- 
-   submit(): void {
-     let country = this.myForm.value.country
-   }
- 
- }
-```
+            ```
+             import {Component} from '@angular/core';
+             import {NavController} from 'ionic-angular';
+             import {CompleteTestService} from '../../providers/CompleteTestService';
+             import {FormGroup, Validators, FormControl } from '@angular/forms'
+             
+             
+             @Component({
+               selector: 'page-home',
+               templateUrl: 'home.html'
+             })
+             export class HomePage {
+               myForm: FormGroup
+             
+               constructor(public navCtrl: NavController, public completeTestService: CompleteTestService) {
+               
+               }
+             
+               ngOnInit(): void {
+                 this.myForm = new FormGroup({
+                   country: new FormControl('', [
+                     Validators.required
+                   ])
+                 })
+               }
+             
+               submit(): void {
+                 let country = this.myForm.value.country
+               }
+             
+             }
+            ```
  
 * #### HTML
 
