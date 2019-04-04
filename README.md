@@ -16,6 +16,8 @@
 
 This is a component based on Ionic's search-bar component, with the addition of auto-complete ability. This component is super simple and light-weight. Just provide the data, and let the fun begin. This package is compatible with Angular 2+ and Ionic 2+. 
 
+* Visit the [demo](https://ionic4-auto-complete.jrquick.com) to see it action!
+
 ## Setup
 
 * #### Install Node ####
@@ -115,46 +117,46 @@ export class AppModule {}
                 - directly an array of values
 
         ```
-        import {Http} from '@angular/http';
         import {Injectable} from '@angular/core';
+        import {HttpClient} from '@angular/common/http';
         
-        import {of} from 'rxjs';
         import {map} from 'rxjs/operators';
+        import {Observable, of} from 'rxjs';
         
         import {AutoCompleteService} from 'ionic4-auto-complete';
         
         @Injectable()
-        export class CompleteTestService implements AutoCompleteService {
-          private labelAttribute = 'name';
-          
-          private countries:any[];
+        export class SimpleService implements AutoCompleteService {
+          labelAttribute = 'name';
         
-          constructor(private http:Http) {
-             this.countries = [];
+          private countries:any[] = [];
+        
+          constructor(private http:HttpClient) {
+        
           }
-          
+        
           getResults(keyword:string):Observable<any[]> {
-             let observable:Observable;
-             
-             if (this.countries.length === 0) {
-                observable = this.http.get('https://restcountries.eu/rest/v1/name/' + keyword);
-             } else {
-                observable = of(this.countries);
-             }
-             
-             return observable.pipe(
-                map(
-                   () => {
-                      return result.json().filter(
-                         (item) => {
-                            item.name.toLowerCase().startsWith(
-                               keyword.toLowerCase()
-                            )
-                         }
+            let observable:Observable<any>;
+        
+            if (this.countries.length === 0) {
+              observable = this.http.get('https://restcountries.eu/rest/v2/all');
+            } else {
+              observable = of(this.countries);
+            }
+        
+            return observable.pipe(
+              map(
+                (result) => {
+                  return result.filter(
+                    (item) => {
+                      return item.name.toLowerCase().startsWith(
+                          keyword.toLowerCase()
                       );
-                   }
-                )
+                    }
+                  );
+                }
               )
+            );
           }
         }
         ```
@@ -240,17 +242,13 @@ export class AppModule {}
     * Add `ion-auto-complete` within the HTML of your parent module.
 
     * Pass the data:
-        * ##### Option 1: Simple function
-
-              <ion-auto-complete (on)="filter($event)"></ion-auto-complete>`
-
-        * ##### Option 2: Service
+        * ##### Option 1: Vanilla
 
               <ion-auto-complete [dataProvider]="completeTestService"></ion-auto-complete>`
 
-        * ##### Option 3: Angular FormGroup
+        * ##### Option 2: Angular FormGroup
 
-            * ##### Option 3-A: Use property as form value
+            * ##### Option 2-A: Use property as form value
                 * Requires `labelAttribute` as both label and form value (default behavior). 
                     * By default, if your **dataProvider** provides an array of objects, the `labelAttribute` property is used to take the good field of each object to display in the suggestion list. For backward compatibility, if nothing is specified, this attribute is also used to grab the value used in the form.
 
@@ -272,33 +270,28 @@ export class AppModule {}
                     </form>
                     ```
 
-            * ##### Option 3-B: Use whole object as form value
+            * ##### Option 2-B: Use whole object as form value
 
                 * Simply set `formValueAttribute` to empty string:
 
                     ```
                     import {AutoCompleteService} from 'ionic4-auto-complete';
-                    import { Http } from '@angular/http';
+                    import {HttpClient} from '@angular/http';
                     import {Injectable} from "@angular/core";
                     import 'rxjs/add/operator/map'
                     
                     @Injectable()
                     export class CompleteTestService implements AutoCompleteService {
-                      labelAttribute = "name";
-                      formValueAttribute = ""
+                      ...
+                      
+                      formValueAttribute = ''
                     
                       constructor(private http:Http) {
-                      
+                         ...
                       }
                     
                       getResults(keyword:string) {
-                        return this.http.get("https://restcountries.eu/rest/v1/name/"+keyword)
-                          .map(
-                            result =>
-                            {
-                              return result.json()
-                                .filter(item => item.name.toLowerCase().startsWith(keyword.toLowerCase()) )
-                            });
+                         ...
                       }
                     }
                     ```
@@ -403,6 +396,10 @@ export class AppModule {}
 ## Contributing ##
 
 To contribute, clone the repo. Then, run `npm install` to get the packages needed for the library to work. Running `gulp` will run a series of tasks that builds the files in `/src` into `/dist`. Replace the `/dist` into whatever Ionic application's `node_modules` where you're testing your changes to continuously improve the library.
+
+### Demo ###
+
+Run `npm install` to get packages required for the demo and then run `ionic serve` to run locally.
 
 ### Thanks ###
 
