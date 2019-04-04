@@ -7,6 +7,7 @@
 * [About](#about)
 * [Setup](#setup)
 * [Documentation](#documentation)
+* [Issues](#issues)
 * [Contributing](#contributing)
 * [Deploy](#deploy)
 * [Future Plans](#future-plans)
@@ -396,6 +397,10 @@ export class AppModule {}
 ## Contributing ##
 
 To contribute, clone the repo. Then, run `npm install` to get the packages needed for the library to work. Running `gulp` will run a series of tasks that builds the files in `/src` into `/dist`. Replace the `/dist` into whatever Ionic application's `node_modules` where you're testing your changes to continuously improve the library.
+
+## Issues ##
+
+If you find any issues feel free to open a request in [the Issues tab](https://github.com/jrquick17/ionic4-auto-complete/issues). If I have the time I will try to solve any issues but cannot make any guarantees. Feel free to contribute yourself.
 
 ### Demo ###
 
