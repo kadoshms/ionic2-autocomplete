@@ -318,18 +318,19 @@ export class AppModule {}
 
 * ### Searchbar Options ##
 
-Ionic4-auto-complete supports the regular Ionic's Searchbar options, which are set to their default values as specified in the [docs](https://beta.ionicframework.com/docs/api/searchbar/).
+    * Ionic4-auto-complete supports the regular Ionic's Searchbar options, which are set to their default values as specified in the [docs](https://beta.ionicframework.com/docs/api/searchbar/).
 
-You can override these default values by adding the `[options]` attribute to the `<ion-auto-complete>` tag, for instance:
+    * You can override these default values by adding the `[options]` attribute to the `<ion-auto-complete>` tag, for instance:
 
-```
-  <ion-auto-complete [dataProvider]="someProvider" [options]="{ placeholder : 'Lorem Ipsum' }"></ion-auto-complete>
-```
-Options include, but not limited to:
-1. debounce (default is `250`)
-2. autocomplete ("on" and "off")
-3. type ("text", "password", "email", "number", "search", "tel", "url". Default "search".)
-4. placeholder (default "Search")
+        ```
+          <ion-auto-complete [dataProvider]="someProvider" [options]="{ placeholder : 'Lorem Ipsum' }"></ion-auto-complete>
+        ```
+
+    * Options include, but not limited to:
+        * `debounce` - (default is `250`)
+        * `autocomplete` - ("on" and "off")
+        * `type` - ("text", "password", "email", "number", "search", "tel", "url". Default "search".)
+        * `placeholder` - (default "Search")
 
 * ### Styling
 
@@ -411,22 +412,22 @@ To contribute, clone the repo. Then, run `npm install` to get the packages neede
 
 ## Deploy ##
 
-### Build ###
+* ### Build ###
 
-Run `gulp build` from root.
+    * Run `gulp build` from root.
 
-#### Update Version ###
+* #### Update Version ###
 
-Update version `package.json` files in both the root and `dist/` directory following [Semantic Versioning (2.0.0)](https://semver.org/).
-Update `dist/package.json` to have `dependencies` to match root `package.json`.
+    * Update version `package.json` files in both the root and `dist/` directory following [Semantic Versioning (2.0.0)](https://semver.org/).
+    * Update `dist/package.json` to have `dependencies` to match root `package.json`.
 
-#### NPM Release ####
+* #### NPM Release ####
 
-Run `npm publish` from `dist/` directory.
+    * Run `npm publish` from `dist/` directory.
 
-#### Update Changelog ####
+* #### Update Changelog ####
 
-Add updates to `CHANGELOG.md` in root.
+    * Add updates to `CHANGELOG.md` in root.
 
 ### Future Plans ###
 * Create demo page
