@@ -18,7 +18,7 @@ import {AutoCompleteOptions} from '../auto-complete-options.model';
   ]
 })
 @Component({
-  selector:  'ion-auto-complete',
+  selector:    'ion-auto-complete',
   templateUrl: 'auto-complete.component.html'
 })
 export class AutoCompleteComponent implements ControlValueAccessor {
@@ -40,6 +40,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   @Input() public disabled:boolean = false;
 
   @Input()
+  // @ts-ignore
   get model() {
     let model = this.selected;
     if (!this.multi && typeof this.selected.length !== 'undefined') {
@@ -53,6 +54,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     return model;
   }
 
+  // @ts-ignore
   set model(selected) {
     if (typeof selected !== 'undefined') {
       this.isInitializing = false;
