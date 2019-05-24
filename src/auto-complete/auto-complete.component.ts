@@ -455,7 +455,8 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    * @param suggestions
    */
   public removeDuplicates(suggestions:any[]):any[] {
-    const selectedCount = this.selected.length;
+    const selectedCount = this.selected ? this.selected.length : 0;
+
     const suggestionCount = suggestions.length;
 
     for (let i = 0; i < selectedCount; i++) {
@@ -483,7 +484,8 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    * @param selection
    */
   public removeItem(selection:any):void {
-    const count = this.selected.length;
+    const count = this.selected ? this.selected.length : 0;
+
     for (let i = 0; i < count; i++) {
       const item = this.selected[i];
 
