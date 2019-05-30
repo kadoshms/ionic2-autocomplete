@@ -32,3 +32,6 @@
 ## [1.6.2]
 * Bug fixes
 * Update dependencies
+
+## [1.7.0]
+* Add exclude

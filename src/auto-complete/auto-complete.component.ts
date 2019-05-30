@@ -24,6 +24,8 @@ import {AutoCompleteOptions} from '../auto-complete-options.model';
 export class AutoCompleteComponent implements ControlValueAccessor {
   @Input() public alwaysShowList:boolean;
   @Input() public dataProvider:any;
+  @Input() public disabled:boolean = false;
+  @Input() public exclude:any[] = [];
   @Input() public hideListOnSelection:boolean = true;
   @Input() public keyword:string;
   @Input() public location:string = 'auto';
@@ -37,7 +39,6 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   @Input() public showResultsFirst:boolean;
   @Input() public template:TemplateRef<any>;
   @Input() public useIonInput:boolean;
-  @Input() public disabled:boolean = false;
 
   @Input()
   // @ts-ignore
@@ -103,12 +104,12 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   public promise;
 
   // @ts-ignore
-  public get showList(): boolean {
+  public get showList():boolean {
     return this._showList;
   }
 
   // @ts-ignore
-  public set showList(value: boolean) {
+  public set showList(value:boolean) {
     if (this._showList === value) {
       return;
     }
@@ -117,10 +118,10 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     this.showListChanged = true;
   }
 
-  private _showList: boolean;
+  private _showList:boolean;
 
-  private selection: any;
-  private showListChanged: boolean = false;
+  private selection:any;
+  private showListChanged:boolean = false;
 
   /**
    * Create a new instance
@@ -478,12 +479,36 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     return suggestions;
   }
 
+  public removeExcluded(suggestions:any[]):any[] {
+    const excludedCount = this.exclude.length;
+    const suggestionCount = this.suggestions.length;
+
+    for (let i = 0; i < excludedCount; i++) {
+      const exclude = this.exclude[i];
+
+      const excludeLabel = this.getLabel(exclude);
+
+      for (let j = 0; j < suggestionCount; j++) {
+        const suggestedLabel = this.getLabel(
+          suggestions[j]
+        );
+
+        if (excludeLabel === suggestedLabel) {
+          suggestions.splice(j, 1);
+        }
+      }
+    }
+
+    return suggestions;
+  }
+
   /**
    * Remove item from selected
    *
    * @param selection
+   * @param notify?
    */
-  public removeItem(selection:any):void {
+  public removeItem(selection:any, notify?:boolean):void {
     const count = this.selected ? this.selected.length : 0;
 
     for (let i = 0; i < count; i++) {
@@ -497,8 +522,12 @@ export class AutoCompleteComponent implements ControlValueAccessor {
       }
     }
 
-    this.itemRemoved.emit(this.selected);
-    this.itemsChange.emit(this.selected);
+    notify = typeof notify === 'undefined' ? true : notify;
+
+    if (notify) {
+      this.itemRemoved.emit(this.selected);
+      this.itemsChange.emit(this.selected);
+    }
   }
 
   /**
@@ -549,9 +578,12 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   public setSuggestions(suggestions):void {
     if (this.removeDuplicateSuggestions) {
       suggestions = this.removeDuplicates(suggestions);
+      suggestions = this.removeExcluded(suggestions);
     }
 
+
     this.suggestions = suggestions;
+
     this.showItemList();
   }
 
