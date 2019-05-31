@@ -550,15 +550,15 @@ export class AutoCompleteComponent implements ControlValueAccessor {
       this.clearValue();
 
       this.selected.push(selection);
-      this.itemSelected.emit(this.selected);
       this.itemsChange.emit(this.selected);
     } else {
       this.selection = selection;
 
       this.selected = [selection];
-      this.itemSelected.emit(selection);
       this.itemsChange.emit(selection);
     }
+
+    this.itemSelected.emit(selection);
   }
 
   /**
