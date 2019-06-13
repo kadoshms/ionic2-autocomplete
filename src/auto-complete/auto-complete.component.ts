@@ -518,8 +518,8 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     notify = typeof notify === 'undefined' ? true : notify;
 
     if (notify) {
-      this.itemRemoved.emit(this.selected);
-      this.itemsChange.emit(this.selected);
+        this.itemRemoved.emit(selection);
+        this.itemsChange.emit(this.selected);
     }
   }
 
