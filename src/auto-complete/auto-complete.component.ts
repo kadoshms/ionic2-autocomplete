@@ -15,9 +15,7 @@ import {AutoCompleteOptions} from '../auto-complete-options.model';
       useExisting: AutoCompleteComponent,
       multi: true
     }
-  ]
-})
-@Component({
+  ],
   selector:    'ion-auto-complete',
   templateUrl: 'auto-complete.component.html'
 })
