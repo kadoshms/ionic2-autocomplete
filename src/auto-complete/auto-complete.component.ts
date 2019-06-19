@@ -58,8 +58,6 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   // @ts-ignore
   set model(selected) {
     if (typeof selected !== 'undefined') {
-      this.isInitializing = false;
-
       this.selected = selected;
 
       this.keyword = this.getLabel(selected)
@@ -96,7 +94,6 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   private onChangeCallback:(_: any) => void = noop;
 
   public defaultOpts:AutoCompleteOptions;
-  public isInitializing:boolean = true;
   public isLoading:boolean = false;
   public formValue:any;
   public selected:any[];
