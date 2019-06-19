@@ -260,10 +260,6 @@ export class AutoCompleteComponent implements ControlValueAccessor {
       () => {
         if (event) {
           this.keyword = event.detail.target.value;
-
-          if (this.selected) {
-            this.selected = [];
-          }
         }
 
         let result;
