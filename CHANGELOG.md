@@ -36,5 +36,14 @@
 ## [1.7.0]
 * Add exclude
 
+## [1.7.1]
+* Bug fixes
+
+## [1.7.2]
+* Bug fixes
+
 ## [1.7.3]
+* Bug fixes
+
+## [1.7.4]
 * Bug fixes
