@@ -79,7 +79,8 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   @ViewChild(
     'searchbarElem',
     {
-      read: ElementRef
+      read: ElementRef,
+      static: false
     }
   )
   private searchbarElem: ElementRef;
@@ -87,7 +88,8 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   @ViewChild(
     'inputElem',
     {
-      read: ElementRef
+      read: ElementRef,
+      static: false
     }
   )
   private inputElem: ElementRef;
