@@ -47,3 +47,6 @@
 
 ## [1.7.4]
 * Bug fixes
+
+## [1.8.0]
+* Pass color options

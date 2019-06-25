@@ -321,6 +321,7 @@ export class AppModule {}
         ```
 
     * Options include, but not limited to:
+        * `color` - (default is `null`)
         * `debounce` - (default is `250`)
         * `autocomplete` - ("on" and "off")
         * `type` - ("text", "password", "email", "number", "search", "tel", "url". Default "search".)
