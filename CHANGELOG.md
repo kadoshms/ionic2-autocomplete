@@ -1,52 +1,56 @@
-## [1.3.0]
-* New custom-templates mechanism (please refer to the README file)
-* Added [showResultsFirst] option - calls `getItems()` when the component is tapped
-* Added [useIonInput] option - use `<ion-input>` instead of `<ion-searchbar>`
+# Changelog
+All notable changes to this project will be documented in this file.
 
-## [1.4.1]
-* Fixed document click handler issue
-*Support rxjs subject
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.4.2]
-* Bug fixes
-* Added setFocus() method
-* Added getSelection() method
-* Added option to debounce the search
+## [Unreleased]
+## [1.8.0] 
+### Added
+- Pass color options
 
-## [1.4.3-beta]
-* Bug fixes
-* Support for ngModel (see docs)
-
-## [1.4.3]
-* Bug fixes
-* Support for Angular 5.0
-
-## [1.6.0]
-* Support for Angular 7.0
-* Support for Ionic 4
+## [Released]
+## [1.7.0] 
+### Added
+- Add exclude
 
 ## [1.6.1]
-* Bug fixes
-* Add disable
+### Changed
+- Updated dependencies
 
-## [1.6.2]
-* Bug fixes
-* Update dependencies
+## [1.6.1]
+### Added
+- Add disable option
 
-## [1.7.0]
-* Add exclude
+## [1.6.0]
+### Added
+- Support for Angular 7.0
+- Support for Ionic 4
 
-## [1.7.1]
-* Bug fixes
+## [1.4.3]
+### Added
+- Support for Angular 5.0
 
-## [1.7.2]
-* Bug fixes
+## [1.4.3-beta]
+### Added
+- Support for ngModel
 
-## [1.7.3]
-* Bug fixes
+## [1.4.2]
+### Added
+- Added `setFocus()` method
+- Added `getSelection()` method
+- Added option to debounce the search
 
-## [1.7.4]
-* Bug fixes
+## [1.4.1]
+### Added
+- Support for rxjs subject
 
-## [1.8.0]
-* Pass color options
+### Fixed 
+- Document click handler issue
+
+## [1.3.0]
+### Added
+- New custom-templates mechanism (please refer to the README file)
+- Added [showResultsFirst] option - calls `getItems()` when the component is tapped
+- Added [useIonInput] option - use `<ion-input>` instead of `<ion-searchbar>`
+
