@@ -25,7 +25,7 @@ export class SimpleFunction implements AutoCompleteService {
       {
           first_name: 'Matt',
           last_name: 'Smith',
-          full_name: 'Matthew Drake',
+          full_name: 'Matt Smith',
       },
       {
           first_name: 'Matthew',
