@@ -31,18 +31,21 @@ gulp.task(
  * 1. Clean Delete /dist folder
  */
 gulp.task(
-    'clean:dist',
-    function() {
-        return deleteFolders([distFolder]);
-    }
+  'clean:dist',
+  function() {
+    return deleteFolders([distFolder]);
+  }
 );
 
 /**
  * Delete /.tmp folder
  */
-gulp.task('clean:tmp', function () {
+gulp.task(
+  'clean:tmp',
+  function() {
     return deleteFolders([tmpFolder]);
-});
+  }
+);
 
 /**
  * 2. Clone the /src folder into /.tmp. If an npm link inside /src has been made,
@@ -50,15 +53,15 @@ gulp.task('clean:tmp', function () {
  *    when copying to /.tmp.
  */
 gulp.task(
-    'copy:source',
-    function() {
-        return gulp.src(
-            [
-                `${srcFolder}/**/*`,
-                `!${srcFolder}/node_modules`
-            ]
-        ).pipe(gulp.dest(tmpFolder));
-    }
+  'copy:source',
+  function() {
+    return gulp.src(
+      [
+        `${srcFolder}/**/*`,
+        `!${srcFolder}/node_modules`
+      ]
+    ).pipe(gulp.dest(tmpFolder));
+  }
 );
 
 /**
@@ -66,19 +69,27 @@ gulp.task(
  *    We do this on the /.tmp folder to avoid editing the original /src files
  */
 gulp.task(
-    'inline-resources',
-    function() {
-        return Promise.resolve()
-            .then(() => inlineResources(tmpFolder));
-    }
+  'inline-resources',
+  function() {
+    return Promise.resolve().then(
+      () => inlineResources(tmpFolder)
+    );
+  }
 );
 
 gulp.task(
-    'inline-templates',
-    function() {
-        return gulp.src(srcFolder + '/**/*.ts')
-            .pipe(inlineTemplate({ base: 'src/auto-complete' })).pipe(gulp.dest(tmpFolder));
-    }
+  'inline-templates',
+  function() {
+    return gulp.src(srcFolder + '/**/*.ts').pipe(
+      inlineTemplate(
+        {
+          base: 'src/auto-complete'
+        }
+      )
+    ).pipe(
+      gulp.dest(tmpFolder)
+    );
+  }
 );
 
 
@@ -88,15 +99,15 @@ gulp.task(
  *    compiled modules to the /build folder.
  */
 gulp.task(
-    'ngc',
-    function() {
-        return ngc(
-            [
-                '--project',
-                `${tmpFolder}/tsconfig.es5.json`
-            ]
-        );
-    }
+  'ngc',
+  function() {
+    return ngc(
+      [
+        '--project',
+        `${tmpFolder}/tsconfig.es5.json`
+      ]
+    );
+  }
 );
 
 /**
@@ -140,46 +151,46 @@ gulp.task(
 gulp.task(
   'rollup:umd',
   function() {
-    return gulp.src(`${buildFolder}/**/*.js`)
-    // transform the files here.
-      .pipe(
-        rollup(
-          {
-            // Bundle's entry point
-            // See https://github.com/rollup/rollup/wiki/JavaScript-API#entry
-              input: `${buildFolder}/index.js`,
+    return gulp.src(
+        `${buildFolder}/**/*.js`
+    ).pipe(
+      rollup(
+        {
+          // Bundle's entry point
+          // See https://github.com/rollup/rollup/wiki/JavaScript-API#entry
+            input: `${buildFolder}/index.js`,
 
-            // A list of IDs of modules that should remain external to the bundle
-            // See https://github.com/rollup/rollup/wiki/JavaScript-API#external
-            external: [
-              '@angular/core',
-              '@angular/common'
-            ],
+          // A list of IDs of modules that should remain external to the bundle
+          // See https://github.com/rollup/rollup/wiki/JavaScript-API#external
+          external: [
+            '@angular/core',
+            '@angular/common'
+          ],
 
-            // Format of generated bundle
-            // See https://github.com/rollup/rollup/wiki/JavaScript-API#format
-            format: 'umd',
+          // Format of generated bundle
+          // See https://github.com/rollup/rollup/wiki/JavaScript-API#format
+          format: 'umd',
 
-            // Export mode to use
-            // See https://github.com/rollup/rollup/wiki/JavaScript-API#exports
-            exports: 'named',
+          // Export mode to use
+          // See https://github.com/rollup/rollup/wiki/JavaScript-API#exports
+          exports: 'named',
 
-            // The name to use for the module for UMD/IIFE bundles
-            // (required for bundles with exports)
-            // See https://github.com/rollup/rollup/wiki/JavaScript-API#modulename
-            name: 'ionic4-auto-complete',
+          // The name to use for the module for UMD/IIFE bundles
+          // (required for bundles with exports)
+          // See https://github.com/rollup/rollup/wiki/JavaScript-API#modulename
+          name: 'ionic4-auto-complete',
 
-            // See https://github.com/rollup/rollup/wiki/JavaScript-API#globals
-            globals: {
-              typescript: 'ts'
-            }
+          // See https://github.com/rollup/rollup/wiki/JavaScript-API#globals
+          globals: {
+            typescript: 'ts'
           }
-        )
-      ).pipe(
-        rename('ionic4-auto-complete.umd.js')
-      ).pipe(
-          gulp.dest(distFolder)
-      );
+        }
+      )
+    ).pipe(
+      rename('ionic4-auto-complete.umd.js')
+    ).pipe(
+        gulp.dest(distFolder)
+    );
   }
 );
 
@@ -188,81 +199,157 @@ gulp.task(
  *    because with don't need individual modules anymore, just the Flat ES module generated
  *    on step 5.
  */
-gulp.task('copy:build', function () {
-  return gulp.src([`${buildFolder}/**/*`, `!${buildFolder}/**/*.js`])
-    .pipe(gulp.dest(distFolder));
-});
+gulp.task(
+  'copy:build',
+  function() {
+    return gulp.src(
+      [
+        `${buildFolder}/**/*`,
+        `!${buildFolder}/**/*.js`
+      ]
+    ).pipe(
+      gulp.dest(distFolder)
+    );
+  }
+);
 
 /**
  * 8. Copy assets to /dist
  */
-gulp.task('copy:assets', function () {
-  return gulp.src([`${srcFolder}/assets/*`])
-      .pipe(gulp.dest(`${distFolder}/assets/`));
-});
+gulp.task(
+  'copy:assets',
+  function() {
+    return gulp.src(
+      [
+        `${srcFolder}/assets/*`
+      ]
+    ).pipe(
+      gulp.dest(`${distFolder}/assets/`)
+    );
+  }
+);
 
 /**
  * 9. Copy package.json from /src to /dist
  */
-gulp.task('copy:manifest', function () {
-  return gulp.src([`${srcFolder}/package.json`])
-    .pipe(gulp.dest(distFolder));
-});
+gulp.task(
+  'copy:manifest',
+  function() {
+    return gulp.src(
+      [
+        `${srcFolder}/package.json`
+      ]
+    ).pipe(
+      gulp.dest(distFolder)
+    );
+  }
+);
 
 /**
  * 10. Copy README.md from / to /dist
  */
 gulp.task('copy:readme', function () {
-  return gulp.src([path.join(rootFolder, 'README.MD')])
-    .pipe(gulp.dest(distFolder));
+  return gulp.src(
+    [
+      path.join(rootFolder, 'README.MD')
+    ]
+  ).pipe(
+    gulp.dest(distFolder)
+  );
 });
 
 /**
- * 12. Delete /build folder
+ * 11. Delete /build folder
  */
 gulp.task('clean:build', function () {
-  return deleteFolders([buildFolder]);
+  return deleteFolders(
+    [
+       buildFolder
+    ]
+  );
 });
 
-gulp.task('scss', function() {
-    return gulp.src(['src/auto-complete.scss', `dist/auto-complete.scss`])
-        .pipe(gulp.dest(distFolder))
-});
+gulp.task(
+  'scss',
+  function() {
+    return gulp.src(
+      [
+        'src/auto-complete.scss',
+        `dist/auto-complete.scss`
+      ]
+    ).pipe(
+      gulp.dest(distFolder)
+    )
+  }
+);
 
-gulp.task('compile', function () {
-  runSequence(
-    'clean',
-    'copy:source',
-    'inline-resources',
-    'inline-templates',
-    'ngc',
-    'rollup:fesm',
-    'rollup:umd',
-    'copy:build',
-    'copy:assets',
-    'copy:manifest',
-    'copy:readme',
-    'clean',
-    function (err) {
-      if (err) {
-        console.log('ERROR:', err.message);
-        deleteFolders([distFolder, tmpFolder, buildFolder]);
-      } else {
-        console.log('Compilation finished succesfully');
+gulp.task(
+  'compile',
+  function() {
+    runSequence(
+      'clean',
+      'copy:source',
+      'inline-resources',
+      'inline-templates',
+      'ngc',
+      'rollup:fesm',
+      'rollup:umd',
+      'copy:build',
+      'copy:assets',
+      'copy:manifest',
+      'copy:readme',
+      'clean',
+      function(err) {
+        if (err) {
+          console.log('ERROR:', err.message);
+
+          deleteFolders([distFolder, tmpFolder, buildFolder]);
+        } else {
+          console.log('Compilation finished successfully');
+        }
       }
-    });
-});
+    );
+  }
+);
 
 /**
  * Watch for any change in the /src folder and compile files
  */
-gulp.task('watch', function () {
-  gulp.watch(`${srcFolder}/**/*`, ['compile']);
-});
+gulp.task(
+  'watch',
+  function() {
+    gulp.watch(
+      `${srcFolder}/**/*`,
+      [
+          'compile'
+      ]
+    );
+  }
+);
 
-gulp.task('build', ['clean', 'compile', 'scss']);
-gulp.task('build:watch', ['build', 'watch']);
-gulp.task('default', ['build:watch']);
+gulp.task(
+  'build',
+  [
+    'clean',
+    'compile',
+    'scss'
+  ]
+);
+
+gulp.task(
+  'build:watch',
+  [
+    'build',
+    'watch'
+  ]
+);
+
+gulp.task(
+  'default',
+  [
+    'build:watch'
+  ]
+);
 
 /**
  * Deletes the specified folder
