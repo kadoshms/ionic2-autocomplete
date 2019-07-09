@@ -35,8 +35,8 @@ gulp.task(
  */
 gulp.task(
   'clean:build',
-  function() {
-    return deleteFolders(
+  () => {
+    return del(
       [
         buildFolder
       ]
@@ -49,8 +49,8 @@ gulp.task(
  */
 gulp.task(
   'clean:dist',
-  function() {
-    return deleteFolders([distFolder]);
+  () => {
+    return del([distFolder]);
   }
 );
 
@@ -59,8 +59,8 @@ gulp.task(
  */
 gulp.task(
   'clean:tmp',
-  function() {
-    return deleteFolders([tmpFolder]);
+  async function() {
+      return del([tmpFolder]);
   }
 );
 
@@ -159,32 +159,10 @@ gulp.task(
   }
 );
 
-gulp.task(
-  'copy:typescript',
-  function() {
-    return gulp.src(
-      [
-        `${tmpFolder}/**/*.ts`,
-        `!${tmpFolder}/index.ts`
-      ]
-    ).pipe(
-      gulp.dest(`${buildFolder}/`)
-    );
-  }
-);
-
 /**
  * 6. Run rollup inside the /build folder to generate our Flat ES module and our UMD module which is
  *    placed into the /dist folder
  */
-gulp.task(
-  'rollup',
-  [
-    'rollup:fesm',
-    'rollup:umd'
-  ]
-);
-
 gulp.task(
   'rollup:fesm',
   () => {
@@ -238,31 +216,29 @@ gulp.task(
   }
 );
 
+gulp.task(
+  'rollup',
+  gulp.series(
+    'rollup:fesm',
+    'rollup:umd'
+  )
+);
+
 /**
  * 8. Copy all the files from /build to /dist, except .js files. We ignore all .js from /build
  *    because with don't need individual modules anymore, just the Flat ES module generated
  *    on step 5.
  */
 gulp.task(
-  'copy:dist',
-  [
-    'copy:build',
-    'copy:assets',
-    'copy:manifest',
-    'copy:readme'
-  ]
-);
-
-gulp.task(
   'copy:build',
-  function() {
+  () => {
     return gulp.src(
       [
         `${buildFolder}/**/*`,
         `!${buildFolder}/**/*.js`
       ]
     ).pipe(
-      gulp.dest(distFolder)
+      gulp.dest(`${distFolder}/`)
     );
   }
 );
@@ -351,19 +327,18 @@ gulp.task(
         if (err) {
           console.log('ERROR:', err.message);
 
-          deleteFolders(
-            [
-              distFolder,
-              tmpFolder,
-              buildFolder
-            ]
-          );
-        } else {
-          console.log('Compilation finished successfully');
-        }
+        return del(
+          [
+            distFolder,
+            tmpFolder,
+            buildFolder
+          ]
+        );
+      } else {
+        console.log('Compilation finished successfully');
       }
-    );
-  }
+    }
+  )
 );
 
 /**
@@ -404,10 +379,3 @@ gulp.task(
     'build:watch'
   ]
 );
-
-/**
- * Deletes the specified folder
- */
-function deleteFolders(folders) {
-  return del(folders);
-}
