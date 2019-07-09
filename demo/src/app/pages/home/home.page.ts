@@ -8,12 +8,22 @@ import {Component} from '@angular/core';
   ],
 })
 export class HomePage {
-  public segments:string[] = [
-      'simple-function',
-      'simple-service'
+  public segments:any[] = [
+    {
+      key:   'simple-function',
+      label: 'Simple Function'
+    },
+    {
+      key:   'simple-service',
+      label: 'Data Provider'
+    },
+    {
+      key:   'multi-function',
+      label: 'Multi Select'
+    }
   ];
 
-  public selectedSegment:string = this.segments[0];
+  public selectedSegment:string = this.segments[0].key;
 
   constructor() {
 
