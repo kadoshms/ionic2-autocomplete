@@ -28,7 +28,7 @@ gulp.task(
 );
 
 /**
- * 1. Clean Delete /dist folder
+ * Delete /dist folder
  */
 gulp.task(
   'clean:dist',
