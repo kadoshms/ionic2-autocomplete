@@ -5,11 +5,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-## [1.8.0] 
-### Added
-- Pass color options by [jrquick17](https://github.com/jrquick17)
+## [1.8.1] 
 
 ## [Released]
+## [1.8.0] 
+### Added
+- Added color options by [jrquick17](https://github.com/jrquick17)
+- Added multi select to the demo by [jrquick17](https://github.com/jrquick17)
+### Changed
+- Updated dependencies by [jrquick17](https://github.com/jrquick17)
+- Updated to Gulp 4 by [jrquick17](https://github.com/jrquick17)
+
+### Fixed
+- Fixed first selectedItem not getting changed initially by [jrquick17](https://github.com/jrquick17)
+
 ## [1.7.0] - 2019-05-30
 ### Added
 - Add exclude by [jrquick17](https://github.com/jrquick17)
