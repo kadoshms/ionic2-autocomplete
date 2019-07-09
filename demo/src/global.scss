@@ -1,0 +1,31 @@
+// http://ionicframework.com/docs/theming/
+@import '~@ionic/angular/css/normalize.css';
+@import '~@ionic/angular/css/structure.css';
+@import '~@ionic/angular/css/typography.css';
+@import '~@ionic/angular/css/core.css';
+
+@import '~@ionic/angular/css/padding.css';
+@import '~@ionic/angular/css/float-elements.css';
+@import '~@ionic/angular/css/text-alignment.css';
+@import '~@ionic/angular/css/text-transformation.css';
+@import '~@ionic/angular/css/flex-utils.css';
+
+@import '../node_modules/ionic4-auto-complete/auto-complete';
+
+body {
+  background-color: #dedfe0;
+}
+
+ion-button {
+  --border-style: none;
+  --border-width: 0;
+}
+
+ion-auto-complete {
+  width: 100%;
+}
+
+.label {
+  font-size:   13px;
+  margin-left: 16px;
+}

@@ -1,31 +1,36 @@
 ion-auto-complete {
-  overflow    : hidden !important;
-  display: block;
-  width: 90vw;
-  display: inline-block;
+  overflow: hidden !important;
+  width:    90vw;
+  display:  inline-block;
+
   ion-searchbar {
     padding: 1px !important;
   }
 
+  .disabled input.searchbar-input {
+    pointer-events: none;
+    cursor: default;
+  }
+
   ul {
-    position: absolute;
-    width: inherit;
-    margin-top: 0px;
-    background: #FFF;
+    position:        absolute;
+    width:           90vw;
+    margin-top:      0;
+    background:      #FFF;
     list-style-type: none;
-    padding:0px;
-    left: 16px;
-    z-index: 999;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    padding:         0;
+    left:            16px;
+    z-index:         999;
+    box-shadow:      0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 
     li {
-      padding: 15px;
+      padding:       15px;
       border-bottom: 1px solid #c1c1c1;
     }
 
     ion-auto-complete-item {
       height: 40px;
-      width: 100%;
+      width:  100%;
     }
 
     li:last-child {
@@ -33,8 +38,21 @@ ion-auto-complete {
     }
 
     li:hover {
-      cursor: pointer;
+      cursor:     pointer;
       background: #f1f1f1
     }
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .loading input.searchbar-input {
+    background:      white url(/assets/loading.gif) no-repeat right center;
+    background-size: 25px 25px;
+  }
+
+  .selected-items {
+    float: left;
   }
 }

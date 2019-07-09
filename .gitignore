@@ -6,7 +6,7 @@ npm-debug.log
 *.js
 *.map
 *.d.ts
-
+!gulpfile.js
 # JetBrains
 .idea
 .project
@@ -24,3 +24,7 @@ Desktop.ini
 
 dist
 *.sh
+.idea/
+.tmp/
+build/
+package-lock.json

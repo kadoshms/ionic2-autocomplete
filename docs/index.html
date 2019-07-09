@@ -1,0 +1,392 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ionic4-auto-complete</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+	      <link rel="stylesheet" href="./styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="./" class="navbar-brand">ionic4-auto-complete</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search">
+</div>
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content getting-started">
+                   <div class="content-data">
+
+<h1 id="ionic4-auto-complete">ionic4-auto-complete</h1>
+<h2 id="about">About</h2>
+<p>This is a component based on Ionic&#39;s search-bar component, with the addition of auto-complete ability.
+This component is super simple and light-weight. Just provide the data, and let the fun begin.</p>
+<p>This is a <strong>free software</strong> please feel free to contribute! :)</p>
+<p><img src="example.gif" alt="" class="img-responsive"></p>
+<h3 id="installation">Installation</h3>
+<div><pre class="line-numbers"><code class="language-none">TODO: $ npm install ionic4-auto-complete --save</code></pre></div><h4 id="usage-guide">Usage guide</h4>
+<p>Open <code>angular.json</code> and add the following to the assets array:</p>
+<div><pre class="line-numbers"><code class="language-none">{
+  &quot;glob&quot;: &quot;**/*&quot;,
+  &quot;input&quot;: &quot;node_modules/ionic4-auto-complete/assets/&quot;,
+  &quot;output&quot;: &quot;./assets/&quot;
+}</code></pre></div><p>Open <code>app.module.ts</code> and add the following import statement:</p>
+<p><code>import { AutoCompleteModule } from &#39;ionic4-auto-complete&#39;;</code></p>
+<p>Then, add the <code>AutoCompleteModule</code> to the <code>imports</code> array:</p>
+<div><pre class="line-numbers"><code class="language-none">&#64;NgModule({
+  declarations: [
+    MyApp,
+    HomePage,
+    TabsPage,
+    MyItem
+  ],
+  imports: [
+    BrowserModule,
+    AutoCompleteModule,
+    FormsModule,
+    HttpModule,
+    IonicModule.forRoot(MyApp)
+  ],
+  ...
+  ...
+})
+export class AppModule {}</code></pre></div><p>Now let&#39;s import the styling file. Open <code>app.scss</code> and add the following:</p>
+<p><code>@import &quot;../../node_modules/ionic4-auto-complete/auto-complete&quot;;</code></p>
+<p>Now, let&#39;s add the component to our app!</p>
+<p>Add the following tag to one of your pages, in this example I am using the Homepage:</p>
+<p><code>&lt;ion-auto-complete&gt;&lt;/ion-auto-complete&gt;</code></p>
+<p>Now let&#39;s see what wev&#39;e done so far by running <code>ionic serve</code>.</p>
+<p>Now, when everything is up and running you should see a nice search-bar component. Open the <strong>developer console</strong> and try to type something.</p>
+<p>Oh no! something is wrong. You probably see an excpetion similiar to :</p>
+<p><code>EXCEPTION: Error in ./AutoCompleteComponent class AutoCompleteComponent - inline template:1:21</code></p>
+<p>This is totally cool, for now. The exception shows up since we did not provide a <strong>dataProvider</strong> to the autocomplete component.</p>
+<p><strong>How does it work?</strong> So, ionic4-auto-complete is not responsible for getting the data from the server. As a developer, you should implement your own service which eventually be responsible to get the data for the component to work, as well we determing how many results to show and/or their order of display.</p>
+<p>So there are two possibilities to provide data:</p>
+<ol>
+<li>A simple function that returns an Array of items</li>
+<li>An instance of &#39;AutocompleteService&#39; (specified below)</li>
+</ol>
+<p>Let&#39;s start by creating the service:</p>
+<div><pre class="line-numbers"><code class="language-none">import {AutoCompleteService} from &#39;ionic4-auto-complete&#39;;
+import { Http } from &#39;&#64;angular/http&#39;;
+import {Injectable} from &quot;&#64;angular/core&quot;;
+import &#39;rxjs/add/operator/map&#39;
+
+&#64;Injectable()
+export class CompleteTestService implements AutoCompleteService {
+  labelAttribute = &quot;name&quot;;
+
+  constructor(private http:Http) {
+
+  }
+  getResults(keyword:string) {
+    return this.http.get(&quot;https://restcountries.eu/rest/v1/name/&quot;+keyword)
+      .map(
+        result =&gt;
+        {
+          return result.json()
+            .filter(item =&gt; item.name.toLowerCase().startsWith(keyword.toLowerCase()) )
+        });
+  }
+}
+
+</code></pre></div><p>By implementing an AutoCompleteService interface, you must implement two properties:</p>
+<ol>
+<li><strong>labelAttribute</strong> [string] - which is the name of the object&#39;s descriptive property (leaving it null is also an option for non-object results)</li>
+<li><strong>getResults(keyword)</strong> [() =&gt; any] - which is the method responsible for getting the data from server.</li>
+</ol>
+<p>The <strong>getResults</strong> method can return one of:</p>
+<ul>
+<li>an Observable that produces an array</li>
+<li>a Subject (like an Observable)</li>
+<li>a Promise that provides an array</li>
+<li>directly an array of values</li>
+</ul>
+<p>In the above example, we fetch countries data from the amazing <a href="https://restcountries.eu/">https://restcountries.eu/</a> project, and we filter the results accordingly.</p>
+<p><strong>Important!</strong> the above example is just an example! the best practice would be to let the server to the filtering for us! Here, since I used the countries-api, that&#39;s the best I could do.</p>
+<p>Now, we need to let ionic4-auto-complete that we want to use CompleteTestService as the data provider, edit <em>home.ts</em> and add <code>private completeTestService: CompleteTestService</code> to the constructor argument list.
+Should look like that:</p>
+<div><pre class="line-numbers"><code class="language-none">import { Component } from &#39;&#64;angular/core&#39;;
+import { NavController } from &#39;ionic-angular&#39;;
+import { CompleteTestService } from &#39;../../providers/CompleteTestService&#39;;
+
+&#64;Component({
+  selector: &#39;page-home&#39;,
+  templateUrl: &#39;home.html&#39;
+})
+export class HomePage {
+
+  constructor(public navCtrl: NavController, public completeTestService: CompleteTestService) {
+
+  }
+
+}
+</code></pre></div><p>Than, in <em>home.html</em> modify <code>&lt;ion-auto-complete&gt;</code>:</p>
+<div><pre class="line-numbers"><code class="language-none">&lt;ion-auto-complete [dataProvider]=&quot;completeTestService&quot;&gt;&lt;/ion-auto-complete&gt;</code></pre></div><p>Now, everything should be up and ready :)</p>
+<hr>
+<h3 id="use-auto-complete-in-angular-formgroup">Use auto-complete in Angular FormGroup</h3>
+<h4 id="use-labelattribute-as-both-label-and-form-value-default-behavior-">Use labelAttribute as both label and form value (default behavior)</h4>
+<p>By default, if your <strong>dataProvider</strong> provides an array of objects, the <code>labelAttribute</code> property is used to take the good field of each object to display in the suggestion list. For backward compatibility, if nothing is specified, this attribute is also used to grab the value used in the form.</p>
+<p>The page should look like this:</p>
+<div><pre class="line-numbers"><code class="language-none">import { Component } from &#39;&#64;angular/core&#39;;
+import { NavController } from &#39;ionic-angular&#39;;
+import { CompleteTestService } from &#39;../../providers/CompleteTestService&#39;;
+import { FormGroup, Validators, FormControl } from &#39;&#64;angular/forms&#39;
+
+
+&#64;Component({
+  selector: &#39;page-home&#39;,
+  templateUrl: &#39;home.html&#39;
+})
+export class HomePage {
+  myForm: FormGroup
+
+  constructor(public navCtrl: NavController, public completeTestService: CompleteTestService) {
+  }
+
+  ngOnInit(): void {
+    this.myForm = new FormGroup({
+      country: new FormControl(&#39;&#39;, [
+        Validators.required
+      ])
+    })
+  }
+
+  submit(): void {
+    let country = this.myForm.value.country
+  }
+
+}</code></pre></div><p>Then, in <em>home.html</em> place the auto-complete component in the form group and add the <code>formControlName</code> attribute:</p>
+<div><pre class="line-numbers"><code class="language-none">&lt;form [formGroup]=&quot;myForm&quot; (ngSubmit)=&quot;submit()&quot; novalidate&gt;
+  &lt;div class=&quot;ion-form-group&quot;&gt;
+    &lt;ion-auto-complete [dataProvider]=&quot;completeTestService&quot; formControlName=&quot;country&quot;&gt;&lt;/ion-auto-complete&gt;
+  &lt;/div&gt;
+  &lt;button ion-button type=&quot;submit&quot; block&gt;Add country&lt;/button&gt;
+&lt;/form&gt;</code></pre></div><p>Now when the <code>submit</code> method is called, the <code>country</code> is the selected country <strong>name</strong>.</p>
+<h4 id="how-to-use-another-field-as-form-value-">How to use another field as form value ?</h4>
+<p>To indicate that you don&#39;t want the label as value but another field of the country object returned by the REST service, you can specify the attribute <strong>formValueAttribute</strong> on your dataProvider. For example, we want to use the country numeric code as value and still use the country name as label.</p>
+<p>Let&#39;s update the service (just declare <code>formValueAttribute</code> property):</p>
+<div><pre class="line-numbers"><code class="language-none">import {AutoCompleteService} from &#39;ionic4-auto-complete&#39;;
+import { Http } from &#39;&#64;angular/http&#39;;
+import {Injectable} from &quot;&#64;angular/core&quot;;
+import &#39;rxjs/add/operator/map&#39;
+
+&#64;Injectable()
+export class CompleteTestService implements AutoCompleteService {
+  labelAttribute = &quot;name&quot;;
+  formValueAttribute = &quot;numericCode&quot;
+
+  constructor(private http:Http) {
+  }
+
+  getResults(keyword:string) {
+    return this.http.get(&quot;https://restcountries.eu/rest/v1/name/&quot;+keyword)
+      .map(
+        result =&gt;
+        {
+          return result.json()
+            .filter(item =&gt; item.name.toLowerCase().startsWith(keyword.toLowerCase()) )
+        });
+  }
+}</code></pre></div><p>Now when the <code>submit</code> method is called, the <code>country</code> is the selected country <strong>numericCode</strong>. The name is still used as the label.</p>
+<h4 id="how-to-use-the-whole-object-as-form-value-">How to use the whole object as form value ?</h4>
+<p>Simply set <code>formValueAttribute</code> to empty string:</p>
+<div><pre class="line-numbers"><code class="language-none">import {AutoCompleteService} from &#39;ionic4-auto-complete&#39;;
+import { Http } from &#39;&#64;angular/http&#39;;
+import {Injectable} from &quot;&#64;angular/core&quot;;
+import &#39;rxjs/add/operator/map&#39;
+
+&#64;Injectable()
+export class CompleteTestService implements AutoCompleteService {
+  labelAttribute = &quot;name&quot;;
+  formValueAttribute = &quot;&quot;
+
+  constructor(private http:Http) {
+  }
+
+  getResults(keyword:string) {
+    return this.http.get(&quot;https://restcountries.eu/rest/v1/name/&quot;+keyword)
+      .map(
+        result =&gt;
+        {
+          return result.json()
+            .filter(item =&gt; item.name.toLowerCase().startsWith(keyword.toLowerCase()) )
+        });
+  }
+}</code></pre></div><hr>
+<h3 id="styling">Styling</h3>
+<p>Currently for best visual result, use viewport size / fixed size (pixels) if you are interested in resizing the component:</p>
+<div><pre class="line-numbers"><code class="language-none">ion-auto-complete {
+  width: 50vw;
+}</code></pre></div><!--
+### How to concatenate several fields as label ? ###
+
+
+The auto-complete component allows you to use templates for customize the display of each suggestion. But in many cases, the default template is good. However, you need to concatenate several fields (like firstname and lastname) to produce a full label. In that case, you can declare a method named `getItemLabel` instead of using `labelAttribute`.
+
+For example, we want to display the country name and the population:
+```
+import {AutoCompleteService} from 'ionic4-auto-complete';
+import { Http } from '@angular/http';
+import {Injectable} from "@angular/core";
+import 'rxjs/add/operator/map'
+
+@Injectable()
+export class CompleteTestService implements AutoCompleteService {
+  formValueAttribute = ""
+
+  constructor(private http:Http) {
+  }
+
+  getResults(keyword:string) {
+    return this.http.get("https://restcountries.eu/rest/v1/name/"+keyword)
+      .map(
+        result =>
+        {
+          return result.json()
+            .filter(item => item.name.toLowerCase().startsWith(keyword.toLowerCase()) )
+        });
+  }
+
+  getItemLabel(country: any) {
+    return country.name + ' (' + country.population + ')'
+  }
+}
+```
+-->
+
+
+<h3 id="custom-templates">Custom Templates</h3>
+<p>Ionic4-auto-complete also supports custom templates for the list items.
+Actually, you can display any attribute associated with your data items by simply accessing it from the <code>data</code> input class member in the template.</p>
+<p>For example:</p>
+<p>Let&#39;s assume that in addition to the country name, we also wish to display the country flag.
+For that, we use the <code>ng-template</code> directive, which let&#39;s us pass the template as an input to the component.</p>
+<p>On the page where your <code>ion-auto-complete</code> is located:</p>
+<div><pre class="line-numbers"><code class="language-none">&lt;ng-template #withFlags let-attrs=&quot;attrs&quot;&gt;
+  &lt;img src=&quot;assets/image/flags/{{attrs.data.name}}.png&quot; class=&quot;flag&quot; /&gt; &lt;span [innerHTML]=&quot;attrs.data.name | boldprefix:attrs.keyword&quot;&gt;&lt;/span&gt;
+&lt;/ng-template&gt;
+&lt;ion-auto-complete [dataProvider]=&quot;service&quot; [template]=&quot;withFlags&quot;&gt;&lt;/ion-auto-complete&gt;</code></pre></div><p>Please note that you must add the <code>let-attrs=&quot;attrs&quot;</code> attribute to your template.</p>
+<p>With that, you can easily of <strong>different templates for different components</strong>!</p>
+<h2 id="events">Events</h2>
+<p><strong>itemChanged($event)</strong> - fired when the selection changes (clicked)<br><strong>itemRemoved($event)</strong> - fired when item is removed (clicked)<br><strong>itemSelected($event)</strong> - fired when item is selected from suggestions (clicked)<br><strong>itemsShown($event)</strong> - fired when items are shown<br><strong>itemsHidden($event)</strong> - fired when items are hidden<br><strong>ionAutoInput($event)</strong> - fired when user inputs<br><strong>autoFocus($event)</strong> - fired when the input is focused<br><strong>autoBlur($event)</strong> - fired when the input is blured  </p>
+<h2 id="searchbar-options">Searchbar options</h2>
+<p>Ionic4-auto-complete supports the regular Ionic&#39;s Searchbar options, which are set to their default values as specified in the <a href="https://beta.ionicframework.com/docs/api/searchbar/">docs</a>.</p>
+<p>You can override these default values by adding the <code>[options]</code> attribute to the <code>&lt;ion-auto-complete&gt;</code> tag, for instance:</p>
+<div><pre class="line-numbers"><code class="language-none">  &lt;ion-auto-complete [dataProvider]=&quot;someProvider&quot; [options]=&quot;{ placeholder : &#39;Lorem Ipsum&#39; }&quot;&gt;&lt;/ion-auto-complete&gt;</code></pre></div><p>Options include, but not limited to:</p>
+<ol>
+<li>debounce (default is <code>250</code>)</li>
+<li>autocomplete (&quot;on&quot; and &quot;off&quot;)</li>
+<li>type (&quot;text&quot;, &quot;password&quot;, &quot;email&quot;, &quot;number&quot;, &quot;search&quot;, &quot;tel&quot;, &quot;url&quot;. Default &quot;search&quot;.)</li>
+<li>placeholder (default &quot;Search&quot;)</li>
+</ol>
+<h2 id="component-specific-options">Component specific options</h2>
+<p>In addition to the searchbar options, ion-auto-complete also supports the following option attributes:</p>
+<ul>
+<li><strong>[template]</strong> (TemplateRef) - custom template reference for your auto complete items (see below)</li>
+<li><strong>[showResultsFirst]</strong> (Boolean) - for small lists it might be nicer to show all options on first tap (you might need to modify your service to handle an empty <code>keyword</code>)</li>
+<li><strong>[alwaysShowList]</strong> (Boolean) - always show the list - defaults to false)</li>
+<li><strong>[hideListOnSelection]</strong> (Boolean) - if allowing multiple selections, it might be nice not to dismiss the list after each selection - defaults to true)</li>
+</ul>
+<p>Will set the Searchbar&#39;s placeholder to <em>Lorem Ipsum</em></p>
+<h2 id="accessing-searchbar-component">Accessing Searchbar component</h2>
+<p>By using the <code>@ViewChild()</code> decorator, and the built-in <code>getValue()</code> method we can easily access the actual value in the searchbar component.
+Just define a new property within the desired page, for instance (the chosen names are arbitrary):</p>
+<div><pre class="line-numbers"><code class="language-none">  &#64;ViewChild(&#39;searchbar&#39;)
+  searchbar: AutoCompleteComponent;</code></pre></div><p>And then, in the component tag we need to add <code>#searchbar</code>:</p>
+<div><pre class="line-numbers"><code class="language-none">&lt;ion-auto-complete [dataProvider]=&quot;provider&quot; #searchbar&gt;&lt;/ion-auto-complete&gt;</code></pre></div><p>Available methods:</p>
+<ol>
+<li>getValue(): <code>this.searchbar.getValue()</code> - get the string value of the selected item</li>
+<li>getSelection(): <code>this.searchbar.getSelection()</code> - get the selected object</li>
+<li>setFocus(): <code>this.searchbar.setFocus()</code> - focus on searchbar</li>
+</ol>
+<h2 id="contributing">Contributing</h2>
+<p>To contribute, clone the repo. Then, run <code>npm install</code> to get the packages needed for the library to work. Running <code>gulp</code> will run a series of tasks that builds the files in <code>/src</code> into <code>/dist</code>. Replace the <code>/dist</code> into whatever Ionic application&#39;s <code>node_modules</code> where you&#39;re testing your changes to continuously improve the library.</p>
+<h3 id="versioning">Versioning</h3>
+<p>Follows <a href="https://semver.org/">Semantic Versioning (2.0.0)</a></p>
+<h3 id="npm-release">NPM Release</h3>
+<p>Run <code>npm publish</code> from dist/ directory.</p>
+<h3 id="thanks">Thanks</h3>
+<p><a href="https://github.com/kadoshms">kadoshms</a>
+<a href="https://github.com/bushybuffalo">bushybuffalo</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 0;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'getting-started';
+            var COMPODOC_CURRENT_PAGE_URL = 'index.html';
+       </script>
+
+       <script src="./js/libs/custom-elements.min.js"></script>
+       <script src="./js/libs/lit-html.js"></script>
+       <script src="./js/menu-wc.js"></script>
+
+       <script src="./js/libs/bootstrap-native.js"></script>
+
+       <script src="./js/libs/es6-shim.min.js"></script>
+       <script src="./js/libs/EventDispatcher.js"></script>
+       <script src="./js/libs/promise.min.js"></script>
+       <script src="./js/libs/zepto.min.js"></script>
+
+       <script src="./js/compodoc.js"></script>
+
+       <script src="./js/tabs.js"></script>
+       <script src="./js/menu.js"></script>
+       <script src="./js/libs/clipboard.min.js"></script>
+       <script src="./js/libs/prism.js"></script>
+       <script src="./js/sourceCode.js"></script>
+          <script src="./js/search/search.js"></script>
+          <script src="./js/search/lunr.min.js"></script>
+          <script src="./js/search/search-lunr.js"></script>
+          <script src="./js/search/search_index.js"></script>
+       <script src="./js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,25 +1,22 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
-    "noImplicitAny": true,
-    "module": "commonjs",
-    "target": "ES6",
+    "baseUrl": "./src",
+    "sourceMap": true,
+    "declaration": false,
+    "module": "es2015",
+    "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "allowUnusedLabels": false,
-    "noImplicitReturns": true,
-    "sourceMap": true,
-    "declaration": true,
-    "outDir": "./dist",
+    "target": "es5",
+    "lib": [
+      "es2015",
+      "dom"
+    ],
     "typeRoots": [
       "node_modules/@types"
-    ]
-  },
-  "exclude": [
-    "node_modules",
-    "dist",
-    "**/*.spec.ts"
-  ],
-  "angularCompilerOptions": {
-    "strictMetadataEmit": true
+    ],
+    "skipLibCheck": true,
+    "types": []
   }
 }

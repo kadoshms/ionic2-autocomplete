@@ -1,0 +1,3887 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>ionic4-auto-complete</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">ionic4-auto-complete</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search">
+</div>
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>AutoCompleteComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/auto-complete/auto-complete.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code><a href="https://angular.io/api/forms/ControlValueAccessor" target="_blank" >ControlValueAccessor</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">providers</td>
+                <td class="col-md-9">
+                            <code><a href="../components/AutoCompleteComponent.html" target="_self" >{
+    provide: NG_VALUE_ACCESSOR, useExisting: AutoCompleteComponent, multi: true
+}</a></code>
+                </td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_showList">_showList</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#defaultOpts">defaultOpts</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#formValue">formValue</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#inputElem">inputElem</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#isLoading">isLoading</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#onChangeCallback">onChangeCallback</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#onTouchedCallback">onTouchedCallback</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#promise">promise</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#searchbarElem">searchbarElem</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#selected">selected</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#selection">selection</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#showListChanged">showListChanged</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#suggestions">suggestions</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_getFormValue">_getFormValue</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_getPosition">_getPosition</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#clearValue">clearValue</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getItems">getItems</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getLabel">getLabel</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getSelection">getSelection</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getStyle">getStyle</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getValue">getValue</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#handleSelectTap">handleSelectTap</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#handleTap">handleTap</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#hideItemList">hideItemList</a>
+                            </li>
+                            <li>
+                                <a href="#ngAfterViewChecked">ngAfterViewChecked</a>
+                            </li>
+                            <li>
+                                <a href="#onBlur">onBlur</a>
+                            </li>
+                            <li>
+                                <a href="#onFocus">onFocus</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#registerOnChange">registerOnChange</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#registerOnTouched">registerOnTouched</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#removeDuplicates">removeDuplicates</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#removeItem">removeItem</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#selectItem">selectItem</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#setFocus">setFocus</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#setSuggestions">setSuggestions</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#setValue">setValue</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#showItemList">showItemList</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#updateModel">updateModel</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#writeValue">writeValue</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#alwaysShowList">alwaysShowList</a>
+                            </li>
+                            <li>
+                                <a href="#dataProvider">dataProvider</a>
+                            </li>
+                            <li>
+                                <a href="#disabled">disabled</a>
+                            </li>
+                            <li>
+                                <a href="#hideListOnSelection">hideListOnSelection</a>
+                            </li>
+                            <li>
+                                <a href="#keyword">keyword</a>
+                            </li>
+                            <li>
+                                <a href="#location">location</a>
+                            </li>
+                            <li>
+                                <a href="#model">model</a>
+                            </li>
+                            <li>
+                                <a href="#multi">multi</a>
+                            </li>
+                            <li>
+                                <a href="#options">options</a>
+                            </li>
+                            <li>
+                                <a href="#removeButtonClasses">removeButtonClasses</a>
+                            </li>
+                            <li>
+                                <a href="#removeButtonColor">removeButtonColor</a>
+                            </li>
+                            <li>
+                                <a href="#removeButtonIcon">removeButtonIcon</a>
+                            </li>
+                            <li>
+                                <a href="#removeButtonSlot">removeButtonSlot</a>
+                            </li>
+                            <li>
+                                <a href="#removeDuplicateSuggestions">removeDuplicateSuggestions</a>
+                            </li>
+                            <li>
+                                <a href="#showResultsFirst">showResultsFirst</a>
+                            </li>
+                            <li>
+                                <a href="#template">template</a>
+                            </li>
+                            <li>
+                                <a href="#useIonInput">useIonInput</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#autoBlur">autoBlur</a>
+                            </li>
+                            <li>
+                                <a href="#autoFocus">autoFocus</a>
+                            </li>
+                            <li>
+                                <a href="#ionAutoInput">ionAutoInput</a>
+                            </li>
+                            <li>
+                                <a href="#itemRemoved">itemRemoved</a>
+                            </li>
+                            <li>
+                                <a href="#itemsChange">itemsChange</a>
+                            </li>
+                            <li>
+                                <a href="#itemSelected">itemSelected</a>
+                            </li>
+                            <li>
+                                <a href="#itemsHidden">itemsHidden</a>
+                            </li>
+                            <li>
+                                <a href="#itemsShown">itemsShown</a>
+                            </li>
+                            <li>
+                                <a href="#modelChanged">modelChanged</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>HostListeners</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#document:click">document:click</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#model">model</a>
+                                </li>
+                                <li>
+                                    <a href="#showList">showList</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                                <span class="modifier">Public</span>
+                        <code>constructor(platform: Platform)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="116" class="link-to-prism">src/auto-complete/auto-complete.component.ts:116</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Create a new instance</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>platform</td>
+                                                  
+                                                        <td>
+                                                                    <code>Platform</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="alwaysShowList"></a>
+                        <code>alwaysShowList</code>
+                    </td>
+                    <td class="col-md-10">
+                            <p>
+                            <em>Type :</em>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                            </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/auto-complete/auto-complete.component.ts:25</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="dataProvider"></a>
+                        <code>dataProvider</code>
+                    </td>
+                    <td class="col-md-10">
+                            <p>
+                            <em>Type :</em>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                            </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/auto-complete/auto-complete.component.ts:26</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="disabled"></a>
+                        <code>disabled</code>
+                    </td>
+                    <td class="col-md-10">
+                            <p>
+                            <em>Type :</em>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                            </p>
+                        <p>
+                            <em>Default value : </em><code>false</code>
+                        </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/auto-complete/auto-complete.component.ts:40</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="hideListOnSelection"></a>
+                        <code>hideListOnSelection</code>
+                    </td>
+                    <td class="col-md-10">
+                            <p>
+                            <em>Type :</em>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                            </p>
+                        <p>
+                            <em>Default value : </em><code>true</code>
+                        </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/auto-complete/auto-complete.component.ts:27</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="keyword"></a>
+                        <code>keyword</code>
+                    </td>
+                    <td class="col-md-10">
+                            <p>
+                            <em>Type :</em>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                            </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/auto-complete/auto-complete.component.ts:28</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="location"></a>
+                        <code>location</code>
+                    </td>
+                    <td class="col-md-10">
+                            <p>
+                            <em>Type :</em>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                            </p>
+                        <p>
+                            <em>Default value : </em><code>&#x27;auto&#x27;</code>
+                        </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/auto-complete/auto-complete.component.ts:29</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="model"></a>
+                        <code>model</code>
+                    </td>
+                    <td class="col-md-10">
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/auto-complete/auto-complete.component.ts:43</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="multi"></a>
+                        <code>multi</code>
+                    </td>
+                    <td class="col-md-10">
+                            <p>
+                            <em>Type :</em>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                            </p>
+                        <p>
+                            <em>Default value : </em><code>false</code>
+                        </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/auto-complete/auto-complete.component.ts:30</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="options"></a>
+                        <code>options</code>
+                    </td>
+                    <td class="col-md-10">
+                            <p>
+                            <em>Type :</em>    <code><a href="../classes/AutoCompleteOptions.html" target="_self" >AutoCompleteOptions</a></code>
+
+                            </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/auto-complete/auto-complete.component.ts:31</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="removeButtonClasses"></a>
+                        <code>removeButtonClasses</code>
+                    </td>
+                    <td class="col-md-10">
+                            <p>
+                            <em>Type :</em>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                            </p>
+                        <p>
+                            <em>Default value : </em><code>&#x27;&#x27;</code>
+                        </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/auto-complete/auto-complete.component.ts:32</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="removeButtonColor"></a>
+                        <code>removeButtonColor</code>
+                    </td>
+                    <td class="col-md-10">
+                            <p>
+                            <em>Type :</em>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                            </p>
+                        <p>
+                            <em>Default value : </em><code>&#x27;primary&#x27;</code>
+                        </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/auto-complete/auto-complete.component.ts:33</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="removeButtonIcon"></a>
+                        <code>removeButtonIcon</code>
+                    </td>
+                    <td class="col-md-10">
+                            <p>
+                            <em>Type :</em>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                            </p>
+                        <p>
+                            <em>Default value : </em><code>&#x27;close&#x27;</code>
+                        </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/auto-complete/auto-complete.component.ts:34</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="removeButtonSlot"></a>
+                        <code>removeButtonSlot</code>
+                    </td>
+                    <td class="col-md-10">
+                            <p>
+                            <em>Type :</em>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                            </p>
+                        <p>
+                            <em>Default value : </em><code>&#x27;end&#x27;</code>
+                        </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/auto-complete/auto-complete.component.ts:35</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="removeDuplicateSuggestions"></a>
+                        <code>removeDuplicateSuggestions</code>
+                    </td>
+                    <td class="col-md-10">
+                            <p>
+                            <em>Type :</em>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                            </p>
+                        <p>
+                            <em>Default value : </em><code>true</code>
+                        </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/auto-complete/auto-complete.component.ts:36</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="showResultsFirst"></a>
+                        <code>showResultsFirst</code>
+                    </td>
+                    <td class="col-md-10">
+                            <p>
+                            <em>Type :</em>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                            </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/auto-complete/auto-complete.component.ts:37</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="template"></a>
+                        <code>template</code>
+                    </td>
+                    <td class="col-md-10">
+                            <p>
+                            <em>Type :</em>    <code>TemplateRef&lt;any&gt;</code>
+
+                            </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/auto-complete/auto-complete.component.ts:38</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="useIonInput"></a>
+                        <code>useIonInput</code>
+                    </td>
+                    <td class="col-md-10">
+                            <p>
+                            <em>Type :</em>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                            </p>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/auto-complete/auto-complete.component.ts:39</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+    <section>
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="autoBlur"></a>
+                        <code>autoBlur</code>
+                    </td>
+                    <td class="col-md-10">
+                        <em><code>$event</code> Type:</em>    <code>EventEmitter&lt;any&gt;</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">src/auto-complete/auto-complete.component.ts:64</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="autoFocus"></a>
+                        <code>autoFocus</code>
+                    </td>
+                    <td class="col-md-10">
+                        <em><code>$event</code> Type:</em>    <code>EventEmitter&lt;any&gt;</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/auto-complete/auto-complete.component.ts:63</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="ionAutoInput"></a>
+                        <code>ionAutoInput</code>
+                    </td>
+                    <td class="col-md-10">
+                        <em><code>$event</code> Type:</em>    <code>EventEmitter&lt;string&gt;</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">src/auto-complete/auto-complete.component.ts:65</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="itemRemoved"></a>
+                        <code>itemRemoved</code>
+                    </td>
+                    <td class="col-md-10">
+                        <em><code>$event</code> Type:</em>    <code>EventEmitter&lt;any&gt;</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/auto-complete/auto-complete.component.ts:68</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="itemsChange"></a>
+                        <code>itemsChange</code>
+                    </td>
+                    <td class="col-md-10">
+                        <em><code>$event</code> Type:</em>    <code>EventEmitter&lt;any&gt;</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">src/auto-complete/auto-complete.component.ts:66</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="itemSelected"></a>
+                        <code>itemSelected</code>
+                    </td>
+                    <td class="col-md-10">
+                        <em><code>$event</code> Type:</em>    <code>EventEmitter&lt;any&gt;</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="69" class="link-to-prism">src/auto-complete/auto-complete.component.ts:69</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="itemsHidden"></a>
+                        <code>itemsHidden</code>
+                    </td>
+                    <td class="col-md-10">
+                        <em><code>$event</code> Type:</em>    <code>EventEmitter&lt;any&gt;</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">src/auto-complete/auto-complete.component.ts:67</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="itemsShown"></a>
+                        <code>itemsShown</code>
+                    </td>
+                    <td class="col-md-10">
+                        <em><code>$event</code> Type:</em>    <code>EventEmitter&lt;any&gt;</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">src/auto-complete/auto-complete.component.ts:70</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-2">
+                        <a name="modelChanged"></a>
+                        <code>modelChanged</code>
+                    </td>
+                    <td class="col-md-10">
+                        <em><code>$event</code> Type:</em>    <code>EventEmitter&lt;any&gt;</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">src/auto-complete/auto-complete.component.ts:62</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3>HostListeners</h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="document:click"></a>
+                        <span class="name">
+                            <b>
+                            document:click
+                            </b>
+                            <a href="#document:click"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Arguments : </i><code>'$event' </code>
+                        </td>
+                    </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>document:click(event: <a href="https://angular.io/api/router/Event" target="_blank">Event</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="165" class="link-to-prism">src/auto-complete/auto-complete.component.ts:165</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Handle document click</p>
+</div>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    
+        <h3 id="methods">
+            Methods
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="_getFormValue"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            _getFormValue
+                            </b>
+                            <a href="#_getFormValue"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>_getFormValue(selection: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="182" class="link-to-prism">src/auto-complete/auto-complete.component.ts:182</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Get value from form</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>selection</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="_getPosition"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            _getPosition
+                            </b>
+                            <a href="#_getPosition"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>_getPosition(el: )</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="200" class="link-to-prism">src/auto-complete/auto-complete.component.ts:200</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Get element&#39;s position on screen</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>el</td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="clearValue"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            clearValue
+                            </b>
+                            <a href="#clearValue"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>clearValue(hideItemList: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="229" class="link-to-prism">src/auto-complete/auto-complete.component.ts:229</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Clear current input value</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Default value</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>hideItemList</td>
+                                                        <td>
+                                                                    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <code>false</code>
+                                                        </td>
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="getItems"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            getItems
+                            </b>
+                            <a href="#getItems"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>getItems(event?: )</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="246" class="link-to-prism">src/auto-complete/auto-complete.component.ts:246</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Get items for auto-complete</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>event</td>
+                                                    
+                                                    <td>
+                                                            Yes
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="getLabel"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            getLabel
+                            </b>
+                            <a href="#getLabel"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>getLabel(selection: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="309" class="link-to-prism">src/auto-complete/auto-complete.component.ts:309</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Get an item&#39;s label</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>selection</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="getSelection"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            getSelection
+                            </b>
+                            <a href="#getSelection"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>getSelection()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="327" class="link-to-prism">src/auto-complete/auto-complete.component.ts:327</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Get current selection</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code>any | []</code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="getStyle"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            getStyle
+                            </b>
+                            <a href="#getStyle"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>getStyle()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="338" class="link-to-prism">src/auto-complete/auto-complete.component.ts:338</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Get menu style</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="getValue"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            getValue
+                            </b>
+                            <a href="#getValue"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>getValue()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="366" class="link-to-prism">src/auto-complete/auto-complete.component.ts:366</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Get current input value</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="handleSelectTap"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            handleSelectTap
+                            </b>
+                            <a href="#handleSelectTap"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>handleSelectTap($event: , suggestion: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="387" class="link-to-prism">src/auto-complete/auto-complete.component.ts:387</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Handle tap when selecting an item</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>$event</td>
+                                                        <td>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                                <tr>
+                                                        <td>suggestion</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="handleTap"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            handleTap
+                            </b>
+                            <a href="#handleTap"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>handleTap(event: )</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="375" class="link-to-prism">src/auto-complete/auto-complete.component.ts:375</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Handle tap</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>event</td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="hideItemList"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            hideItemList
+                            </b>
+                            <a href="#hideItemList"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>hideItemList()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="407" class="link-to-prism">src/auto-complete/auto-complete.component.ts:407</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Hide item list</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ngAfterViewChecked"></a>
+                        <span class="name">
+                            <b>
+                            ngAfterViewChecked
+                            </b>
+                            <a href="#ngAfterViewChecked"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>ngAfterViewChecked()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="150" class="link-to-prism">src/auto-complete/auto-complete.component.ts:150</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="onBlur"></a>
+                        <span class="name">
+                            <b>
+                            onBlur
+                            </b>
+                            <a href="#onBlur"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>onBlur()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="423" class="link-to-prism">src/auto-complete/auto-complete.component.ts:423</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Fired when the input focused</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="onFocus"></a>
+                        <span class="name">
+                            <b>
+                            onFocus
+                            </b>
+                            <a href="#onFocus"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+<code>onFocus()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="414" class="link-to-prism">src/auto-complete/auto-complete.component.ts:414</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Fired when the input focused</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="registerOnChange"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            registerOnChange
+                            </b>
+                            <a href="#registerOnChange"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>registerOnChange(fn: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="432" class="link-to-prism">src/auto-complete/auto-complete.component.ts:432</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Register onChangeCallback</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>fn</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="registerOnTouched"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            registerOnTouched
+                            </b>
+                            <a href="#registerOnTouched"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>registerOnTouched(fn: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="441" class="link-to-prism">src/auto-complete/auto-complete.component.ts:441</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Register onTouchedCallback</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>fn</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="removeDuplicates"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            removeDuplicates
+                            </b>
+                            <a href="#removeDuplicates"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>removeDuplicates(suggestions: any[])</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="450" class="link-to-prism">src/auto-complete/auto-complete.component.ts:450</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Remove already selected suggestions</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>suggestions</td>
+                                                        <td>
+                                                                    <code>any[]</code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code>any[]</code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="removeItem"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            removeItem
+                            </b>
+                            <a href="#removeItem"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>removeItem(selection: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="478" class="link-to-prism">src/auto-complete/auto-complete.component.ts:478</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Remove item from selected</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>selection</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="selectItem"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            selectItem
+                            </b>
+                            <a href="#selectItem"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>selectItem(selection: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="500" class="link-to-prism">src/auto-complete/auto-complete.component.ts:500</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Select item from list</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>selection</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="setFocus"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            setFocus
+                            </b>
+                            <a href="#setFocus"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>setFocus()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="529" class="link-to-prism">src/auto-complete/auto-complete.component.ts:529</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Set focus of searchbar</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="setSuggestions"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            setSuggestions
+                            </b>
+                            <a href="#setSuggestions"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>setSuggestions(suggestions: )</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="540" class="link-to-prism">src/auto-complete/auto-complete.component.ts:540</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Set suggestions</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>suggestions</td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="setValue"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            setValue
+                            </b>
+                            <a href="#setValue"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>setValue(selection: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="554" class="link-to-prism">src/auto-complete/auto-complete.component.ts:554</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Set current input value</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>selection</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showItemList"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            showItemList
+                            </b>
+                            <a href="#showItemList"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>showItemList()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="563" class="link-to-prism">src/auto-complete/auto-complete.component.ts:563</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Show item list</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="updateModel"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            updateModel
+                            </b>
+                            <a href="#updateModel"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>updateModel()</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="570" class="link-to-prism">src/auto-complete/auto-complete.component.ts:570</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Update the model</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="writeValue"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            writeValue
+                            </b>
+                            <a href="#writeValue"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                            <span class="modifier-icon icon ion-ios-reset"></span>
+                        <code>writeValue(value: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                    </td>
+                </tr>
+
+
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="581" class="link-to-prism">src/auto-complete/auto-complete.component.ts:581</a></div>
+                            </td>
+                        </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Write value</p>
+</div>
+
+                            <div class="io-description">
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>value</td>
+                                                        <td>
+                                                                    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                    
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="io-description">
+                                <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                            </div>
+                                <div class="io-description">
+                                    
+                                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="_showList"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            _showList
+                            </b>
+                            <a href="#_showList"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>_showList:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="113" class="link-to-prism">src/auto-complete/auto-complete.component.ts:113</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="defaultOpts"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            defaultOpts
+                            </b>
+                            <a href="#defaultOpts"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>defaultOpts:     <code><a href="../classes/AutoCompleteOptions.html" target="_self" >AutoCompleteOptions</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="../classes/AutoCompleteOptions.html" target="_self" >AutoCompleteOptions</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="91" class="link-to-prism">src/auto-complete/auto-complete.component.ts:91</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="formValue"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            formValue
+                            </b>
+                            <a href="#formValue"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>formValue:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="93" class="link-to-prism">src/auto-complete/auto-complete.component.ts:93</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="inputElem"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            inputElem
+                            </b>
+                            <a href="#inputElem"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>inputElem:     <code><a href="https://angular.io/api/core/ElementRef" target="_blank" >ElementRef</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://angular.io/api/core/ElementRef" target="_blank" >ElementRef</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Decorators : </i><code>ViewChild</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="86" class="link-to-prism">src/auto-complete/auto-complete.component.ts:86</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isLoading"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            isLoading
+                            </b>
+                            <a href="#isLoading"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>isLoading:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="92" class="link-to-prism">src/auto-complete/auto-complete.component.ts:92</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="onChangeCallback"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            onChangeCallback
+                            </b>
+                            <a href="#onChangeCallback"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>onChangeCallback:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>noop</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="89" class="link-to-prism">src/auto-complete/auto-complete.component.ts:89</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="onTouchedCallback"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            onTouchedCallback
+                            </b>
+                            <a href="#onTouchedCallback"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>onTouchedCallback:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>noop</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="88" class="link-to-prism">src/auto-complete/auto-complete.component.ts:88</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="promise"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            promise
+                            </b>
+                            <a href="#promise"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>promise:     <code></code>
+</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="96" class="link-to-prism">src/auto-complete/auto-complete.component.ts:96</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="searchbarElem"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            searchbarElem
+                            </b>
+                            <a href="#searchbarElem"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>searchbarElem:     <code><a href="https://angular.io/api/core/ElementRef" target="_blank" >ElementRef</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://angular.io/api/core/ElementRef" target="_blank" >ElementRef</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Decorators : </i><code>ViewChild</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="78" class="link-to-prism">src/auto-complete/auto-complete.component.ts:78</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="selected"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            selected
+                            </b>
+                            <a href="#selected"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>selected:     <code>any[]</code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>any[]</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="94" class="link-to-prism">src/auto-complete/auto-complete.component.ts:94</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="selection"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            selection
+                            </b>
+                            <a href="#selection"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>selection:     <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="115" class="link-to-prism">src/auto-complete/auto-complete.component.ts:115</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showListChanged"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            showListChanged
+                            </b>
+                            <a href="#showListChanged"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>showListChanged:     <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="116" class="link-to-prism">src/auto-complete/auto-complete.component.ts:116</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="suggestions"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            suggestions
+                            </b>
+                            <a href="#suggestions"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span><code>suggestions:     <code>any[]</code>
+</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>any[]</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="95" class="link-to-prism">src/auto-complete/auto-complete.component.ts:95</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="model"></a>
+                        <span class="name"><b>model</b><a href="#model"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>set</b><code>model(selected: )</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/auto-complete/auto-complete.component.ts:56</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                    <td>Optional</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                            <td>selected</td>
+                                                    
+                                                    
+                                                        <td>
+                                                                No
+                                                        </td>
+                                                        
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showList"></a>
+                        <span class="name"><b>showList</b><a href="#showList"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>showList()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="99" class="link-to-prism">src/auto-complete/auto-complete.component.ts:99</a></div>
+                                </td>
+                            </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>set</b><code>showList(value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="104" class="link-to-prism">src/auto-complete/auto-complete.component.ts:104</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                        <td>Type</td>
+                                                    <td>Optional</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                            <td>value</td>
+                                                    
+                                                            <td>
+                                                                        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                                            </td>
+                                                    
+                                                        <td>
+                                                                No
+                                                        </td>
+                                                        
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>    <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {Component, Input, Output, EventEmitter, TemplateRef, ViewChild, HostListener, ElementRef} from &#x27;@angular/core&#x27;;
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from &#x27;@angular/forms&#x27;;
+
+import {Platform} from &#x27;@ionic/angular&#x27;;
+
+import {from, noop, Observable, Subject} from &#x27;rxjs&#x27;;
+import {finalize} from &#x27;rxjs/operators&#x27;;
+
+import {AutoCompleteOptions} from &#x27;../auto-complete-options.model&#x27;;
+
+@Component({
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: AutoCompleteComponent,
+      multi: true
+    }
+  ]
+})
+@Component({
+  selector:  &#x27;ion-auto-complete&#x27;,
+  templateUrl: &#x27;auto-complete.component.html&#x27;
+})
+export class AutoCompleteComponent implements ControlValueAccessor {
+  @Input() public alwaysShowList:boolean;
+  @Input() public dataProvider:any;
+  @Input() public hideListOnSelection:boolean &#x3D; true;
+  @Input() public keyword:string;
+  @Input() public location:string &#x3D; &#x27;auto&#x27;;
+  @Input() public multi:boolean &#x3D; false;
+  @Input() public options:AutoCompleteOptions;
+  @Input() public removeButtonClasses:string &#x3D; &#x27;&#x27;;
+  @Input() public removeButtonColor:string &#x3D; &#x27;primary&#x27;;
+  @Input() public removeButtonIcon:string &#x3D; &#x27;close&#x27;;
+  @Input() public removeButtonSlot:string &#x3D; &#x27;end&#x27;;
+  @Input() public removeDuplicateSuggestions:boolean &#x3D; true;
+  @Input() public showResultsFirst:boolean;
+  @Input() public template:TemplateRef&lt;any&gt;;
+  @Input() public useIonInput:boolean;
+  @Input() public disabled:boolean &#x3D; false;
+
+  @Input()
+  get model() {
+    let model &#x3D; this.selected;
+    if (!this.multi &amp;&amp; typeof this.selected.length !&#x3D;&#x3D; &#x27;undefined&#x27;) {
+      if (this.selected.length &#x3D;&#x3D;&#x3D; 0) {
+        model &#x3D; null;
+      } else {
+        model &#x3D; this.selected[0];
+      }
+    }
+
+    return model;
+  }
+
+  set model(selected) {
+    this.selected &#x3D; selected;
+
+    this.keyword &#x3D; this.getLabel(selected)
+  }
+
+  @Output() public modelChanged:EventEmitter&lt;any&gt;;
+  @Output() public autoFocus:EventEmitter&lt;any&gt;;
+  @Output() public autoBlur:EventEmitter&lt;any&gt;;
+  @Output() public ionAutoInput:EventEmitter&lt;string&gt;;
+  @Output() public itemsChange:EventEmitter&lt;any&gt;;
+  @Output() public itemsHidden:EventEmitter&lt;any&gt;;
+  @Output() public itemRemoved:EventEmitter&lt;any&gt;;
+  @Output() public itemSelected:EventEmitter&lt;any&gt;;
+  @Output() public itemsShown:EventEmitter&lt;any&gt;;
+
+  @ViewChild(
+    &#x27;searchbarElem&#x27;,
+    {
+      read: ElementRef
+    }
+  )
+  private searchbarElem: ElementRef;
+
+  @ViewChild(
+    &#x27;inputElem&#x27;,
+    {
+      read: ElementRef
+    }
+  )
+  private inputElem: ElementRef;
+
+  private onTouchedCallback:() &#x3D;&gt; void &#x3D; noop;
+  private onChangeCallback:(_: any) &#x3D;&gt; void &#x3D; noop;
+
+  public defaultOpts:AutoCompleteOptions;
+  public isLoading:boolean;
+  public formValue:any;
+  public selected:any[];
+  public suggestions:any[];
+  public promise;
+
+  // @ts-ignore
+  public get showList(): boolean {
+    return this._showList;
+  }
+
+  // @ts-ignore
+  public set showList(value: boolean) {
+    if (this._showList &#x3D;&#x3D;&#x3D; value) {
+      return;
+    }
+
+    this._showList &#x3D; value;
+    this.showListChanged &#x3D; true;
+  }
+
+  private _showList: boolean;
+
+  private selection: any;
+  private showListChanged: boolean &#x3D; false;
+
+  /**
+   * Create a new instance
+   *
+   * @param platform
+   */
+  public constructor(
+    private platform: Platform
+  ) {
+    this.keyword &#x3D; &#x27;&#x27;;
+    this.suggestions &#x3D; [];
+    this._showList &#x3D; false;
+    this.modelChanged &#x3D; new EventEmitter&lt;any&gt;();
+    this.itemsChange &#x3D; new EventEmitter&lt;any&gt;();
+    this.itemRemoved &#x3D; new EventEmitter&lt;any&gt;();
+    this.itemSelected &#x3D; new EventEmitter&lt;any&gt;();
+    this.itemsShown &#x3D; new EventEmitter&lt;any&gt;();
+    this.itemsHidden &#x3D; new EventEmitter&lt;any&gt;();
+    this.ionAutoInput &#x3D; new EventEmitter&lt;string&gt;();
+    this.autoFocus &#x3D; new EventEmitter&lt;any&gt;();
+    this.autoBlur &#x3D; new EventEmitter&lt;any&gt;();
+    this.options &#x3D; new AutoCompleteOptions();
+
+    this.defaultOpts &#x3D; new AutoCompleteOptions();
+    this.defaultOpts.clearIcon &#x3D; this.platform.is(&#x27;ios&#x27;) ? &#x27;close-circle&#x27; : &#x27;close&#x27;;
+    this.defaultOpts.clearIcon &#x3D; this.platform.is(&#x27;ios&#x27;) ? &#x27;ios&#x27; : &#x27;md&#x27;;
+
+    this.selected &#x3D; [];
+  }
+
+  /**
+   *
+   */
+  ngAfterViewChecked():void {
+    if (this.showListChanged) {
+      this.showListChanged &#x3D; false;
+      this.showList ? this.itemsShown.emit() : this.itemsHidden.emit();
+    }
+  }
+
+  /**
+   * Handle document click
+   *
+   * @param event
+   *
+   * @private
+   */
+  @HostListener(&#x27;document:click&#x27;, [&#x27;$event&#x27;])
+  private _documentClickHandler(event:Event):void {
+    if (
+      (this.searchbarElem &amp;&amp; this.searchbarElem.nativeElement &amp;&amp; !this.searchbarElem.nativeElement.contains(event.target))
+      ||
+      (!this.inputElem &amp;&amp; this.inputElem.nativeElement &amp;&amp; this.inputElem.nativeElement.contains(event.target))
+    ) {
+      this.hideItemList();
+    }
+  }
+
+  /**
+   * Get value from form
+   *
+   * @param selection
+   *
+   * @private
+   */
+  private _getFormValue(selection:any): any {
+    if (selection &#x3D;&#x3D; null) {
+      return null;
+    }
+    let attr &#x3D; this.dataProvider.formValueAttribute &#x3D;&#x3D; null ? this.dataProvider.labelAttribute : this.dataProvider.formValueAttribute;
+    if (typeof selection &#x3D;&#x3D;&#x3D; &#x27;object&#x27; &amp;&amp; attr) {
+      return selection[attr];
+    }
+    return selection;
+  }
+
+  /**
+   * Get element&#x27;s position on screen
+   *
+   * @param el
+   *
+   * @private
+   */
+  private _getPosition(el):any {
+    let xPos &#x3D; 0;
+    let yPos &#x3D; 0;
+
+    while (el) {
+      if (el.tagName &#x3D;&#x3D;&#x3D; &#x27;BODY&#x27;) {
+        const xScroll &#x3D; el.scrollLeft || document.documentElement.scrollLeft;
+        const yScroll &#x3D; el.scrollTop || document.documentElement.scrollTop;
+
+        xPos +&#x3D; (el.offsetLeft - xScroll + el.clientLeft);
+        yPos +&#x3D; (el.offsetTop - yScroll + el.clientTop);
+      } else {
+        xPos +&#x3D; (el.offsetLeft - el.scrollLeft + el.clientLeft);
+        yPos +&#x3D; (el.offsetTop - el.scrollTop + el.clientTop);
+      }
+
+      el &#x3D; el.offsetParent;
+    }
+    return {
+      x: xPos,
+      y: yPos
+    };
+  }
+
+  /**
+   * Clear current input value
+   *
+   * @param hideItemList
+   */
+  public clearValue(hideItemList:boolean &#x3D; false):void {
+    this.keyword &#x3D; &#x27;&#x27;;
+    this.selection &#x3D; null;
+    this.formValue &#x3D; null;
+
+    if (hideItemList) {
+      this.hideItemList();
+    }
+
+    return;
+  }
+
+  /**
+   * Get items for auto-complete
+   *
+   * @param event
+   */
+  public getItems(event?):void {
+    if (this.promise) {
+      clearTimeout(this.promise);
+    }
+
+    this.promise &#x3D; setTimeout(
+      () &#x3D;&gt; {
+        if (event) {
+          this.keyword &#x3D; event.detail.target.value;
+
+          if (this.selected) {
+            this.selected &#x3D; [];
+          }
+        }
+
+        let result;
+
+        if (this.showResultsFirst &amp;&amp; this.keyword.trim() &#x3D;&#x3D;&#x3D; &#x27;&#x27;) {
+          this.keyword &#x3D; &#x27;&#x27;;
+        }
+
+        result &#x3D; (typeof this.dataProvider &#x3D;&#x3D;&#x3D; &#x27;function&#x27;) ?
+          this.dataProvider(this.keyword) : this.dataProvider.getResults(this.keyword);
+
+        if (result instanceof Subject) {
+          result &#x3D; result.asObservable();
+        }
+
+        if (result instanceof Promise) {
+          result &#x3D; from(result);
+        }
+
+        if (result instanceof Observable) {
+          this.isLoading &#x3D; true;
+
+          result.pipe(
+            finalize(
+              () &#x3D;&gt; {
+                this.isLoading &#x3D; false;
+              }
+            )
+          ).subscribe(
+            (results: any[]) &#x3D;&gt; {
+              this.setSuggestions(results);
+            },
+            (error: any) &#x3D;&gt; console.error(error)
+          )
+          ;
+        } else {
+          this.setSuggestions(result);
+        }
+
+        this.ionAutoInput.emit(this.keyword);
+      },
+      this.options.debounce
+    );
+  }
+
+  /**
+   * Get an item&#x27;s label
+   *
+   * @param selection
+   */
+  public getLabel(selection:any):string {
+    if (selection &#x3D;&#x3D; null) {
+      return &#x27;&#x27;;
+    }
+    let attr &#x3D; this.dataProvider.labelAttribute;
+    let value &#x3D; selection;
+    if (this.dataProvider.getItemLabel) {
+      value &#x3D; this.dataProvider.getItemLabel(value);
+    }
+    if (typeof value &#x3D;&#x3D;&#x3D; &#x27;object&#x27; &amp;&amp; attr) {
+      return value[attr] || &#x27;&#x27;;
+    }
+    return value || &#x27;&#x27;;
+  }
+
+  /**
+   * Get current selection
+   */
+  public getSelection():any|any[] {
+    if (this.multi) {
+      return this.selection;
+    } else {
+      return this.selected;
+    }
+  }
+
+  /**
+   * Get menu style
+   */
+  public getStyle():any {
+    let location &#x3D; this.location;
+    if (this.location &#x3D;&#x3D;&#x3D; &#x27;auto&#x27;) {
+      const elementY &#x3D; this._getPosition(
+        this.searchbarElem.nativeElement
+      ).y;
+
+      const windowY &#x3D; window.innerHeight;
+
+      if (elementY &gt; windowY - elementY) {
+        location &#x3D; &#x27;top&#x27;;
+      } else {
+        location &#x3D; &#x27;bottom&#x27;;
+      }
+    }
+
+    if (location &#x3D;&#x3D;&#x3D; &#x27;bottom&#x27;) {
+      return {};
+    } else {
+      return {
+        &#x27;bottom&#x27;: &#x27;37px&#x27;
+      };
+    }
+  }
+
+  /**
+   * Get current input value
+   */
+  public getValue():any {
+    return this.formValue;
+  }
+
+  /**
+   * Handle tap
+   *
+   * @param event
+   */
+  public handleTap(event):void {
+    if (this.showResultsFirst || this.keyword.length &gt; 0) {
+      this.getItems();
+    }
+  }
+
+  /**
+   * Handle tap when selecting an item
+   *
+   * @param $event
+   * @param suggestion
+   */
+  public handleSelectTap($event, suggestion:any):boolean {
+    this.selectItem(suggestion);
+
+    if ($event.srcEvent) {
+      if ($event.srcEvent.stopPropagation) {
+        $event.srcEvent.stopPropagation();
+      }
+      if ($event.srcEvent.preventDefault) {
+        $event.srcEvent.preventDefault();
+      }
+    } else if ($event.preventDefault) {
+      $event.preventDefault();
+    }
+
+    return false;
+  }
+
+  /**
+   * Hide item list
+   */
+  public hideItemList():void {
+    this.showList &#x3D; this.alwaysShowList;
+  }
+
+  /**
+   * Fired when the input focused
+   */
+  onFocus():void {
+    this.getItems();
+
+    this.autoFocus.emit();
+  }
+
+  /**
+   * Fired when the input focused
+   */
+  onBlur():void {
+    this.autoBlur.emit();
+  }
+
+  /**
+   * Register onChangeCallback
+   *
+   * @param fn
+   */
+  public registerOnChange(fn:any):void {
+    this.onChangeCallback &#x3D; fn;
+  }
+
+  /**
+   * Register onTouchedCallback
+   *
+   * @param fn
+   */
+  public registerOnTouched(fn:any):void {
+    this.onTouchedCallback &#x3D; fn;
+  }
+
+  /**
+   * Remove already selected suggestions
+   *
+   * @param suggestions
+   */
+  public removeDuplicates(suggestions:any[]):any[] {
+    const selectedCount &#x3D; this.selected.length;
+    const suggestionCount &#x3D; suggestions.length;
+
+    for (let i &#x3D; 0; i &lt; selectedCount; i++) {
+      const selectedLabel &#x3D; this.getLabel(
+        this.selected[i]
+      );
+
+      for (let j &#x3D; 0; j &lt; suggestionCount; j++) {
+        const suggestedLabel &#x3D; this.getLabel(
+          suggestions[j]
+        );
+
+        if (selectedLabel &#x3D;&#x3D;&#x3D; suggestedLabel) {
+          suggestions.splice(j, 1);
+        }
+      }
+    }
+
+    return suggestions;
+  }
+
+  /**
+   * Remove item from selected
+   *
+   * @param selection
+   */
+  public removeItem(selection:any):void {
+    const count &#x3D; this.selected.length;
+    for (let i &#x3D; 0; i &lt; count; i++) {
+      const item &#x3D; this.selected[i];
+
+      const selectedLabel &#x3D; this.getLabel(selection);
+      const itemLabel &#x3D; this.getLabel(item);
+
+      if (selectedLabel &#x3D;&#x3D;&#x3D; itemLabel) {
+        this.selected.splice(i, 1);
+      }
+    }
+
+    this.itemRemoved.emit(this.selected);
+    this.itemsChange.emit(this.selected);
+  }
+
+  /**
+   * Select item from list
+   *
+   * @param selection
+   **/
+  public selectItem(selection:any):void {
+    this.keyword &#x3D; this.getLabel(selection);
+    this.formValue &#x3D; this._getFormValue(selection);
+    this.hideItemList();
+
+    this.updateModel();
+
+    if (this.hideListOnSelection) {
+      this.hideItemList();
+    }
+
+    if (this.multi) {
+      this.clearValue();
+
+      this.selected.push(selection);
+      this.itemSelected.emit(this.selected);
+      this.itemsChange.emit(this.selected);
+    } else {
+      this.selection &#x3D; selection;
+
+      this.selected &#x3D; [selection];
+      this.itemSelected.emit(selection);
+      this.itemsChange.emit(selection);
+    }
+  }
+
+  /**
+   * Set focus of searchbar
+   */
+  public setFocus():void {
+    if (this.searchbarElem) {
+      this.searchbarElem.nativeElement.setFocus();
+    }
+  }
+
+  /**
+   * Set suggestions
+   *
+   * @param suggestions
+   */
+  public setSuggestions(suggestions):void {
+    if (this.removeDuplicateSuggestions) {
+      suggestions &#x3D; this.removeDuplicates(suggestions);
+    }
+
+    this.suggestions &#x3D; suggestions;
+    this.showItemList();
+  }
+
+  /**
+   * Set current input value
+   *
+   * @param selection
+   */
+  public setValue(selection: any):void {
+    this.formValue &#x3D; this._getFormValue(selection);
+    this.keyword &#x3D; this.getLabel(selection);
+    return;
+  }
+
+  /**
+   * Show item list
+   */
+  public showItemList():void {
+    this.showList &#x3D; true;
+  }
+
+  /**
+   * Update the model
+   */
+  public updateModel():void {
+      this.onChangeCallback(this.formValue);
+
+      this.modelChanged.emit(this.selected);
+  }
+
+  /**
+   * Write value
+   *
+   * @param value
+   */
+  public writeValue(value:any):void {
+    if (value !&#x3D;&#x3D; this.selection) {
+      this.selection &#x3D; value || null;
+      this.formValue &#x3D; this._getFormValue(this.selection);
+      this.keyword &#x3D; this.getLabel(this.selection);
+    }
+  }
+}
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div></div>'
+    var COMPONENTS = [{'name': 'AutoCompleteComponent', 'selector': ''},{'name': 'AutoCompleteComponent', 'selector': 'ion-auto-complete'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'AutoCompleteComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'AutoCompleteComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <script src="../js/menu-wc.js"></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

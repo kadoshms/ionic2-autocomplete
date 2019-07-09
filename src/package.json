@@ -1,0 +1,21 @@
+{
+  "name": "ionic4-auto-complete",
+  "version": "1.8.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jrquick17/ionic4-auto-complete"
+  },
+  "author": {
+    "name": "mor",
+    "email": "jrquick17@gmail.com"
+  },
+  "keywords": [
+    "angular"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jrquick17/ionic4-auto-complete/issues"
+  },
+  "module": "ionic4-auto-complete.js",
+  "typings": "ionic4-auto-complete.d.ts"
+}
