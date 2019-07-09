@@ -531,7 +531,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     this.formValue = this._getFormValue(selection);
     this.hideItemList();
 
-    this.updateModel();
+    this.updateModel(this.formValue);
 
     if (this.hideListOnSelection) {
       this.hideItemList();
@@ -599,10 +599,15 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   /**
    * Update the model
    */
-  public updateModel():void {
-      this.onChangeCallback(this.formValue);
+  public updateModel(enteredText:string):void {
+    if (enteredText !== this.formValue) {
+      this.formValue = enteredText;
 
-      this.modelChanged.emit(this.selected);
+      this.selected = this.multi ? [] : null;
+    }
+
+    this.onChangeCallback(this.formValue);
+    this.modelChanged.emit(this.selected);
   }
 
   /**
