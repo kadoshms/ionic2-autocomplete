@@ -7,6 +7,7 @@ const del = require('del');
 const runSequence = require('run-sequence');
 const inlineResources = require('gulp-inline-source');
 const inlineTemplate = require('gulp-inline-ng2-template');
+const sourcemaps = require('gulp-sourcemaps');
 const typescript = require('gulp-typescript');
 const tscConfig = require('./tsconfig.json');
 
@@ -127,7 +128,9 @@ gulp.task(
     ).pipe(
       typescript(tscConfig.compilerOptions)
     ).pipe(
-        gulp.dest(`${buildFolder}/`)
+      sourcemaps.write('.')
+    ).pipe(
+      gulp.dest(buildFolder)
     );
   }
 );
