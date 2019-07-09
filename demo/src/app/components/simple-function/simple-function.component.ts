@@ -17,7 +17,10 @@ export class SimpleFunctionComponent {
     autocomplete: 'on',
     debounce: 750,
     placeholder: 'Type text to search..',
-    type: 'search'
+    type: 'search',
+    cancelButtonIcon: 'assets/icons/clear.svg',
+    clearIcon: 'assets/icons/clear.svg',
+    searchIcon: 'assets/icons/add-user.svg'
   };
 
   public selected:any = '';

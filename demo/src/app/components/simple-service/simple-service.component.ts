@@ -17,7 +17,7 @@ export class SimpleServiceComponent {
     autocomplete: 'on',
     debounce: 750,
     placeholder: 'Type text to search..',
-    type: 'search'
+    type: 'add-friend.svg'
   };
 
   public selected:any = '';
