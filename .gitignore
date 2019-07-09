@@ -26,4 +26,5 @@ dist
 *.sh
 .idea/
 .tmp/
+build/
 package-lock.json
