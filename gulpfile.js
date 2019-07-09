@@ -16,7 +16,19 @@ const buildFolder = path.join(rootFolder, 'build');
 const distFolder = path.join(rootFolder, 'dist');
 
 /**
- * 1. Delete /dist folder
+ * 1. Clean
+ */
+gulp.task(
+  'clean',
+  [
+    'clean:dist',
+    'clean:tmp',
+    'clean:build'
+  ]
+);
+
+/**
+ * 1. Clean Delete /dist folder
  */
 gulp.task(
     'clean:dist',
@@ -24,6 +36,13 @@ gulp.task(
         return deleteFolders([distFolder]);
     }
 );
+
+/**
+ * Delete /.tmp folder
+ */
+gulp.task('clean:tmp', function () {
+    return deleteFolders([tmpFolder]);
+});
 
 /**
  * 2. Clone the /src folder into /.tmp. If an npm link inside /src has been made,
@@ -199,13 +218,6 @@ gulp.task('copy:readme', function () {
 });
 
 /**
- * 11. Delete /.tmp folder
- */
-gulp.task('clean:tmp', function () {
-  return deleteFolders([tmpFolder]);
-});
-
-/**
  * 12. Delete /build folder
  */
 gulp.task('clean:build', function () {
@@ -219,7 +231,7 @@ gulp.task('scss', function() {
 
 gulp.task('compile', function () {
   runSequence(
-    'clean:dist',
+    'clean',
     'copy:source',
     'inline-resources',
     'inline-templates',
@@ -230,8 +242,7 @@ gulp.task('compile', function () {
     'copy:assets',
     'copy:manifest',
     'copy:readme',
-    'clean:build',
-    'clean:tmp',
+    'clean',
     function (err) {
       if (err) {
         console.log('ERROR:', err.message);
@@ -249,8 +260,6 @@ gulp.task('watch', function () {
   gulp.watch(`${srcFolder}/**/*`, ['compile']);
 });
 
-gulp.task('clean', ['clean:dist', 'clean:tmp', 'clean:build']);
-//
 gulp.task('build', ['clean', 'compile', 'scss']);
 gulp.task('build:watch', ['build', 'watch']);
 gulp.task('default', ['build:watch']);
