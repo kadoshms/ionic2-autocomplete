@@ -28,6 +28,20 @@ gulp.task(
 );
 
 /**
+ * Delete /build folder
+ */
+gulp.task(
+  'clean:build',
+  function() {
+    return deleteFolders(
+      [
+        buildFolder
+      ]
+    );
+  }
+);
+
+/**
  * Delete /dist folder
  */
 gulp.task(
@@ -68,6 +82,14 @@ gulp.task(
  * 3. Inline template (.html) and style (.css) files into the the component .ts files.
  *    We do this on the /.tmp folder to avoid editing the original /src files
  */
+gulp.task(
+  'inline',
+  [
+    'inline-resources',
+    'inline-templates'
+  ]
+);
+
 gulp.task(
   'inline-resources',
   function() {
@@ -115,6 +137,14 @@ gulp.task(
  *    generated file into the /dist folder
  */
 gulp.task(
+    'rollup',
+    [
+        'rollup:fesm',
+        'rollup:umd'
+    ]
+);
+
+gulp.task(
   'rollup:fesm',
   function() {
     return gulp.src(`${buildFolder}/**/*.js`)
@@ -129,8 +159,8 @@ gulp.task(
             // A list of IDs of modules that should remain external to the bundle
             // See https://github.com/rollup/rollup/wiki/JavaScript-API#external
             external: [
-                '@angular/core',
-                '@angular/common'
+              '@angular/core',
+              '@angular/common'
             ],
 
             // Format of generated bundle
@@ -200,6 +230,16 @@ gulp.task(
  *    on step 5.
  */
 gulp.task(
+  'copy:dist',
+  [
+    'copy:build',
+    'copy:assets',
+    'copy:manifest',
+    'copy:readme'
+  ]
+);
+
+gulp.task(
   'copy:build',
   function() {
     return gulp.src(
@@ -214,7 +254,7 @@ gulp.task(
 );
 
 /**
- * 8. Copy assets to /dist
+ * Copy assets to /dist
  */
 gulp.task(
   'copy:assets',
@@ -230,7 +270,7 @@ gulp.task(
 );
 
 /**
- * 9. Copy package.json from /src to /dist
+ * Copy package.json from /src to /dist
  */
 gulp.task(
   'copy:manifest',
@@ -246,28 +286,24 @@ gulp.task(
 );
 
 /**
- * 10. Copy README.md from / to /dist
+ * Copy README.md from / to /dist
  */
-gulp.task('copy:readme', function () {
-  return gulp.src(
-    [
-      path.join(rootFolder, 'README.MD')
-    ]
-  ).pipe(
-    gulp.dest(distFolder)
-  );
-});
+gulp.task(
+  'copy:readme',
+  function() {
+    return gulp.src(
+      [
+        path.join(rootFolder, 'README.MD')
+      ]
+    ).pipe(
+      gulp.dest(distFolder)
+    );
+  }
+);
 
 /**
- * 11. Delete /build folder
+ * 8. Scss
  */
-gulp.task('clean:build', function () {
-  return deleteFolders(
-    [
-       buildFolder
-    ]
-  );
-});
 
 gulp.task(
   'scss',
@@ -289,15 +325,10 @@ gulp.task(
     runSequence(
       'clean',
       'copy:source',
-      'inline-resources',
-      'inline-templates',
+      'inline',
       'ngc',
-      'rollup:fesm',
-      'rollup:umd',
-      'copy:build',
-      'copy:assets',
-      'copy:manifest',
-      'copy:readme',
+      'rollup',
+      'copy:dist',
       'clean',
       function(err) {
         if (err) {
