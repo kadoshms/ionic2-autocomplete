@@ -103,7 +103,9 @@ gulp.task(
 gulp.task(
   'inline-templates',
   function() {
-    return gulp.src(srcFolder + '/**/*.ts').pipe(
+    return gulp.src(
+      `${srcFolder}/**/*.ts`
+    ).pipe(
       inlineTemplate(
         {
           base: 'src/auto-complete'
@@ -122,15 +124,34 @@ gulp.task(
 
 gulp.task(
   'typescript:compile',
+  [
+    'copy:typescript',
+  ],
   function() {
     return gulp.src(
-      `${tmpFolder}/**/*.ts`
+      `${tmpFolder}/index.ts`
+    ).pipe(
+      sourcemaps.init()
     ).pipe(
       typescript(tscConfig.compilerOptions)
     ).pipe(
       sourcemaps.write('.')
     ).pipe(
       gulp.dest(buildFolder)
+    );
+  }
+);
+
+gulp.task(
+  'copy:typescript',
+  function() {
+    return gulp.src(
+      [
+        `${tmpFolder}/**/*.ts`,
+        `!${tmpFolder}/index.ts`
+      ]
+    ).pipe(
+      gulp.dest(`${buildFolder}/`)
     );
   }
 );
@@ -150,33 +171,33 @@ gulp.task(
 gulp.task(
   'rollup:fesm',
   function() {
-    return gulp.src(`${buildFolder}/**/*.js`)
-      // transform the files here.
-      .pipe(
-        rollup(
-          {
-            // Bundle's entry point
-            // See https://github.com/rollup/rollup/wiki/JavaScript-API#entry
-            input: `${buildFolder}/index.js`,
+    return gulp.src(
+     `${buildFolder}/**/*.js`
+    ).pipe(
+      rollup(
+        {
+          // Bundle's entry point
+          // See https://github.com/rollup/rollup/wiki/JavaScript-API#entry
+          input: `${buildFolder}/index.js`,
 
-            // A list of IDs of modules that should remain external to the bundle
-            // See https://github.com/rollup/rollup/wiki/JavaScript-API#external
-            external: [
-              '@angular/core',
-              '@angular/common'
-            ],
+          // A list of IDs of modules that should remain external to the bundle
+          // See https://github.com/rollup/rollup/wiki/JavaScript-API#external
+          external: [
+            '@angular/core',
+            '@angular/common'
+          ],
 
-            // Format of generated bundle
-            // See https://github.com/rollup/rollup/wiki/JavaScript-API#format
-            output: {
-              format: 'es',
-              sourcemap: true
-            }
+          // Format of generated bundle
+          // See https://github.com/rollup/rollup/wiki/JavaScript-API#format
+          output: {
+            format: 'es',
+            sourcemap: true
           }
-        )
-      ).pipe(
-          gulp.dest(distFolder)
-      );
+        }
+      )
+    ).pipe(
+      gulp.dest(distFolder)
+    );
   }
 );
 
