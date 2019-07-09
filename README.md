@@ -435,13 +435,10 @@ Run `npm install` to get packages required for the demo and then run `ionic serv
 
 ### Future Plans ###
 
-* Create demo page
-    * Simple function
-    * Service and component
-    * Angular Form
-    * Custom Template
-    
-* Fix gulp (Scss does not always transfer, soft fail)
+* Add max and minimum options (for multi)
+* Add Custom Template demo
+* Update for Ionic 5
+* Update for Angular 8
 
 ## FAQ ##
 
