@@ -28,7 +28,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   @Input() public keyword:string;
   @Input() public location:string = 'auto';
   @Input() public multi:boolean = false;
-  @Input() public options:AutoCompleteOptions;
+  @Input() public options:AutoCompleteOptions = new AutoCompleteOptions();
   @Input() public removeButtonClasses:string = '';
   @Input() public removeButtonColor:string = 'primary';
   @Input() public removeButtonIcon:string = 'close';
