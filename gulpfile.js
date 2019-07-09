@@ -3,9 +3,7 @@ const gulp = require('gulp');
 const path = require('path');
 const rollup = require('rollup');
 const rollupTypescript = require('rollup-plugin-typescript');
-const rename = require('gulp-rename');
 const del = require('del');
-const runSequence = require('run-sequence');
 const inlineResources = require('gulp-inline-source');
 const inlineTemplate = require('gulp-inline-ng2-template');
 const sourcemaps = require('gulp-sourcemaps');
@@ -22,13 +20,6 @@ const distFolder = path.join(rootFolder, 'dist');
 /**
  * 1. Clean
  */
-gulp.task(
-  'clean',
-  [
-    'clean:tmp',
-    'clean:build'
-  ]
-);
 
 /**
  * Delete /build folder
@@ -49,8 +40,13 @@ gulp.task(
  */
 gulp.task(
   'clean:dist',
-  () => {
-    return del([distFolder]);
+  async () => {
+    // return del(
+    //   [
+    //     distFolder
+    //   ]
+    // );
+      return;
   }
 );
 
@@ -60,8 +56,20 @@ gulp.task(
 gulp.task(
   'clean:tmp',
   async function() {
-      return del([tmpFolder]);
+    return del(
+      [
+        tmpFolder
+      ]
+    );
   }
+);
+
+gulp.task(
+  'clean',
+  gulp.series(
+    'clean:tmp',
+    'clean:build'
+  )
 );
 
 /**
@@ -71,13 +79,15 @@ gulp.task(
  */
 gulp.task(
   'copy:source',
-  function() {
+  () => {
     return gulp.src(
       [
         `${srcFolder}/**/*`,
         `!${srcFolder}/node_modules`
       ]
-    ).pipe(gulp.dest(tmpFolder));
+    ).pipe(
+      gulp.dest(`${tmpFolder}/`)
+    );
   }
 );
 
@@ -86,7 +96,7 @@ gulp.task(
  */
 gulp.task(
   'tslint',
-  function() {
+  () => {
     return gulp.src(
       `${srcFolder}/**/*.ts`
     ).pipe(
@@ -102,16 +112,8 @@ gulp.task(
  *    We do this on the /.tmp folder to avoid editing the original /src files
  */
 gulp.task(
-  'inline',
-  [
-    'inline-resources',
-    'inline-templates'
-  ]
-);
-
-gulp.task(
   'inline-resources',
-  function() {
+  async () => {
     return Promise.resolve().then(
       () => inlineResources(tmpFolder)
     );
@@ -120,7 +122,7 @@ gulp.task(
 
 gulp.task(
   'inline-templates',
-  function() {
+  () => {
     return gulp.src(
       `${srcFolder}/**/*.ts`
     ).pipe(
@@ -130,9 +132,17 @@ gulp.task(
         }
       )
     ).pipe(
-      gulp.dest(tmpFolder)
+      gulp.dest(`${tmpFolder}/`)
     );
   }
+);
+
+gulp.task(
+  'inline',
+  gulp.series(
+    'inline-resources',
+    'inline-templates'
+  )
 );
 
 /**
@@ -140,23 +150,37 @@ gulp.task(
  *    compiled modules to the /build folder.
  */
 gulp.task(
-  'typescript:compile',
-  [
-    'copy:typescript',
-  ],
-  function() {
+  'copy:typescript',
+  () => {
     return gulp.src(
-      `${tmpFolder}/index.ts`
+      [
+        `${tmpFolder}/**/*.ts`,
+        `!${tmpFolder}/index.ts`
+      ]
     ).pipe(
-      sourcemaps.init()
-    ).pipe(
-      typescript(tscConfig.compilerOptions)
-    ).pipe(
-      sourcemaps.write('.')
-    ).pipe(
-      gulp.dest(buildFolder)
+      gulp.dest(`${buildFolder}/`)
     );
   }
+);
+
+gulp.task(
+  'typescript:compile',
+  gulp.series(
+    'copy:typescript',
+    () => {
+      return gulp.src(
+        `${tmpFolder}/index.ts`
+      ).pipe(
+        sourcemaps.init()
+      ).pipe(
+        typescript(tscConfig.compilerOptions)
+      ).pipe(
+        sourcemaps.write('.')
+      ).pipe(
+        gulp.dest(`${buildFolder}/`)
+      );
+    }
+  )
 );
 
 /**
@@ -174,18 +198,20 @@ gulp.task(
         ]
       }
     ).then(
-     bundle => {
-       return bundle.write({
-         file: `${distFolder}/index.js`,
-         format: 'es',
-         sourcemap: true,
-         external: [
-           '@angular/core',
-           '@angular/common'
-         ]
-       }
-     );
-    });
+      bundle => {
+        return bundle.write(
+          {
+            file: `${distFolder}/index.js`,
+            format: 'es',
+            sourcemap: true,
+            external: [
+              '@angular/core',
+              '@angular/common'
+            ]
+          }
+        );
+      }
+    );
   }
 );
 
@@ -201,18 +227,20 @@ gulp.task(
       }
     ).then(
      bundle => {
-       return bundle.write({
-         file: `${buildFolder}/index.js`,
-         format: 'umd',
-         name: 'ionic4-auto-complete',
-         sourcemap: true,
-         external: [
-           '@angular/core',
-           '@angular/common'
-         ]
-       }
-     );
-    });
+       return bundle.write(
+         {
+           file: `${buildFolder}/index.js`,
+           format: 'umd',
+           name: 'ionic4-auto-complete',
+           sourcemap: true,
+           external: [
+             '@angular/core',
+             '@angular/common'
+           ]
+         }
+       );
+      }
+    );
   }
 );
 
@@ -248,7 +276,7 @@ gulp.task(
  */
 gulp.task(
   'copy:assets',
-  function() {
+  () => {
     return gulp.src(
       [
         `${srcFolder}/assets/*`
@@ -264,13 +292,13 @@ gulp.task(
  */
 gulp.task(
   'copy:manifest',
-  function() {
+  () => {
     return gulp.src(
       [
         `${srcFolder}/package.json`
       ]
     ).pipe(
-      gulp.dest(distFolder)
+     gulp.dest(`${distFolder}/`)
     );
   }
 );
@@ -280,56 +308,62 @@ gulp.task(
  */
 gulp.task(
   'copy:readme',
-  function() {
+  () => {
     return gulp.src(
       [
         path.join(rootFolder, 'README.MD')
       ]
     ).pipe(
-      gulp.dest(distFolder)
+      gulp.dest(`${distFolder}/`)
     );
   }
+);
+
+gulp.task(
+  'copy:dist',
+  gulp.series(
+    'copy:build',
+    'copy:assets',
+    'copy:manifest',
+    'copy:readme'
+  )
 );
 
 /**
  * 9. Scss
  */
-
 gulp.task(
   'scss',
-  function() {
+  async () => {
     return gulp.src(
       [
-        'src/auto-complete.scss',
-        `dist/auto-complete.scss`
+        `${srcFolder}/auto-complete.scss`
       ]
     ).pipe(
-      gulp.dest(distFolder)
+      gulp.dest(`${distFolder}/`)
     )
   }
 );
 
 gulp.task(
   'compile',
-  function() {
-    runSequence(
-      'clean',
-      'clean:dist',
-      'copy:source',
-      'tslint',
-      'inline',
-      'typescript:compile',
-      'rollup',
-      'copy:dist',
-      'scss',
-      'clean',
-      function(err) {
-        if (err) {
-          console.log('ERROR:', err.message);
+  gulp.series(
+    'clean',
+    'clean:dist',
+    'copy:source',
+    'tslint',
+    'inline',
+    'typescript:compile',
+    'rollup',
+    'copy:dist',
+    'scss',
+    'clean',
+    async (err) => {
+      if (err) {
+        console.log('ERROR:', err.message);
 
         return del(
           [
-            distFolder,
             tmpFolder,
             buildFolder
           ]
@@ -346,36 +380,36 @@ gulp.task(
  */
 gulp.task(
   'watch',
-  function() {
+  async () => {
     gulp.watch(
       `${srcFolder}/**/*`,
-      [
-          'compile'
-      ]
+      gulp.series(
+        'compile'
+      )
     );
   }
 );
 
 gulp.task(
   'build',
-  [
+  gulp.series(
     'clean',
     'compile',
     'scss'
-  ]
+  )
 );
 
 gulp.task(
   'build:watch',
-  [
+  gulp.series(
     'build',
     'watch'
-  ]
+  )
 );
 
 gulp.task(
   'default',
-  [
+  gulp.series(
     'build:watch'
-  ]
+  )
 );
