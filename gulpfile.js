@@ -1,13 +1,14 @@
 /* eslint-disable */
 const gulp = require('gulp');
 const path = require('path');
-const ngc = require('@angular/compiler-cli/src/main').main;
 const rollup = require('gulp-rollup');
 const rename = require('gulp-rename');
 const del = require('del');
 const runSequence = require('run-sequence');
 const inlineResources = require('gulp-inline-source');
 const inlineTemplate = require('gulp-inline-ng2-template');
+const typescript = require('gulp-typescript');
+const tscConfig = require('./tsconfig.json');
 
 const rootFolder = path.join(__dirname);
 const srcFolder = path.join(rootFolder, 'src');
@@ -21,7 +22,6 @@ const distFolder = path.join(rootFolder, 'dist');
 gulp.task(
   'clean',
   [
-    'clean:dist',
     'clean:tmp',
     'clean:build'
   ]
@@ -114,20 +114,20 @@ gulp.task(
   }
 );
 
-
-
 /**
  * 4. Run the Angular compiler, ngc, on the /.tmp folder. This will output all
  *    compiled modules to the /build folder.
  */
+
 gulp.task(
-  'ngc',
+  'typescript:compile',
   function() {
-    return ngc(
-      [
-        '--project',
-        `${tmpFolder}/tsconfig.es5.json`
-      ]
+    return gulp.src(
+      `${tmpFolder}/**/*.ts`
+    ).pipe(
+      typescript(tscConfig.compilerOptions)
+    ).pipe(
+        gulp.dest(`${buildFolder}/`)
     );
   }
 );
@@ -137,11 +137,11 @@ gulp.task(
  *    generated file into the /dist folder
  */
 gulp.task(
-    'rollup',
-    [
-        'rollup:fesm',
-        'rollup:umd'
-    ]
+  'rollup',
+  [
+    'rollup:fesm',
+    'rollup:umd'
+  ]
 );
 
 gulp.task(
@@ -165,7 +165,10 @@ gulp.task(
 
             // Format of generated bundle
             // See https://github.com/rollup/rollup/wiki/JavaScript-API#format
-            format: 'es'
+            output: {
+              format: 'es',
+              sourcemap: true
+            }
           }
         )
       ).pipe(
@@ -182,7 +185,7 @@ gulp.task(
   'rollup:umd',
   function() {
     return gulp.src(
-        `${buildFolder}/**/*.js`
+      `${buildFolder}/**/*.js`
     ).pipe(
       rollup(
         {
@@ -197,22 +200,24 @@ gulp.task(
             '@angular/common'
           ],
 
-          // Format of generated bundle
-          // See https://github.com/rollup/rollup/wiki/JavaScript-API#format
-          format: 'umd',
+          output: {
+            // Export mode to use
+            // See https://github.com/rollup/rollup/wiki/JavaScript-API#exports
+            exports: 'named',
 
-          // Export mode to use
-          // See https://github.com/rollup/rollup/wiki/JavaScript-API#exports
-          exports: 'named',
+            // Format of generated bundle
+            // See https://github.com/rollup/rollup/wiki/JavaScript-API#format
+            format: 'umd',
 
-          // The name to use for the module for UMD/IIFE bundles
-          // (required for bundles with exports)
-          // See https://github.com/rollup/rollup/wiki/JavaScript-API#modulename
-          name: 'ionic4-auto-complete',
+            // See https://github.com/rollup/rollup/wiki/JavaScript-API#globals
+            globals: {
+              typescript: 'ts'
+            },
 
-          // See https://github.com/rollup/rollup/wiki/JavaScript-API#globals
-          globals: {
-            typescript: 'ts'
+            // The name to use for the module for UMD/IIFE bundles
+            // (required for bundles with exports)
+            // See https://github.com/rollup/rollup/wiki/JavaScript-API#modulename
+            name: 'ionic4-auto-complete',
           }
         }
       )
@@ -324,17 +329,25 @@ gulp.task(
   function() {
     runSequence(
       'clean',
+      'clean:dist',
       'copy:source',
       'inline',
-      'ngc',
+      'typescript:compile',
       'rollup',
       'copy:dist',
+      'scss',
       'clean',
       function(err) {
         if (err) {
           console.log('ERROR:', err.message);
 
-          deleteFolders([distFolder, tmpFolder, buildFolder]);
+          deleteFolders(
+            [
+              distFolder,
+              tmpFolder,
+              buildFolder
+            ]
+          );
         } else {
           console.log('Compilation finished successfully');
         }
