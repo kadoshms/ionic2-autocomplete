@@ -1,13 +1,13 @@
 /* eslint-disable */
-var gulp = require('gulp'),
-  path = require('path'),
-  ngc = require('@angular/compiler-cli/src/main').main,
-  rollup = require('gulp-rollup'),
-  rename = require('gulp-rename'),
-  del = require('del'),
-  runSequence = require('run-sequence'),
-  inlineResources = require('gulp-inline-source'),
-  inlineTemplate = require('gulp-inline-ng2-template');
+const gulp = require('gulp');
+const path = require('path');
+const ngc = require('@angular/compiler-cli/src/main').main;
+const rollup = require('gulp-rollup');
+const rename = require('gulp-rename');
+const del = require('del');
+const runSequence = require('run-sequence');
+const inlineResources = require('gulp-inline-source');
+const inlineTemplate = require('gulp-inline-ng2-template');
 
 const rootFolder = path.join(__dirname);
 const srcFolder = path.join(rootFolder, 'src');
