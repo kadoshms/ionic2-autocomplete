@@ -13,11 +13,6 @@ export * from './bold-prefix.pipe';
 export * from './auto-complete-options.model';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule
-  ],
   declarations: [
     AutoCompleteComponent,
     BoldPrefix
@@ -25,6 +20,11 @@ export * from './auto-complete-options.model';
   exports: [
     AutoCompleteComponent,
     BoldPrefix
+  ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule
   ]
 })
 export class AutoCompleteModule {
