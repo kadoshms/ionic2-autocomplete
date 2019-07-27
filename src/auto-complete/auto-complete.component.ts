@@ -21,7 +21,7 @@ import {AutoCompleteOptions} from '../auto-complete-options.model';
 })
 export class AutoCompleteComponent implements ControlValueAccessor {
   @Input() public alwaysShowList:boolean;
-  @Input() public dataProvider:any;
+  @Input() public dataProvider:any; // TODO
   @Input() public disabled:boolean = false;
   @Input() public exclude:any[] = [];
   @Input() public hideListOnSelection:boolean = true;
@@ -124,7 +124,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    * @param platform
    */
   public constructor(
-    private platform: Platform
+    private platform:Platform
   ) {
     this.keyword = '';
     this.suggestions = [];
