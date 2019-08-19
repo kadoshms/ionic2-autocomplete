@@ -129,18 +129,22 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   public constructor(
     private platform:Platform
   ) {
-    this.keyword = '';
-    this.suggestions = [];
-    this._showList = false;
-    this.modelChanged = new EventEmitter<any>();
+    this.autoBlur = new EventEmitter<any>();
+    this.autoFocus = new EventEmitter<any>();
+    this.blur = new EventEmitter<any>();
+    this.focus = new EventEmitter<any>();
+    this.ionAutoInput = new EventEmitter<string>();
     this.itemsChange = new EventEmitter<any>();
+    this.itemsHidden = new EventEmitter<any>();
     this.itemRemoved = new EventEmitter<any>();
     this.itemSelected = new EventEmitter<any>();
     this.itemsShown = new EventEmitter<any>();
-    this.itemsHidden = new EventEmitter<any>();
-    this.ionAutoInput = new EventEmitter<string>();
-    this.autoFocus = new EventEmitter<any>();
-    this.autoBlur = new EventEmitter<any>();
+    this.modelChanged = new EventEmitter<any>();
+
+    this.keyword = '';
+    this.suggestions = [];
+    this._showList = false;
+
     this.options = new AutoCompleteOptions();
 
     this.defaultOpts = new AutoCompleteOptions();
@@ -416,6 +420,8 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   onFocus(event:any):void {
     this.getItems();
 
+    event = this._reflectName(event);
+
     this.autoFocus.emit(event);
     this.focus.emit(event);
   }
@@ -424,8 +430,18 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    * Fired when the input focused
    */
   onBlur(event):void {
+    event = this._reflectName(event);
+
     this.autoBlur.emit(event);
     this.blur.emit(event);
+  }
+
+  _reflectName(event:any):any {
+    if (typeof event.srcElement.attributes['ng-reflect-name'] === 'object') {
+      event.srcElement.name = event.srcElement.attributes['ng-reflect-name'].value;
+    }
+
+    return event;
   }
 
   /**
