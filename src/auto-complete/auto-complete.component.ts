@@ -28,6 +28,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   @Input() public keyword:string;
   @Input() public location:string = 'auto';
   @Input() public multi:boolean = false;
+  @Input() public name:string = '';
   @Input() public options:AutoCompleteOptions = new AutoCompleteOptions();
   @Input() public removeButtonClasses:string = '';
   @Input() public removeButtonColor:string = 'primary';
@@ -78,7 +79,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
       read: ElementRef
     }
   )
-  private searchbarElem: ElementRef;
+  private searchbarElem:ElementRef;
 
   @ViewChild(
     'inputElem',
@@ -86,7 +87,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
       read: ElementRef
     }
   )
-  private inputElem: ElementRef;
+  private inputElem:ElementRef;
 
   private onTouchedCallback:() => void = noop;
   private onChangeCallback:(_: any) => void = noop;
@@ -410,17 +411,17 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   /**
    * Fired when the input focused
    */
-  onFocus():void {
+  onFocus(event:any):void {
     this.getItems();
 
-    this.autoFocus.emit();
+    this.autoFocus.emit(event);
   }
 
   /**
    * Fired when the input focused
    */
-  onBlur():void {
-    this.autoBlur.emit();
+  onBlur(event):void {
+    this.autoBlur.emit(event);
   }
 
   /**

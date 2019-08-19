@@ -15,6 +15,7 @@
 </div>
 
 <ion-input #inputElem
+           [name]="name"
            (keyup)="getItems($event)"
            (tap)="handleTap($event)"
            [(ngModel)]="keyword"
@@ -27,10 +28,11 @@
            [mode]="options.mode == null ? defaultOpts.mode : options.mode"
            [disabled]="disabled"
            [ngClass]="{ 'hidden': !useIonInput, 'loading': isLoading }"
-           (ionFocus)="onFocus()"
-           (ionBlur)="onBlur()"></ion-input>
+           (ionFocus)="onFocus($event)"
+           (ionBlur)="onBlur($event)"></ion-input>
 
 <ion-searchbar #searchbarElem
+               [name]="name"
                [animated]="options.animated == null ? defaultOpts.animated : options.animated"
                (ionInput)="getItems($event)"
                (tap)="handleTap($event)"
@@ -51,8 +53,8 @@
                [type]="options.type == null ? defaultOpts.type : options.type"
                [ngClass]="{ 'hidden': useIonInput, 'loading': isLoading, 'disabled': disabled }"
                (ionClear)="clearValue(true)"
-               (ionFocus)="onFocus()"
-               (ionBlur)="onBlur()"></ion-searchbar>
+               (ionFocus)="onFocus($event)"
+               (ionBlur)="onBlur($event)"></ion-searchbar>
 
 <ng-template #defaultTemplate let-attrs="attrs">
     <span [innerHTML]='attrs.label | boldprefix:attrs.keyword'></span>
