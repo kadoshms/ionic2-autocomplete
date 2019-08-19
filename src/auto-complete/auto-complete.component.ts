@@ -63,9 +63,11 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     }
   }
 
+  @Output() public blur:EventEmitter<any>;
   @Output() public modelChanged:EventEmitter<any>;
   @Output() public autoFocus:EventEmitter<any>;
   @Output() public autoBlur:EventEmitter<any>;
+  @Output() public focus:EventEmitter<any>;
   @Output() public ionAutoInput:EventEmitter<string>;
   @Output() public itemsChange:EventEmitter<any>;
   @Output() public itemsHidden:EventEmitter<any>;
@@ -415,6 +417,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     this.getItems();
 
     this.autoFocus.emit(event);
+    this.focus.emit(event);
   }
 
   /**
@@ -422,6 +425,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    */
   onBlur(event):void {
     this.autoBlur.emit(event);
+    this.blur.emit(event);
   }
 
   /**
