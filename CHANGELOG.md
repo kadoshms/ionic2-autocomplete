@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ## [1.8.1] 
+### Added
+- Added interface for data provider by [jrquick17](https://github.com/jrquick17)
+### Changed
+- Updated dependencies by [jrquick17](https://github.com/jrquick17)
 
 ## [Released]
 ## [1.8.0] 
