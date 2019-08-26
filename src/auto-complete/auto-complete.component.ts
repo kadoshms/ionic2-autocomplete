@@ -3,7 +3,7 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 import {Platform} from '@ionic/angular';
 
-import {from, noop, Observable, Subject} from 'rxjs';
+import {from, Observable, Subject} from 'rxjs';
 import {finalize} from 'rxjs/operators';
 
 import {AutoCompleteOptions} from '../auto-complete-options.model';
@@ -79,7 +79,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   @ViewChild(
     'searchbarElem',
     {
-      read: ElementRef
+      read:ElementRef
     }
   )
   private searchbarElem:ElementRef;
@@ -87,13 +87,13 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   @ViewChild(
     'inputElem',
     {
-      read: ElementRef
+      read:ElementRef
     }
   )
   private inputElem:ElementRef;
 
-  private onTouchedCallback:() => void = noop;
-  private onChangeCallback:(_: any) => void = noop;
+  private onTouchedCallback:Function;
+  private onChangeCallback:Function;
 
   public defaultOpts:AutoCompleteOptions;
   public isLoading:boolean = false;
@@ -549,6 +549,8 @@ export class AutoCompleteComponent implements ControlValueAccessor {
         this.itemRemoved.emit(selection);
         this.itemsChange.emit(this.selected);
     }
+
+    this.modelChanged.emit(this.selected);
   }
 
   /**
@@ -580,6 +582,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     }
 
     this.itemSelected.emit(selection);
+    this.modelChanged.emit(this.selected);
   }
 
   /**
