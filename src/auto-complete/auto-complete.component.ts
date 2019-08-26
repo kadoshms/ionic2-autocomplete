@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, TemplateRef, ViewChild, HostListener, ElementRef} from '@angular/core';
+import {Component, Input, Output, EventEmitter, TemplateRef, ViewChild, HostListener, ElementRef, AfterViewChecked} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 import {Platform} from '@ionic/angular';
@@ -20,7 +20,7 @@ import {DataProviderInterface} from '../data-provider.interface';
   selector:    'ion-auto-complete',
   templateUrl: 'auto-complete.component.html'
 })
-export class AutoCompleteComponent implements ControlValueAccessor {
+export class AutoCompleteComponent implements AfterViewChecked, ControlValueAccessor {
   @Input() public alwaysShowList:boolean;
   @Input() public dataProvider:DataProviderInterface|Function;
   @Input() public disabled:boolean = false;
