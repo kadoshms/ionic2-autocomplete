@@ -7,6 +7,7 @@ import {from, noop, Observable, Subject} from 'rxjs';
 import {finalize} from 'rxjs/operators';
 
 import {AutoCompleteOptions} from '../auto-complete-options.model';
+import {DataProviderInterface} from '../data-provider.interface';
 
 @Component({
   providers: [
@@ -21,7 +22,7 @@ import {AutoCompleteOptions} from '../auto-complete-options.model';
 })
 export class AutoCompleteComponent implements ControlValueAccessor {
   @Input() public alwaysShowList:boolean;
-  @Input() public dataProvider:any; // TODO
+  @Input() public dataProvider:DataProviderInterface|Function;
   @Input() public disabled:boolean = false;
   @Input() public exclude:any[] = [];
   @Input() public hideListOnSelection:boolean = true;
@@ -190,13 +191,17 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    * @private
    */
   private _getFormValue(selection:any): any {
-    if (selection == null) {
+    if (selection == null || typeof this.dataProvider === 'function') {
       return null;
     }
-    let attr = this.dataProvider.formValueAttribute == null ? this.dataProvider.labelAttribute : this.dataProvider.formValueAttribute;
+
+    let attr = this.dataProvider.formValueAttribute == null ?
+        this.dataProvider.labelAttribute : this.dataProvider.formValueAttribute;
+
     if (typeof selection === 'object' && attr) {
       return selection[attr];
     }
+
     return selection;
   }
 
@@ -313,17 +318,21 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    * @param selection
    */
   public getLabel(selection:any):string {
-    if (selection == null) {
+    if (selection == null || typeof this.dataProvider === 'function') {
       return '';
     }
+
     let attr = this.dataProvider.labelAttribute;
     let value = selection;
+
     if (this.dataProvider.getItemLabel) {
       value = this.dataProvider.getItemLabel(value);
     }
+
     if (typeof value === 'object' && attr) {
       return value[attr] || '';
     }
+
     return value || '';
   }
 
