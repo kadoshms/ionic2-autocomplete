@@ -175,9 +175,9 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   @HostListener('document:click', ['$event'])
   private _documentClickHandler(event:Event):void {
     if (
-      (this.searchbarElem && this.searchbarElem.nativeElement && !this.searchbarElem.nativeElement.contains(event.target))
+      (this.searchbarElem && this.searchbarElem.nativeElement && !this.searchbarElem.nativeElement.contains(event.target.toString()))
       ||
-      (!this.inputElem && this.inputElem.nativeElement && this.inputElem.nativeElement.contains(event.target))
+      (!this.inputElem && this.inputElem.nativeElement && this.inputElem.nativeElement.contains(event.target.toString()))
     ) {
       this.hideItemList();
     }
