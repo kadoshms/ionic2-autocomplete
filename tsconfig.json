@@ -3,7 +3,8 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "sourceMap": true,
-    "declaration": false,
+    "declaration": true,
+    "outDir": "./dist",
     "module": "es2015",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
