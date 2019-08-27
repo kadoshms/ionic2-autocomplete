@@ -28,7 +28,7 @@ export * from './auto-complete-options.model';
   ]
 })
 export class AutoCompleteModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot():ModuleWithProviders {
     return {
       ngModule: AutoCompleteModule,
       providers: []
