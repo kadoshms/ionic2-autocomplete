@@ -1,4 +1,3 @@
-/* eslint-disable */
 const gulp = require('gulp');
 const path = require('path');
 const rollup = require('rollup');
@@ -41,12 +40,11 @@ gulp.task(
 gulp.task(
   'clean:dist',
   async () => {
-    // return del(
-    //   [
-    //     distFolder
-    //   ]
-    // );
-      return;
+    return del(
+      [
+        distFolder
+      ]
+    );
   }
 );
 
@@ -203,11 +201,7 @@ gulp.task(
           {
             file: `${distFolder}/index.js`,
             format: 'es',
-            sourcemap: true,
-            external: [
-              '@angular/core',
-              '@angular/common'
-            ]
+            sourcemap: true
           }
         );
       }
@@ -232,11 +226,7 @@ gulp.task(
            file: `${buildFolder}/index.js`,
            format: 'umd',
            name: 'ionic4-auto-complete',
-           sourcemap: true,
-           external: [
-             '@angular/core',
-             '@angular/common'
-           ]
+           sourcemap: true
          }
        );
       }
