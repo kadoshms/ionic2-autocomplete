@@ -1,6 +1,6 @@
 {
   "name": "ionic4-auto-complete",
-  "version": "1.7.1",
+  "version": "2.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/jrquick17/ionic4-auto-complete"
@@ -19,8 +19,8 @@
   "module": "ionic4-auto-complete.js",
   "typings": "ionic4-auto-complete.d.ts",
   "peerDependencies": {
-    "@angular/core": "8.0.2",
+    "@angular/core": "8.2.3",
     "rxjs": "6.5.2",
-    "zone.js": "0.9.1"
+    "zone.js": "0.10.2"
   }
 }
