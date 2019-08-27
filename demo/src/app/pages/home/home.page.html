@@ -10,10 +10,10 @@
   <ion-list style="height: 100%;">
     <ion-segment (ionChange)="selectedSegment = $event.detail.value">
       <ion-segment-button *ngFor="let segment of segments"
-                          [value]="segment"
-                          [checked]="segment === selectedSegment">
+                          [value]="segment.key"
+                          [checked]="segment.key === selectedSegment">
         <ion-label>
-          {{ segment }}
+          {{ segment.label }}
         </ion-label>
       </ion-segment-button>
     </ion-segment>
@@ -43,6 +43,20 @@
           </ion-col>
           <ion-col [size]="12">
             <simple-service></simple-service>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf="selectedSegment === 'multi-function'"
+              style="height: 100%;">
+      <ion-card-content>
+        <ion-row>
+          <ion-col class="label">
+            Select Multiple People
+          </ion-col>
+          <ion-col [size]="12">
+            <multi-function></multi-function>
           </ion-col>
         </ion-row>
       </ion-card-content>

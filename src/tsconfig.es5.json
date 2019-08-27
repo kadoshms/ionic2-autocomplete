@@ -8,8 +8,6 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
-    "outDir": "../build",
-    "rootDir": ".",
     "lib": [
       "es2015",
       "dom"
@@ -22,7 +20,8 @@
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true,
     "flatModuleOutFile": "ionic4-auto-complete.js",
-    "flatModuleId": "ionic4-auto-complete"
+    "flatModuleId": "ionic4-auto-complete",
+    "target": "es5"
   },
   "files": [
     "./index.ts"

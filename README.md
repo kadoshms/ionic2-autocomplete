@@ -18,6 +18,7 @@
 This is a component based on Ionic's search-bar component, with the addition of auto-complete ability. This component is super simple and light-weight. Just provide the data, and let the fun begin. This package is compatible with Angular 2+ and Ionic 2+. 
 
 * Visit the [demo](https://ionic4-auto-complete.jrquick.com) to see it action!
+* Visit [my website](https://jrquick.com) for other cool projects!
 
 ## Setup
 
@@ -321,6 +322,7 @@ export class AppModule {}
         ```
 
     * Options include, but not limited to:
+        * `color` - (default is `null`)
         * `debounce` - (default is `250`)
         * `autocomplete` - ("on" and "off")
         * `type` - ("text", "password", "email", "number", "search", "tel", "url". Default "search".)
@@ -433,13 +435,10 @@ Run `npm install` to get packages required for the demo and then run `ionic serv
 
 ### Future Plans ###
 
-* Create demo page
-    * Simple function
-    * Service and component
-    * Angular Form
-    * Custom Template
-    
-* Fix gulp (Scss does not always transfer, soft fail)
+* Add max and minimum options (for multi)
+* Add Custom Template demo
+* Update for Ionic 5
+* Update for Angular 8
 
 ## FAQ ##
 

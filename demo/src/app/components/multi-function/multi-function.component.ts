@@ -5,25 +5,23 @@ import {AutoCompleteOptions} from 'ionic4-auto-complete';
 import {SimpleFunction} from '../../services/simple-function.service';
 
 @Component({
-  selector:    'simple-function',
-  templateUrl: 'simple-function.component.html',
+  selector:    'multi-function',
+  templateUrl: 'multi-function.component.html',
   styleUrls: [
-    'simple-function.component.scss'
+    'multi-function.component.scss'
   ]
 })
-export class SimpleFunctionComponent {
+export class MultiFunctionComponent {
   // @ts-ignore
   public options:AutoCompleteOptions = {
     autocomplete: 'on',
     debounce: 750,
-    placeholder: 'Type text to search..',
+    placeholder: 'Filter and select multiple..',
     type: 'search',
-    cancelButtonIcon: 'assets/icons/clear.svg',
-    clearIcon: 'assets/icons/clear.svg',
     searchIcon: 'assets/icons/add-user.svg'
   };
 
-  public selected:any = '';
+  public selected:string[] = [];
 
   constructor(
       private provider:SimpleFunction

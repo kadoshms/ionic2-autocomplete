@@ -1,6 +1,7 @@
 <ion-auto-complete [(model)]="selected"
-                   (itemSelected)="itemSelected($event)"
-                   [multi]="false"
+                   [multi]="true"
                    [dataProvider]="provider"
                    [disabled]="false"
+                   [options]="options"
+                   [removeButtonIcon]="'assets/icons/clear.svg'"
                    [removeButtonColor]="'dark'"></ion-auto-complete>
