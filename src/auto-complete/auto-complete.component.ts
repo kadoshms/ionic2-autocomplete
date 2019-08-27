@@ -41,8 +41,7 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
   @Input() public useIonInput:boolean;
 
   @Input()
-  // @ts-ignore
-  get model() {
+  get model():any[] {
     let model = this.selected;
     if (!this.multi && typeof this.selected.length !== 'undefined') {
       if (this.selected.length === 0) {
@@ -55,7 +54,6 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
     return model;
   }
 
-  // @ts-ignore
   set model(selected) {
     if (typeof selected !== 'undefined') {
       this.selected = selected;
@@ -102,12 +100,10 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
   public suggestions:any[];
   public promise;
 
-  // @ts-ignore
   public get showList():boolean {
     return this._showList;
   }
 
-  // @ts-ignore
   public set showList(value:boolean) {
     if (this._showList === value) {
       return;
