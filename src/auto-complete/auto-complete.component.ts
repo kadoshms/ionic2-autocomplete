@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, TemplateRef, ViewChild, HostListener, ElementRef} from '@angular/core';
+import {Component, Input, Output, EventEmitter, TemplateRef, ViewChild, HostListener, ElementRef, AfterViewChecked} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 import {Platform} from '@ionic/angular';
@@ -7,6 +7,7 @@ import {from, noop, Observable, Subject} from 'rxjs';
 import {finalize} from 'rxjs/operators';
 
 import {AutoCompleteOptions} from '../auto-complete-options.model';
+import {DataProviderInterface} from '../data-provider.interface';
 
 @Component({
   providers: [
@@ -15,22 +16,21 @@ import {AutoCompleteOptions} from '../auto-complete-options.model';
       useExisting: AutoCompleteComponent,
       multi: true
     }
-  ]
-})
-@Component({
+  ],
   selector:    'ion-auto-complete',
   templateUrl: 'auto-complete.component.html'
 })
-export class AutoCompleteComponent implements ControlValueAccessor {
+export class AutoCompleteComponent implements AfterViewChecked, ControlValueAccessor {
   @Input() public alwaysShowList:boolean;
-  @Input() public dataProvider:any;
+  @Input() public dataProvider:DataProviderInterface|Function;
   @Input() public disabled:boolean = false;
   @Input() public exclude:any[] = [];
   @Input() public hideListOnSelection:boolean = true;
   @Input() public keyword:string;
   @Input() public location:string = 'auto';
   @Input() public multi:boolean = false;
-  @Input() public options:AutoCompleteOptions;
+  @Input() public name:string = '';
+  @Input() public options:AutoCompleteOptions = new AutoCompleteOptions();
   @Input() public removeButtonClasses:string = '';
   @Input() public removeButtonColor:string = 'primary';
   @Input() public removeButtonIcon:string = 'close';
@@ -41,8 +41,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   @Input() public useIonInput:boolean;
 
   @Input()
-  // @ts-ignore
-  get model() {
+  get model():any[] {
     let model = this.selected;
     if (!this.multi && typeof this.selected.length !== 'undefined') {
       if (this.selected.length === 0) {
@@ -55,20 +54,19 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     return model;
   }
 
-  // @ts-ignore
   set model(selected) {
     if (typeof selected !== 'undefined') {
-      this.isInitializing = false;
-
       this.selected = selected;
 
       this.keyword = this.getLabel(selected)
     }
   }
 
+  @Output() public blur:EventEmitter<any>;
   @Output() public modelChanged:EventEmitter<any>;
   @Output() public autoFocus:EventEmitter<any>;
   @Output() public autoBlur:EventEmitter<any>;
+  @Output() public focus:EventEmitter<any>;
   @Output() public ionAutoInput:EventEmitter<string>;
   @Output() public itemsChange:EventEmitter<any>;
   @Output() public itemsHidden:EventEmitter<any>;
@@ -79,38 +77,35 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   @ViewChild(
     'searchbarElem',
     {
-      read: ElementRef,
+      read:   ElementRef,
       static: false
     }
   )
-  private searchbarElem: ElementRef;
+  private searchbarElem:ElementRef;
 
   @ViewChild(
     'inputElem',
     {
-      read: ElementRef,
+      read:   ElementRef,
       static: false
     }
   )
-  private inputElem: ElementRef;
+  private inputElem:ElementRef;
 
-  private onTouchedCallback:() => void = noop;
-  private onChangeCallback:(_: any) => void = noop;
+  private onTouchedCallback:Function;
+  private onChangeCallback:Function;
 
   public defaultOpts:AutoCompleteOptions;
-  public isInitializing:boolean = true;
   public isLoading:boolean = false;
   public formValue:any;
   public selected:any[];
   public suggestions:any[];
   public promise;
 
-  // @ts-ignore
   public get showList():boolean {
     return this._showList;
   }
 
-  // @ts-ignore
   public set showList(value:boolean) {
     if (this._showList === value) {
       return;
@@ -131,20 +126,24 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    * @param platform
    */
   public constructor(
-    private platform: Platform
+    private platform:Platform
   ) {
-    this.keyword = '';
-    this.suggestions = [];
-    this._showList = false;
-    this.modelChanged = new EventEmitter<any>();
+    this.autoBlur = new EventEmitter<any>();
+    this.autoFocus = new EventEmitter<any>();
+    this.blur = new EventEmitter<any>();
+    this.focus = new EventEmitter<any>();
+    this.ionAutoInput = new EventEmitter<string>();
     this.itemsChange = new EventEmitter<any>();
+    this.itemsHidden = new EventEmitter<any>();
     this.itemRemoved = new EventEmitter<any>();
     this.itemSelected = new EventEmitter<any>();
     this.itemsShown = new EventEmitter<any>();
-    this.itemsHidden = new EventEmitter<any>();
-    this.ionAutoInput = new EventEmitter<string>();
-    this.autoFocus = new EventEmitter<any>();
-    this.autoBlur = new EventEmitter<any>();
+    this.modelChanged = new EventEmitter<any>();
+
+    this.keyword = '';
+    this.suggestions = [];
+    this._showList = false;
+
     this.options = new AutoCompleteOptions();
 
     this.defaultOpts = new AutoCompleteOptions();
@@ -174,9 +173,9 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   @HostListener('document:click', ['$event'])
   private _documentClickHandler(event:Event):void {
     if (
-      (this.searchbarElem && this.searchbarElem.nativeElement && !this.searchbarElem.nativeElement.contains(event.target))
+      (this.searchbarElem && this.searchbarElem.nativeElement && !this.searchbarElem.nativeElement.contains(event.target.toString()))
       ||
-      (!this.inputElem && this.inputElem.nativeElement && this.inputElem.nativeElement.contains(event.target))
+      (!this.inputElem && this.inputElem.nativeElement && this.inputElem.nativeElement.contains(event.target.toString()))
     ) {
       this.hideItemList();
     }
@@ -190,13 +189,17 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    * @private
    */
   private _getFormValue(selection:any): any {
-    if (selection == null) {
+    if (selection == null || typeof this.dataProvider === 'function') {
       return null;
     }
-    let attr = this.dataProvider.formValueAttribute == null ? this.dataProvider.labelAttribute : this.dataProvider.formValueAttribute;
+
+    let attr = this.dataProvider.formValueAttribute == null ?
+        this.dataProvider.labelAttribute : this.dataProvider.formValueAttribute;
+
     if (typeof selection === 'object' && attr) {
       return selection[attr];
     }
+
     return selection;
   }
 
@@ -313,17 +316,21 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    * @param selection
    */
   public getLabel(selection:any):string {
-    if (selection == null) {
+    if (selection == null || typeof this.dataProvider === 'function') {
       return '';
     }
+
     let attr = this.dataProvider.labelAttribute;
     let value = selection;
+
     if (this.dataProvider.getItemLabel) {
       value = this.dataProvider.getItemLabel(value);
     }
+
     if (typeof value === 'object' && attr) {
       return value[attr] || '';
     }
+
     return value || '';
   }
 
@@ -417,17 +424,31 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   /**
    * Fired when the input focused
    */
-  onFocus():void {
+  onFocus(event:any):void {
     this.getItems();
 
-    this.autoFocus.emit();
+    event = this._reflectName(event);
+
+    this.autoFocus.emit(event);
+    this.focus.emit(event);
   }
 
   /**
    * Fired when the input focused
    */
-  onBlur():void {
-    this.autoBlur.emit();
+  onBlur(event):void {
+    event = this._reflectName(event);
+
+    this.autoBlur.emit(event);
+    this.blur.emit(event);
+  }
+
+  _reflectName(event:any):any {
+    if (typeof event.srcElement.attributes['ng-reflect-name'] === 'object') {
+      event.srcElement.name = event.srcElement.attributes['ng-reflect-name'].value;
+    }
+
+    return event;
   }
 
   /**
@@ -523,9 +544,11 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     notify = typeof notify === 'undefined' ? true : notify;
 
     if (notify) {
-      this.itemRemoved.emit(this.selected);
-      this.itemsChange.emit(this.selected);
+        this.itemRemoved.emit(selection);
+        this.itemsChange.emit(this.selected);
     }
+
+    this.modelChanged.emit(this.selected);
   }
 
   /**
@@ -538,7 +561,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     this.formValue = this._getFormValue(selection);
     this.hideItemList();
 
-    this.updateModel();
+    this.updateModel(this.formValue);
 
     if (this.hideListOnSelection) {
       this.hideItemList();
@@ -557,6 +580,7 @@ export class AutoCompleteComponent implements ControlValueAccessor {
     }
 
     this.itemSelected.emit(selection);
+    this.modelChanged.emit(this.selected);
   }
 
   /**
@@ -606,10 +630,15 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   /**
    * Update the model
    */
-  public updateModel():void {
-      this.onChangeCallback(this.formValue);
+  public updateModel(enteredText:string):void {
+    if (enteredText !== this.formValue) {
+      this.formValue = enteredText;
 
-      this.modelChanged.emit(this.selected);
+      this.selected = this.multi ? [] : null;
+    }
+
+    this.onChangeCallback(this.formValue);
+    this.modelChanged.emit(this.selected);
   }
 
   /**
