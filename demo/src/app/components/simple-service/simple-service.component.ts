@@ -17,7 +17,7 @@ export class SimpleServiceComponent {
   public selected:any = '';
 
   constructor(
-      public provider:SimpleService
+    public provider:SimpleService
   ) {
     this.options = new AutoCompleteOptions();
 

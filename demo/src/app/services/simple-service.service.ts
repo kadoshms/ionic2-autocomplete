@@ -20,7 +20,17 @@ export class SimpleService implements AutoCompleteService {
     let observable:Observable<any>;
 
     if (this.countries.length === 0) {
-      observable = this.http.get('https://restcountries.eu/rest/v2/all');
+      observable = this.http.get('https://restcountries.eu/rest/v2/all').pipe(
+        map(
+          (results:any[]) => {
+            if (results) {
+              this.countries = results;
+            }
+
+            return this.countries;
+          }
+        )
+      );
     } else {
       observable = of(this.countries);
     }

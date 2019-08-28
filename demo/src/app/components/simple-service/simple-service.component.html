@@ -1,5 +1,6 @@
 <ion-auto-complete [(model)]="selected"
                    (itemSelected)="itemSelected($event)"
+                   [eager]="true"
                    [multi]="false"
                    [dataProvider]="provider"
                    [disabled]="false"

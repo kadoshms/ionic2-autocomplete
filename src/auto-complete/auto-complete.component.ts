@@ -22,7 +22,6 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
   @Input() public alwaysShowList:boolean;
   @Input() public dataProvider:AutoCompleteService|Function;
   @Input() public disabled:boolean = false;
-  @Input() public eager:boolean = false;
   @Input() public exclude:any[] = [];
   @Input() public frontIcon:false|string = false;
   @Input() public hideListOnSelection:boolean = true;
@@ -59,6 +58,13 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
       this.selected = selected;
 
       this.keyword = this.getLabel(selected)
+    }
+  }
+
+  @Input()
+  set eager(eager:boolean) {
+    if (eager) {
+      this.getItems(null, false);
     }
   }
 
@@ -143,10 +149,6 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
     this.defaultOpts = new AutoCompleteOptions();
 
     this.selected = [];
-
-    if (this.eager) {
-      this.getItems();
-    }
   }
 
   /**
@@ -251,8 +253,9 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
    * Get items for auto-complete
    *
    * @param event
+   * @param show
    */
-  public getItems(event?):void {
+  public getItems(event?, show?:boolean):void {
     if (this.promise) {
       clearTimeout(this.promise);
     }
@@ -291,13 +294,13 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
             )
           ).subscribe(
             (results: any[]) => {
-              this.setSuggestions(results);
+              this.setSuggestions(results, show);
             },
             (error: any) => console.error(error)
           )
           ;
         } else {
-          this.setSuggestions(result);
+          this.setSuggestions(result, show);
         }
 
         this.ionAutoInput.emit(this.keyword);
@@ -592,17 +595,19 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
    * Set suggestions
    *
    * @param suggestions
+   * @param show
    */
-  public setSuggestions(suggestions):void {
+  public setSuggestions(suggestions:any[], show?:boolean):void {
     if (this.removeDuplicateSuggestions) {
       suggestions = this.removeDuplicates(suggestions);
       suggestions = this.removeExcluded(suggestions);
     }
 
-
     this.suggestions = suggestions;
 
-    this.showItemList();
+    if (show || typeof show === 'undefined') {
+      this.showItemList();
+    }
   }
 
   /**
