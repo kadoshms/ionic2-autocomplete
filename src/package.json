@@ -16,11 +16,6 @@
   "bugs": {
     "url": "https://github.com/jrquick17/ionic4-auto-complete/issues"
   },
-  "module": "ionic4-auto-complete.js",
-  "typings": "ionic4-auto-complete.d.ts",
-  "peerDependencies": {
-    "@angular/core": "8.2.3",
-    "rxjs": "6.5.2",
-    "zone.js": "0.10.2"
-  }
+  "module": "index.js",
+  "typings": "index.d.ts",
 }
