@@ -5,14 +5,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [Released]
 ## [1.9.0]
 ### Added
-- Added `frontIcon` to selection chips
+- Added `frontIcon` to selection chips by [jrquick17](https://github.com/jrquick17)
+- Added eager loading option by [jrquick17](https://github.com/jrquick17)
 ### Changed
 - Use `ion-chip` for selection instead of `ion-button` by [jrquick17](https://github.com/jrquick17)
 - Made `removeIcon` optional within selection by [jrquick17](https://github.com/jrquick17)
 
-## [Released]
 ## [1.8.1] 
 ### Added
 - Added interface for data provider by [jrquick17](https://github.com/jrquick17)
