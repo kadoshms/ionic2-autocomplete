@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "scripts": {
     "publish": "npm publish dist",
-    "build": "ng-packagr -p package.json && cp -fr src/scss/auto-complete.scss dist/auto-complete.scss",
+    "build": "ng-packagr -p package.json && cp src/scss/auto-complete.scss dist/auto-complete.scss",
     "docs": "npm run docs:build",
     "docs:build": "compodoc -p tsconfig.json -n ionic4-auto-complete -d docs --hideGenerator",
     "docs:serve": "npm run docs:build -- -s",
