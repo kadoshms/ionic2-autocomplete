@@ -29,7 +29,7 @@
     "cordova-plugin-ionic-webview": "^4.1.1",
     "core-js": "^2.6.9",
     "font-awesome": "^4.7.0",
-    "ionic4-auto-complete": "^1.7.3",
+    "ionic4-auto-complete": "^1.8.1",
     "ionicons": "^4.6.3",
     "ngx-bootstrap": "^4.3.0",
     "path": "^0.12.7",
