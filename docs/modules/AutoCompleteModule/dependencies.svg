@@ -22,45 +22,69 @@
 <text text-anchor="start" x="429.7258" y="-15.4" font-family="sans-serif" font-size="14.00" fill="#000000"> &#160;Exports</text>
 <g id="clust1" class="cluster">
 <title>cluster_AutoCompleteModule</title>
-<polygon fill="none" stroke="#000000" stroke-dasharray="1,5" points="169,-70 169,-268 327,-268 327,-70 169,-70"/>
+<polygon fill="none" stroke="#000000" stroke-dasharray="1,5" points="99,-70 99,-268 397,-268 397,-70 99,-70"/>
 </g>
 <g id="clust2" class="cluster">
 <title>cluster_AutoCompleteModule_declarations</title>
-<polygon fill="none" stroke="#000000" points="201,-78 201,-130 295,-130 295,-78 201,-78"/>
+<polygon fill="none" stroke="#000000" points="110,-78 110,-130 386,-130 386,-78 110,-78"/>
 </g>
-<g id="clust5" class="cluster">
+<g id="clust6" class="cluster">
 <title>cluster_AutoCompleteModule_exports</title>
-<polygon fill="none" stroke="#000000" points="200,-208 200,-260 296,-260 296,-208 200,-208"/>
+<polygon fill="none" stroke="#000000" points="107,-208 107,-260 389,-260 389,-208 107,-208"/>
 </g>
-<!-- BoldPrefix -->
+<!-- AutoCompleteComponent -->
 <g id="node1" class="node">
-<title>BoldPrefix</title>
-<polygon fill="#ffffb3" stroke="#000000" points="286.9374,-122 209.0626,-122 209.0626,-86 286.9374,-86 286.9374,-122"/>
-<text text-anchor="middle" x="248" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">BoldPrefix</text>
+<title>AutoCompleteComponent</title>
+<polygon fill="#ffffb3" stroke="#000000" points="377.7674,-122 214.2326,-122 214.2326,-86 377.7674,-86 377.7674,-122"/>
+<text text-anchor="middle" x="296" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">AutoCompleteComponent</text>
 </g>
 <!-- AutoCompleteModule -->
-<g id="node2" class="node">
+<g id="node3" class="node">
 <title>AutoCompleteModule</title>
-<polygon fill="#8dd3c7" stroke="#000000" points="318.9846,-187 315.9846,-191 294.9846,-191 291.9846,-187 177.0154,-187 177.0154,-151 318.9846,-151 318.9846,-187"/>
-<text text-anchor="middle" x="248" y="-164.8" font-family="Times,serif" font-size="14.00" fill="#000000">AutoCompleteModule</text>
+<polygon fill="#8dd3c7" stroke="#000000" points="305.9846,-187 302.9846,-191 281.9846,-191 278.9846,-187 164.0154,-187 164.0154,-151 305.9846,-151 305.9846,-187"/>
+<text text-anchor="middle" x="235" y="-164.8" font-family="Times,serif" font-size="14.00" fill="#000000">AutoCompleteModule</text>
+</g>
+<!-- AutoCompleteComponent&#45;&gt;AutoCompleteModule -->
+<g id="edge1" class="edge">
+<title>AutoCompleteComponent&#45;&gt;AutoCompleteModule</title>
+<path fill="none" stroke="#000000" d="M260.0544,-122.1061C260.0544,-122.1061 260.0544,-140.991 260.0544,-140.991"/>
+<polygon fill="#000000" stroke="#000000" points="256.5544,-140.9909 260.0544,-150.991 263.5544,-140.991 256.5544,-140.9909"/>
+</g>
+<!-- BoldPrefix -->
+<g id="node2" class="node">
+<title>BoldPrefix</title>
+<polygon fill="#ffffb3" stroke="#000000" points="195.9374,-122 118.0626,-122 118.0626,-86 195.9374,-86 195.9374,-122"/>
+<text text-anchor="middle" x="157" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">BoldPrefix</text>
 </g>
 <!-- BoldPrefix&#45;&gt;AutoCompleteModule -->
-<g id="edge1" class="edge">
+<g id="edge2" class="edge">
 <title>BoldPrefix&#45;&gt;AutoCompleteModule</title>
-<path fill="none" stroke="#000000" d="M248,-122.1061C248,-122.1061 248,-140.991 248,-140.991"/>
-<polygon fill="#000000" stroke="#000000" points="244.5001,-140.9909 248,-150.991 251.5001,-140.991 244.5001,-140.9909"/>
+<path fill="none" stroke="#000000" d="M179.8629,-122.1061C179.8629,-122.1061 179.8629,-140.991 179.8629,-140.991"/>
+<polygon fill="#000000" stroke="#000000" points="176.363,-140.9909 179.8629,-150.991 183.363,-140.991 176.363,-140.9909"/>
+</g>
+<!-- AutoCompleteComponent  -->
+<g id="node4" class="node">
+<title>AutoCompleteComponent </title>
+<polygon fill="#fb8072" stroke="#000000" points="380.7674,-252 213.2326,-252 213.2326,-216 380.7674,-216 380.7674,-252"/>
+<text text-anchor="middle" x="297" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000">AutoCompleteComponent </text>
+</g>
+<!-- AutoCompleteModule&#45;&gt;AutoCompleteComponent  -->
+<g id="edge3" class="edge">
+<title>AutoCompleteModule&#45;&gt;AutoCompleteComponent </title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M259.6794,-187.1061C259.6794,-187.1061 259.6794,-205.991 259.6794,-205.991"/>
+<polygon fill="#000000" stroke="#000000" points="256.1794,-205.9909 259.6794,-215.991 263.1794,-205.991 256.1794,-205.9909"/>
 </g>
 <!-- BoldPrefix  -->
-<g id="node3" class="node">
+<g id="node5" class="node">
 <title>BoldPrefix </title>
-<polygon fill="#fb8072" stroke="#000000" points="288.4362,-252 207.5638,-252 207.5638,-216 288.4362,-216 288.4362,-252"/>
-<text text-anchor="middle" x="248" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000">BoldPrefix </text>
+<polygon fill="#fb8072" stroke="#000000" points="195.4362,-252 114.5638,-252 114.5638,-216 195.4362,-216 195.4362,-252"/>
+<text text-anchor="middle" x="155" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000">BoldPrefix </text>
 </g>
 <!-- AutoCompleteModule&#45;&gt;BoldPrefix  -->
-<g id="edge2" class="edge">
+<g id="edge4" class="edge">
 <title>AutoCompleteModule&#45;&gt;BoldPrefix </title>
-<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M248,-187.1061C248,-187.1061 248,-205.991 248,-205.991"/>
-<polygon fill="#000000" stroke="#000000" points="244.5001,-205.9909 248,-215.991 251.5001,-205.991 244.5001,-205.9909"/>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M179.7379,-187.1061C179.7379,-187.1061 179.7379,-205.991 179.7379,-205.991"/>
+<polygon fill="#000000" stroke="#000000" points="176.238,-205.9909 179.7379,-215.991 183.238,-205.991 176.238,-205.9909"/>
 </g>
 </g>
 </svg>
