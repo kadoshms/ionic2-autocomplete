@@ -90,8 +90,8 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
   )
   private inputElem:ElementRef;
 
-  private onTouchedCallback:Function;
-  private onChangeCallback:Function;
+  private onTouchedCallback:Function|false = false;
+  private onChangeCallback:Function|false = false;
 
   public defaultOpts:AutoCompleteOptions;
   public isLoading:boolean = false;
@@ -454,7 +454,7 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
    *
    * @param fn
    */
-  public registerOnChange(fn:any):void {
+  public registerOnChange(fn:Function|false):void {
     this.onChangeCallback = fn;
   }
 
@@ -463,7 +463,7 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
    *
    * @param fn
    */
-  public registerOnTouched(fn:any):void {
+  public registerOnTouched(fn:Function|false):void {
     this.onTouchedCallback = fn;
   }
 
@@ -635,7 +635,10 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
       this.selected = this.multi ? [] : null;
     }
 
-    this.onChangeCallback(this.formValue);
+    if (this.onChangeCallback) {
+        this.onChangeCallback(this.formValue);
+    }
+
     this.modelChanged.emit(this.selected);
   }
 
