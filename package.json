@@ -3,14 +3,20 @@
   "version": "2.0.0",
   "scripts": {
     "publish": "npm publish dist",
-    "build": "gulp build",
-    "build:watch": "gulp",
+    "build": "ng-packagr -p package.json && cp -fr src/scss/auto-complete.scss dist/auto-complete.scss",
     "docs": "npm run docs:build",
     "docs:build": "compodoc -p tsconfig.json -n ionic4-auto-complete -d docs --hideGenerator",
     "docs:serve": "npm run docs:build -- -s",
     "docs:watch": "npm run docs:build -- -s -w",
     "lint": "tslint --type-check --project tsconfig.json src/**/*.ts",
     "test": "tsc && karma start"
+  },
+  "ngPackage": {
+    "lib": {
+      "cssUrl": "inline",
+      "entryFile": "src/index.ts",
+      "styleIncludePaths": ["./src/scss"]
+    }
   },
   "repository": {
     "type": "git",
@@ -48,14 +54,6 @@
     "@types/jasmine": "3.4.0",
     "@types/node": "^12.7.2",
     "codelyzer": "~5.1.0",
-    "del": "^5.1.0",
-    "gulp": "^4.0.2",
-    "gulp-inline-ng2-template": "^5.0.1",
-    "gulp-inline-source": "^4.0.0",
-    "gulp-rename": "^1.4.0",
-    "gulp-sourcemaps": "^2.6.5",
-    "gulp-tslint": "^8.1.4",
-    "gulp-typescript": "^5.0.1",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.3.0",
@@ -64,11 +62,8 @@
     "karma-coverage-istanbul-reporter": "^2.1.0",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
-    "node-sass": "^4.12.0",
-    "node-watch": "^0.6.3",
+    "ng-packagr": "^5.5.0",
     "protractor": "~5.4.2",
-    "rollup": "^1.20.3",
-    "rollup-plugin-typescript": "^1.0.1",
     "rxjs": "6.5.2",
     "sw-toolbox": "3.6.0",
     "ts-node": "~8.3.0",
@@ -80,7 +75,7 @@
   "engines": {
     "node": ">=6.0.0"
   },
-  "dependencies": {
+  "peerDependencies": {
     "@angular/animations": "^8.2.4",
     "@angular/cdk": "^8.1.4",
     "@angular/common": "^8.2.4",

@@ -1,0 +1,4 @@
+{
+  "$schema": "./node_modules/ng-packagr/package.schema.json",
+  "whitelistedNonPeerDependencies": ["*"]
+}
