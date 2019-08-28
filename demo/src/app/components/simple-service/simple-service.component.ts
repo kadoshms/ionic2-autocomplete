@@ -12,20 +12,19 @@ import {SimpleService} from '../../services/simple-service.service';
   ]
 })
 export class SimpleServiceComponent {
-  // @ts-ignore
-  public options:AutoCompleteOptions = {
-    autocomplete: 'on',
-    debounce: 750,
-    placeholder: 'Type text to search..',
-    type: 'add-friend.svg'
-  };
+  public options:AutoCompleteOptions;
 
   public selected:any = '';
 
   constructor(
-      private provider:SimpleService
+    public provider:SimpleService
   ) {
+    this.options = new AutoCompleteOptions();
 
+    this.options.autocomplete = 'on';
+    this.options.debounce = 750;
+    this.options.placeholder = 'Type text to search..';
+    this.options.type = 'add-friend.svg';
   }
 
   itemSelected(item:string) {

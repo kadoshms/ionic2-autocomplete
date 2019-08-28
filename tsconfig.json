@@ -19,5 +19,15 @@
     ],
     "skipLibCheck": true,
     "types": []
+  },
+  "angularCompilerOptions": {
+    "skipTemplateCodegen": true,
+    "skipMetadataEmit": false,
+    "strictMetadataEmit": true,
+    "annotationsAs": "decorators",
+    "annotateForClosureCompiler": true,
+    "flatModuleOutFile": "ionic4-auto-complete.js",
+    "flatModuleId": "ionic4-auto-complete",
+    "target": "es5"
   }
 }

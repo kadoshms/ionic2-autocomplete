@@ -1,13 +1,11 @@
 import {Component, Input, Output, EventEmitter, TemplateRef, ViewChild, HostListener, ElementRef, AfterViewChecked} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
-import {Platform} from '@ionic/angular';
-
-import {from, noop, Observable, Subject} from 'rxjs';
+import {from, Observable, Subject} from 'rxjs';
 import {finalize} from 'rxjs/operators';
 
 import {AutoCompleteOptions} from '../auto-complete-options.model';
-import {DataProviderInterface} from '../data-provider.interface';
+import {AutoCompleteService} from '../auto-complete.service';
 
 @Component({
   providers: [
@@ -22,9 +20,10 @@ import {DataProviderInterface} from '../data-provider.interface';
 })
 export class AutoCompleteComponent implements AfterViewChecked, ControlValueAccessor {
   @Input() public alwaysShowList:boolean;
-  @Input() public dataProvider:DataProviderInterface|Function;
+  @Input() public dataProvider:AutoCompleteService|Function;
   @Input() public disabled:boolean = false;
   @Input() public exclude:any[] = [];
+  @Input() public frontIcon:false|string = false;
   @Input() public hideListOnSelection:boolean = true;
   @Input() public keyword:string;
   @Input() public location:string = 'auto';
@@ -33,7 +32,7 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
   @Input() public options:AutoCompleteOptions = new AutoCompleteOptions();
   @Input() public removeButtonClasses:string = '';
   @Input() public removeButtonColor:string = 'primary';
-  @Input() public removeButtonIcon:string = 'close';
+  @Input() public removeButtonIcon:string|false = 'close-circle';
   @Input() public removeButtonSlot:string = 'end';
   @Input() public removeDuplicateSuggestions:boolean = true;
   @Input() public showResultsFirst:boolean;
@@ -59,6 +58,13 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
       this.selected = selected;
 
       this.keyword = this.getLabel(selected)
+    }
+  }
+
+  @Input()
+  set eager(eager:boolean) {
+    if (eager) {
+      this.getItems(null, false);
     }
   }
 
@@ -92,8 +98,8 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
   )
   private inputElem:ElementRef;
 
-  private onTouchedCallback:Function;
-  private onChangeCallback:Function;
+  private onTouchedCallback:Function|false = false;
+  private onChangeCallback:Function|false = false;
 
   public defaultOpts:AutoCompleteOptions;
   public isLoading:boolean = false;
@@ -122,12 +128,8 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
 
   /**
    * Create a new instance
-   *
-   * @param platform
    */
-  public constructor(
-    private platform:Platform
-  ) {
+  public constructor() {
     this.autoBlur = new EventEmitter<any>();
     this.autoFocus = new EventEmitter<any>();
     this.blur = new EventEmitter<any>();
@@ -147,8 +149,6 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
     this.options = new AutoCompleteOptions();
 
     this.defaultOpts = new AutoCompleteOptions();
-    this.defaultOpts.clearIcon = this.platform.is('ios') ? 'close-circle' : 'close';
-    this.defaultOpts.clearIcon = this.platform.is('ios') ? 'ios' : 'md';
 
     this.selected = [];
   }
@@ -173,9 +173,9 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
   @HostListener('document:click', ['$event'])
   private _documentClickHandler(event:Event):void {
     if (
-      (this.searchbarElem && this.searchbarElem.nativeElement && !this.searchbarElem.nativeElement.contains(event.target.toString()))
+      (this.searchbarElem && this.searchbarElem.nativeElement && !this.searchbarElem.nativeElement.contains(<string><unknown>event.target))
       ||
-      (!this.inputElem && this.inputElem.nativeElement && this.inputElem.nativeElement.contains(event.target.toString()))
+      (!this.inputElem && this.inputElem.nativeElement && this.inputElem.nativeElement.contains(<string><unknown>event.target))
     ) {
       this.hideItemList();
     }
@@ -255,8 +255,9 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
    * Get items for auto-complete
    *
    * @param event
+   * @param show
    */
-  public getItems(event?):void {
+  public getItems(event?, show?:boolean):void {
     if (this.promise) {
       clearTimeout(this.promise);
     }
@@ -295,13 +296,13 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
             )
           ).subscribe(
             (results: any[]) => {
-              this.setSuggestions(results);
+              this.setSuggestions(results, show);
             },
             (error: any) => console.error(error)
           )
           ;
         } else {
-          this.setSuggestions(result);
+          this.setSuggestions(result, show);
         }
 
         this.ionAutoInput.emit(this.keyword);
@@ -456,7 +457,7 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
    *
    * @param fn
    */
-  public registerOnChange(fn:any):void {
+  public registerOnChange(fn:Function|false):void {
     this.onChangeCallback = fn;
   }
 
@@ -465,7 +466,7 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
    *
    * @param fn
    */
-  public registerOnTouched(fn:any):void {
+  public registerOnTouched(fn:Function|false):void {
     this.onTouchedCallback = fn;
   }
 
@@ -596,17 +597,19 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
    * Set suggestions
    *
    * @param suggestions
+   * @param show
    */
-  public setSuggestions(suggestions):void {
+  public setSuggestions(suggestions:any[], show?:boolean):void {
     if (this.removeDuplicateSuggestions) {
       suggestions = this.removeDuplicates(suggestions);
       suggestions = this.removeExcluded(suggestions);
     }
 
-
     this.suggestions = suggestions;
 
-    this.showItemList();
+    if (show || typeof show === 'undefined') {
+      this.showItemList();
+    }
   }
 
   /**
@@ -637,7 +640,10 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
       this.selected = this.multi ? [] : null;
     }
 
-    this.onChangeCallback(this.formValue);
+    if (this.onChangeCallback) {
+        this.onChangeCallback(this.formValue);
+    }
+
     this.modelChanged.emit(this.selected);
   }
 

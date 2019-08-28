@@ -28,8 +28,8 @@
     "url": "https://github.com/jrquick17/ionic4-auto-complete/issues"
   },
   "devDependencies": {
-    "@angular-devkit/architect": "~0.803.0",
-    "@angular-devkit/build-angular": "~0.803.0",
+    "@angular-devkit/architect": "~0.803.1",
+    "@angular-devkit/build-angular": "~0.803.1",
     "@angular-devkit/core": "^8.3.0",
     "@angular-devkit/schematics": "^8.3.0",
     "@angular/cli": "^8.3.0",
@@ -70,7 +70,7 @@
     "node-sass": "^4.12.0",
     "node-watch": "^0.6.3",
     "protractor": "~5.4.2",
-    "rollup": "^1.20.2",
+    "rollup": "^1.20.3",
     "rollup-plugin-typescript": "^1.0.1",
     "rxjs": "6.5.2",
     "sw-toolbox": "3.6.0",
