@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Updated dependencies by [jrquick17](https://github.com/jrquick17)
 
+## [1.9.0]
+### Added
+- Added `frontIcon` to selection chips
+### Changed
+- Use `ion-chip` for selection instead of `ion-button` by [jrquick17](https://github.com/jrquick17)
+- Made `removeIcon` optional within selection by [jrquick17](https://github.com/jrquick17)
+
 ## [Released]
 ## [1.8.0] 
 ### Added

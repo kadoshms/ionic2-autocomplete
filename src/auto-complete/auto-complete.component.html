@@ -1,16 +1,21 @@
 <div *ngIf="multi">
     <div *ngFor="let item of selected"
          class="selected-items">
-        <ion-button class="{{ removeButtonClasses }}"
-                    [color]="removeButtonColor"
-                    [fill]="'outline'"
-                    [shape]="'round'"
-                    (click)="removeItem(item)">
-            {{ getLabel(item) }}
+        <ion-chip class="{{ removeButtonClasses }}"
+                  [color]="removeButtonColor"
+                  [outline]="true"
+                  (click)="removeItem(item)">
+            <ion-icon *ngIf="frontIcon"
+                      [name]="frontIcon"
+                      [slot]="'start'"
+                      color="primary"></ion-icon>
 
-            <ion-icon [name]="removeButtonIcon"
+            <ion-label>{{ getLabel(item) }}</ion-label>
+
+            <ion-icon *ngIf="removeButtonIcon"
+                      [name]="removeButtonIcon"
                       [slot]="removeButtonSlot"></ion-icon>
-        </ion-button>
+        </ion-chip>
     </div>
 </div>
 
