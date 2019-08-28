@@ -18,10 +18,7 @@
         </div>
 
         <div class="xs-menu menu" id="mobile-menu">
-                <div id="book-search-input" role="search">
-    <input type="text" placeholder="Type to search">
-</div>
-            <compodoc-menu></compodoc-menu>
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
         </div>
 
         <div class="container-fluid main">
@@ -50,8 +47,35 @@
         <li>Dependencies</li>
     </ol>
     <ul class="dependencies-list">
+        <li>
+            <b>@angular/animations</b> : ^8.2.4</li>
+        <li>
+            <b>@angular/cdk</b> : ^8.1.4</li>
+        <li>
+            <b>@angular/common</b> : ^8.2.4</li>
+        <li>
+            <b>@angular/core</b> : ^8.2.4</li>
+        <li>
+            <b>@angular/forms</b> : ^8.2.4</li>
+        <li>
+            <b>@angular/platform-browser</b> : ^8.2.4</li>
+        <li>
+            <b>@angular/platform-browser-dynamic</b> : ^8.2.4</li>
+        <li>
+            <b>@angular/router</b> : ^8.2.4</li>
+        <li>
+            <b>@angular/service-worker</b> : ^8.2.4</li>
+        <li>
+            <b>cordova-plugin-ionic</b> : ^5.4.4</li>
+        <li>
+            <b>core-js</b> : ^3.2.1</li>
+        <li>
+            <b>ionicons</b> : ^4.6.3</li>
+        <li>
+            <b>zone.js</b> : ^0.9.1</li>
     </ul>
 
+                   
 
 
 
@@ -78,7 +102,9 @@
 
        <script src="./js/libs/custom-elements.min.js"></script>
        <script src="./js/libs/lit-html.js"></script>
-       <script src="./js/menu-wc.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="./js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="./js/menu-wc.js" defer></script>
 
        <script src="./js/libs/bootstrap-native.js"></script>
 

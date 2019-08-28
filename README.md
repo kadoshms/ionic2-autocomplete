@@ -422,6 +422,10 @@ Run `npm install` to get packages required for the demo and then run `ionic serv
 
 ## Deploy ##
 
+* ### Generate Docs ###
+
+   * Run `npm run docs:build`
+
 * ### Build ###
 
     * Run `gulp build` from root.
