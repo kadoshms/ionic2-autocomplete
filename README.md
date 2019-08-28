@@ -319,7 +319,7 @@ export class AppModule {}
 
 * ### Searchbar Options ##
 
-    * Ionic4-auto-complete supports the regular Ionic's Searchbar options, which are set to their default values as specified in the [docs](https://beta.ionicframework.com/docs/api/searchbar/).
+    * Ionic4-auto-complete supports the regular Ionic's Searchbar properties, which are set to their default values as specified in the [docs](https://ionicframework.com/docs/api/searchbar#properties).
 
     * You can override these default values by adding the `[options]` attribute to the `<ion-auto-complete>` tag, for instance:
 
