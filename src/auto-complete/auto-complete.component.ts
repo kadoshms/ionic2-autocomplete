@@ -31,7 +31,7 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
   @Input() public options:AutoCompleteOptions = new AutoCompleteOptions();
   @Input() public removeButtonClasses:string = '';
   @Input() public removeButtonColor:string = 'primary';
-  @Input() public removeButtonIcon:string = 'close';
+  @Input() public removeButtonIcon:string = 'close-circle';
   @Input() public removeButtonSlot:string = 'end';
   @Input() public removeDuplicateSuggestions:boolean = true;
   @Input() public showResultsFirst:boolean;
