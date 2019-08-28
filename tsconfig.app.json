@@ -1,10 +1,9 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "../tsconfig.json",
   "compilerOptions": {
     "experimentalDecorators": true,
     "outDir": "../out-tsc/app",
-    "types": [],
-    "target": "es5"
+    "types": []
   },
   "exclude": [
     "test.ts",

@@ -2,32 +2,17 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./src",
+    "outDir": "./dist",
     "sourceMap": true,
     "declaration": true,
-    "outDir": "./dist",
     "module": "es2015",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",
     "lib": [
-      "es2015",
+      "es2017",
       "dom"
-    ],
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "skipLibCheck": true,
-    "types": []
-  },
-  "angularCompilerOptions": {
-    "skipTemplateCodegen": true,
-    "skipMetadataEmit": false,
-    "strictMetadataEmit": true,
-    "annotationsAs": "decorators",
-    "annotateForClosureCompiler": true,
-    "flatModuleOutFile": "ionic4-auto-complete.js",
-    "flatModuleId": "ionic4-auto-complete",
-    "target": "es5"
+    ]
   }
 }
