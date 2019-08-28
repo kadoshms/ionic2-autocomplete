@@ -23,7 +23,7 @@ export class SimpleServiceComponent {
   public selected:any = '';
 
   constructor(
-      private provider:SimpleService
+      public provider:SimpleService
   ) {
 
   }

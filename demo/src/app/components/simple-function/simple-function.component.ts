@@ -26,7 +26,7 @@ export class SimpleFunctionComponent {
   public selected:any = '';
 
   constructor(
-      private provider:SimpleFunction
+      public provider:SimpleFunction
   ) {
 
   }

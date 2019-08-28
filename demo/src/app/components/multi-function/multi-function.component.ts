@@ -24,7 +24,7 @@ export class MultiFunctionComponent {
   public selected:string[] = [];
 
   constructor(
-      private provider:SimpleFunction
+      public provider:SimpleFunction
   ) {
 
   }
