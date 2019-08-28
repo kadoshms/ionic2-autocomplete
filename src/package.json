@@ -1,6 +1,6 @@
 {
   "name": "ionic4-auto-complete",
-  "version": "1.9.0",
+  "version": "2.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/jrquick17/ionic4-auto-complete"
@@ -16,6 +16,6 @@
   "bugs": {
     "url": "https://github.com/jrquick17/ionic4-auto-complete/issues"
   },
-  "module": "ionic4-auto-complete.js",
-  "typings": "ionic4-auto-complete.d.ts"
+  "module": "index.js",
+  "typings": "index.d.ts"
 }
