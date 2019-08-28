@@ -26,9 +26,11 @@
     "@ionic-native/status-bar": "5.8.0",
     "@ionic/angular": "^4.5.0",
     "@ionic/pro": "2.0.4",
+    "cordova-plugin-ionic-webview": "^4.1.1",
     "core-js": "^2.6.9",
     "font-awesome": "^4.7.0",
     "ionic4-auto-complete": "^1.7.3",
+    "ionicons": "^4.6.3",
     "ngx-bootstrap": "^4.3.0",
     "path": "^0.12.7",
     "rxjs": "~6.5.2",
@@ -69,6 +71,9 @@
   },
   "description": "Demo for ionic4-auto-complete",
   "cordova": {
-    "platforms": []
+    "platforms": [],
+    "plugins": {
+      "cordova-plugin-ionic-webview": {}
+    }
   }
 }

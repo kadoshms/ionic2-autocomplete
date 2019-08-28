@@ -31,6 +31,11 @@
                 "output": "./svg"
               },
               {
+                "glob": "**/*.svg",
+                "input": "node_modules/ionicons/dist/ionicons/svg",
+                "output": "./svg"
+              },
+              {
                 "glob": "**/*",
                 "input": "node_modules/ionic4-auto-complete/assets/",
                 "output": "./assets/"
