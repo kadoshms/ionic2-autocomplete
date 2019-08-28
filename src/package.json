@@ -17,5 +17,5 @@
     "url": "https://github.com/jrquick17/ionic4-auto-complete/issues"
   },
   "module": "index.js",
-  "typings": "index.d.ts",
+  "typings": "index.d.ts"
 }
