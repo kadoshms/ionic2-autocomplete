@@ -12,22 +12,21 @@ import {SimpleFunction} from '../../services/simple-function.service';
   ]
 })
 export class SimpleFunctionComponent {
-  // @ts-ignore
-  public options:AutoCompleteOptions = {
-    autocomplete: 'on',
-    debounce: 750,
-    placeholder: 'Type text to search..',
-    type: 'search',
-    cancelButtonIcon: 'assets/icons/clear.svg',
-    clearIcon: 'assets/icons/clear.svg',
-    searchIcon: 'assets/icons/add-user.svg'
-  };
+  public options:AutoCompleteOptions;
 
   public selected:any = '';
 
   constructor(
       public provider:SimpleFunction
   ) {
+    this.options = new AutoCompleteOptions();
 
+    this.options.autocomplete = 'on';
+    this.options.cancelButtonIcon = 'assets/icons/clear.svg';
+    this.options.clearIcon = 'assets/icons/clear.svg';
+    this.options.debounce = 750;
+    this.options.placeholder = 'Type text to search..';
+    this.options.searchIcon = 'assets/icons/add-user.svg';
+    this.options.type = 'search';
   }
 }

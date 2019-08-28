@@ -12,20 +12,19 @@ import {SimpleFunction} from '../../services/simple-function.service';
   ]
 })
 export class MultiFunctionComponent {
-  // @ts-ignore
-  public options:AutoCompleteOptions = {
-    autocomplete: 'on',
-    debounce: 750,
-    placeholder: 'Filter and select multiple..',
-    type: 'search',
-    searchIcon: 'assets/icons/add-user.svg'
-  };
+  public options:AutoCompleteOptions;
 
   public selected:string[] = [];
 
   constructor(
       public provider:SimpleFunction
   ) {
+    this.options = new AutoCompleteOptions();
 
+    this.options.autocomplete = 'on';
+    this.options.debounce = 750;
+    this.options.placeholder = 'Filter and select multiple..';
+    this.options.searchIcon = 'assets/icons/add-user.svg';
+    this.options.type = 'search';
   }
 }
