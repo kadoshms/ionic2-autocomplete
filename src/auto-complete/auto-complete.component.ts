@@ -171,9 +171,9 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
   @HostListener('document:click', ['$event'])
   private _documentClickHandler(event:Event):void {
     if (
-      (this.searchbarElem && this.searchbarElem.nativeElement && !this.searchbarElem.nativeElement.contains(event.target.toString()))
+      (this.searchbarElem && this.searchbarElem.nativeElement && !this.searchbarElem.nativeElement.contains(<string><unknown>event.target))
       ||
-      (!this.inputElem && this.inputElem.nativeElement && this.inputElem.nativeElement.contains(event.target.toString()))
+      (!this.inputElem && this.inputElem.nativeElement && this.inputElem.nativeElement.contains(<string><unknown>event.target))
     ) {
       this.hideItemList();
     }
