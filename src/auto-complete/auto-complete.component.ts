@@ -5,7 +5,7 @@ import {from, Observable, Subject} from 'rxjs';
 import {finalize} from 'rxjs/operators';
 
 import {AutoCompleteOptions} from '../auto-complete-options.model';
-import {DataProviderInterface} from '../data-provider.interface';
+import {AutoCompleteService} from '../auto-complete.service';
 
 @Component({
   providers: [
@@ -20,8 +20,9 @@ import {DataProviderInterface} from '../data-provider.interface';
 })
 export class AutoCompleteComponent implements AfterViewChecked, ControlValueAccessor {
   @Input() public alwaysShowList:boolean;
-  @Input() public dataProvider:DataProviderInterface|Function;
+  @Input() public dataProvider:AutoCompleteService|Function;
   @Input() public disabled:boolean = false;
+  @Input() public eager:boolean = false;
   @Input() public exclude:any[] = [];
   @Input() public frontIcon:false|string = false;
   @Input() public hideListOnSelection:boolean = true;
@@ -142,6 +143,10 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
     this.defaultOpts = new AutoCompleteOptions();
 
     this.selected = [];
+
+    if (this.eager) {
+      this.getItems();
+    }
   }
 
   /**
