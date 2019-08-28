@@ -427,6 +427,7 @@ Run `npm install` to get packages required for the demo and then run `ionic serv
 
 * #### NPM Release ####
 
+    * Add `@NgModule()` annotations (from `index.ts`) to `dist/index.d.ts` ([workaround for issue](https://github.com/jrquick17/ionic4-auto-complete/issues/11))
     * Run `npm publish` from `dist/` directory.
 
 * #### Update Changelog ####
