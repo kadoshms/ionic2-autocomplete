@@ -76,9 +76,9 @@
                           data:               suggestion,
                           label:              getLabel(suggestion),
                           keyword:            keyword,
-                          formValue:          _getFormValue(suggestion),
-                          labelAttribute:     dataProvider.labelAttribute,
-                          formValueAttribute: dataProvider.formValueAttribute
+                          formValue:          getFormValue(suggestion),
+                          labelAttribute:     getLabel(suggestion),
+                          formValueAttribute: getFormValue(suggestion)
                         }
                      }"></ng-template>
     </li>

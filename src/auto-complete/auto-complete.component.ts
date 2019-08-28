@@ -171,7 +171,7 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
    * @private
    */
   @HostListener('document:click', ['$event'])
-  private _documentClickHandler(event:Event):void {
+  public documentClickHandler(event:Event):void {
     if (
       (this.searchbarElem && this.searchbarElem.nativeElement && !this.searchbarElem.nativeElement.contains(<string><unknown>event.target))
       ||
@@ -188,7 +188,7 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
    *
    * @private
    */
-  private _getFormValue(selection:any): any {
+  public getFormValue(selection:any): any {
     if (selection == null || typeof this.dataProvider === 'function') {
       return null;
     }
@@ -559,7 +559,7 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
    **/
   public selectItem(selection:any):void {
     this.keyword = this.getLabel(selection);
-    this.formValue = this._getFormValue(selection);
+    this.formValue = this.getFormValue(selection);
     this.hideItemList();
 
     this.updateModel(this.formValue);
@@ -618,7 +618,7 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
    * @param selection
    */
   public setValue(selection: any):void {
-    this.formValue = this._getFormValue(selection);
+    this.formValue = this.getFormValue(selection);
     this.keyword = this.getLabel(selection);
     return;
   }
@@ -655,7 +655,7 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
   public writeValue(value:any):void {
     if (value !== this.selection) {
       this.selection = value || null;
-      this.formValue = this._getFormValue(this.selection);
+      this.formValue = this.getFormValue(this.selection);
       this.keyword = this.getLabel(this.selection);
     }
   }
