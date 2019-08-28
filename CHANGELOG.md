@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [Released]
+## [2.1.0]
+### Changed
+- Use ng-packagr to handle building the npm dist by [jrquick17](https://github.com/jrquick17)
+### Removed
+- Gulp by [jrquick17](https://github.com/jrquick17)
+
 ## [2.0.0] 
 ### Changed
 - Upgraded to support Angular 8 by [jrquick17](https://github.com/jrquick17)
