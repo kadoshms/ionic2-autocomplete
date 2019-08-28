@@ -22,7 +22,6 @@ composer.lock
 .tmp/
 .versions/
 coverage/
-www/
 node_modules/
 tmp/
 temp/
