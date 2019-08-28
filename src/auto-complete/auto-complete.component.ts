@@ -1,8 +1,6 @@
 import {Component, Input, Output, EventEmitter, TemplateRef, ViewChild, HostListener, ElementRef, AfterViewChecked} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
-import {Platform} from '@ionic/angular';
-
 import {from, Observable, Subject} from 'rxjs';
 import {finalize} from 'rxjs/operators';
 
@@ -121,12 +119,8 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
 
   /**
    * Create a new instance
-   *
-   * @param platform
    */
-  public constructor(
-    private platform:Platform
-  ) {
+  public constructor() {
     this.autoBlur = new EventEmitter<any>();
     this.autoFocus = new EventEmitter<any>();
     this.blur = new EventEmitter<any>();
@@ -146,8 +140,6 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
     this.options = new AutoCompleteOptions();
 
     this.defaultOpts = new AutoCompleteOptions();
-    this.defaultOpts.clearIcon = this.platform.is('ios') ? 'close-circle' : 'close';
-    this.defaultOpts.clearIcon = this.platform.is('ios') ? 'ios' : 'md';
 
     this.selected = [];
   }

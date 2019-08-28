@@ -5,12 +5,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-## [1.8.1] 
-### Added
-- Added interface for data provider by [jrquick17](https://github.com/jrquick17)
-### Changed
-- Updated dependencies by [jrquick17](https://github.com/jrquick17)
-
 ## [1.9.0]
 ### Added
 - Added `frontIcon` to selection chips
@@ -19,6 +13,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Made `removeIcon` optional within selection by [jrquick17](https://github.com/jrquick17)
 
 ## [Released]
+## [1.8.1] 
+### Added
+- Added interface for data provider by [jrquick17](https://github.com/jrquick17)
+### Changed
+- Updated dependencies by [jrquick17](https://github.com/jrquick17)
+### Fixed
+- Fixed error with ionic production builds using AOT by [jrquick17](https://github.com/jrquick17)
+
 ## [1.8.0] 
 ### Added
 - Added color options by [jrquick17](https://github.com/jrquick17)

@@ -5,7 +5,7 @@ export class AutoCompleteOptions {
   public autocorrect:'on'|'off' = 'off';
   public cancelButtonIcon:string = 'arrow-round-back';
   public cancelButtonText:string = 'Cancel';
-  public clearIcon:string = 'close';
+  public clearIcon:string = 'close-circle';
   public clearInput:boolean = false;
   public clearOnEdit:boolean = false;
   public debounce:number = 250;
