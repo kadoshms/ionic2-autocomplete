@@ -448,8 +448,6 @@ Run `npm install` to get packages required for the demo and then run `ionic serv
 
 * Add max and minimum options (for multi)
 * Add Custom Template demo
-* Update for Ionic 5
-* Update for Angular 8
 
 ## FAQ ##
 
