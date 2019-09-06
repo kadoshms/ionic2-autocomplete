@@ -1,0 +1,19 @@
+<ng-template #withFlags let-attrs="attrs">
+    <ion-item>
+        <ion-img class="flag"
+                 [slot]="'start'"
+                 [src]="attrs.data.flag"></ion-img>
+
+        <ion-text>
+            {{ attrs.data.name | boldprefix:attrs.keyword }} ({{ attrs.data.nativeName }})
+        </ion-text>
+    </ion-item>
+</ng-template>
+
+<ion-auto-complete [(model)]="selected"
+                   (itemSelected)="itemSelected($event)"
+                   [eager]="true"
+                   [multi]="false"
+                   [dataProvider]="provider"
+                   [disabled]="false"
+                   [template]="withFlags"></ion-auto-complete>

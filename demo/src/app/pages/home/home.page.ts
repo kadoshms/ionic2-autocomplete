@@ -20,6 +20,10 @@ export class HomePage {
     {
       key:   'multi-function',
       label: 'Multi Select'
+    },
+    {
+      key:   'custom-template',
+      label: 'Custom Template'
     }
   ];
 
