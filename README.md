@@ -425,19 +425,24 @@ Run `npm install` to get packages required for the demo and then run `ionic serv
 * ### Generate Docs ###
 
    * Run `npm run docs:build`
+   
+* #### Update Version ###
+
+   * Update version `package.json` files in both the root and `dist/` directory following [Semantic Versioning (2.0.0)](https://semver.org/).
 
 * ### Build ###
 
     * Run `npm run build` from root.
 
-* #### Update Version ###
+* #### Test ###
 
-    * Update version `package.json` files in both the root and `dist/` directory following [Semantic Versioning (2.0.0)](https://semver.org/).
     * Update `dist/package.json` to have `dependencies` to match root `package.json`.
+    * Copy `dist/` contents into `demo/node_modules/ionic4-auto-complete/`
+    * Run `ionic serve` from `demo/`
+    * Run `ionic build --prod` from `demo/`
 
 * #### NPM Release ####
 
-    * Add `@NgModule()` annotations (from `index.ts`) to `dist/index.d.ts` ([workaround for issue](https://github.com/jrquick17/ionic4-auto-complete/issues/11))
     * Run `npm publish` from `dist/` directory.
 
 * #### Update Changelog ####
