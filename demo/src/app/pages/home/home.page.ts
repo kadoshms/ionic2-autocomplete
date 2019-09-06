@@ -1,4 +1,5 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector:    'home-page',
@@ -7,7 +8,7 @@ import {Component} from '@angular/core';
     'home.page.scss'
   ],
 })
-export class HomePage {
+export class HomePage implements OnInit {
   public segments:any[] = [
     {
       key:   'simple-function',
@@ -29,7 +30,49 @@ export class HomePage {
 
   public selectedSegment:string = this.segments[0].key;
 
-  constructor() {
+  constructor(
+      private route:ActivatedRoute,
+      private router:Router
+  ) {
 
+  }
+
+  ngOnInit():void {
+    this.route.fragment.subscribe(
+        (fragment) => {
+          this.setSegment(fragment);
+        }
+    );
+  }
+
+  onClickSegment(event:any):void {
+    if (event.detail && typeof event.detail.value === 'string') {
+      const segment = event.detail.value;
+
+      this.setSegment(segment);
+    }
+  }
+
+  setSegment(segment:string):void {
+    if (typeof segment === 'string') {
+      segment = segment.toLowerCase();
+
+      const arrayHas = this.segments.some(
+        (candidate) => {
+          return candidate.key === segment;
+        }
+      );
+
+      if (arrayHas) {
+        this.selectedSegment = segment;
+
+        this.router.navigate(
+           [],
+           {
+             fragment: segment
+           }
+        ).then();
+      }
+    }
   }
 }
