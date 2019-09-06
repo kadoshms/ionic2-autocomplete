@@ -76,18 +76,18 @@
     "node": ">=6.0.0"
   },
   "peerDependencies": {
-    "@angular/animations": "^8.2.4",
-    "@angular/cdk": "^8.1.4",
-    "@angular/common": "^8.2.4",
-    "@angular/core": "^8.2.4",
-    "@angular/forms": "^8.2.4",
-    "@angular/platform-browser": "^8.2.4",
-    "@angular/platform-browser-dynamic": "^8.2.4",
-    "@angular/router": "^8.2.4",
-    "@angular/service-worker": "^8.2.4",
-    "cordova-plugin-ionic": "^5.4.4",
-    "core-js": "^3.2.1",
-    "ionicons": "^4.6.3",
-    "zone.js": "^0.9.1"
+    "@angular/animations": ">=8.0.0",
+    "@angular/cdk": "^>=8.0.0",
+    "@angular/common": ">=8.0.0",
+    "@angular/core": ">=8.0.0",
+    "@angular/forms": ">=8.0.0",
+    "@angular/platform-browser": ">=8.0.0",
+    "@angular/platform-browser-dynamic": ">=8.0.0",
+    "@angular/router": ">=8.0.0",
+    "@angular/service-worker": ">=8.0.0",
+    "cordova-plugin-ionic": ">=2.0.0",
+    "core-js": ">=3.0.0",
+    "ionicons": ">=2.0.1",
+    "zone.js": ">=0.9.1"
   }
 }
