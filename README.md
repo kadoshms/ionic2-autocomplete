@@ -428,7 +428,7 @@ Run `npm install` to get packages required for the demo and then run `ionic serv
 
 * ### Build ###
 
-    * Run `gulp build` from root.
+    * Run `npm run build` from root.
 
 * #### Update Version ###
 
