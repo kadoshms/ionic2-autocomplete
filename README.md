@@ -438,6 +438,7 @@ Run `npm install` to get packages required for the demo and then run `ionic serv
 
     * Update `dist/package.json` to have `dependencies` to match root `package.json`.
     * Copy `dist/` contents into `demo/node_modules/ionic4-auto-complete/`
+        * Run from root:  `cp -fr dist/* demo/node_modules/ionic4-auto-complete/`
     * Run `ionic serve` from `demo/`
     * Run `ionic build --prod` from `demo/`
 
