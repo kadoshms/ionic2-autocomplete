@@ -14,7 +14,7 @@ import {SimpleService} from '../../services/simple-service.service';
 export class SimpleServiceComponent {
   public options:AutoCompleteOptions;
 
-  public selected:any = '';
+  public selected:string = '';
 
   constructor(
     public provider:SimpleService

@@ -14,7 +14,7 @@ import {SimpleService} from '../../services/simple-service.service';
 export class CustomTemplateComponent {
   public options:AutoCompleteOptions;
 
-  public selected:any = '';
+  public selected:string = '';
 
   constructor(
       public provider:SimpleService
@@ -27,7 +27,7 @@ export class CustomTemplateComponent {
     this.options.type = 'add-friend.svg';
   }
 
-  itemSelected(item:string) {
+  itemSelected(item:string):void {
     console.log('Item selected:' +  item[this.provider.labelAttribute]);
   }
 }

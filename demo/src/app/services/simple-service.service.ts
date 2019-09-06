@@ -1,18 +1,22 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
-import {map} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 import {AutoCompleteService} from 'ionic4-auto-complete';
+
+import {Country} from '../models/country.model';
 
 @Injectable()
 export class SimpleService implements AutoCompleteService {
   labelAttribute = 'name';
 
-  private countries:any[] = [];
+  private countries:Country[] = [];
 
-  constructor(private http:HttpClient) {
+  constructor(
+    private http:HttpClient
+  ) {
 
   }
 
@@ -22,7 +26,7 @@ export class SimpleService implements AutoCompleteService {
     if (this.countries.length === 0) {
       observable = this.http.get('https://restcountries.eu/rest/v2/all').pipe(
         map(
-          (results:any[]) => {
+          (results:Country[]) => {
             if (results) {
               this.countries = results;
             }

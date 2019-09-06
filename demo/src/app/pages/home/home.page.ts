@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 
+import {Segment} from '../../models/segment.model';
+
 @Component({
   selector:    'home-page',
   templateUrl: 'home.page.html',
@@ -9,7 +11,7 @@ import {ActivatedRoute, Router} from '@angular/router';
   ],
 })
 export class HomePage implements OnInit {
-  public segments:any[] = [
+  public segments:Segment[] = [
     {
       key:   'simple-function',
       label: 'Simple Function'
@@ -45,7 +47,7 @@ export class HomePage implements OnInit {
     );
   }
 
-  onClickSegment(event:any):void {
+  onClickSegment(event:CustomEvent):void {
     if (event.detail && typeof event.detail.value === 'string') {
       const segment = event.detail.value;
 

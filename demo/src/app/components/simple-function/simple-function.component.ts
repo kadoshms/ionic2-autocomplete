@@ -14,7 +14,7 @@ import {SimpleFunction} from '../../services/simple-function.service';
 export class SimpleFunctionComponent {
   public options:AutoCompleteOptions;
 
-  public selected:any = '';
+  public selected:string = '';
 
   constructor(
       public provider:SimpleFunction
