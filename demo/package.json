@@ -36,7 +36,7 @@
     "cordova.plugin.zoom": "^4.4.5513-0.712",
     "core-js": "^3.2.1",
     "font-awesome": "^4.7.0",
-    "ionic4-auto-complete": "^2.1.1",
+    "ionic4-auto-complete": "^2.1.2",
     "ionicons": "^4.6.3",
     "ngx-bootstrap": "^5.1.2",
     "path": "^0.12.7",
