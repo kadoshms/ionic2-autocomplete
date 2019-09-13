@@ -61,6 +61,8 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
     }
   }
 
+  @Output() public modelChange:EventEmitter<any>;
+
   @Input()
   set eager(eager:boolean) {
     if (eager) {
@@ -69,7 +71,6 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
   }
 
   @Output() public blur:EventEmitter<any>;
-  @Output() public modelChanged:EventEmitter<any>;
   @Output() public autoFocus:EventEmitter<any>;
   @Output() public autoBlur:EventEmitter<any>;
   @Output() public focus:EventEmitter<any>;
@@ -140,7 +141,7 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
     this.itemRemoved = new EventEmitter<any>();
     this.itemSelected = new EventEmitter<any>();
     this.itemsShown = new EventEmitter<any>();
-    this.modelChanged = new EventEmitter<any>();
+    this.modelChange = new EventEmitter<any>();
 
     this.keyword = '';
     this.suggestions = [];
@@ -549,7 +550,7 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
         this.itemsChange.emit(this.selected);
     }
 
-    this.modelChanged.emit(this.selected);
+    this.modelChange.emit(this.selected);
   }
 
   /**
@@ -581,7 +582,7 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
     }
 
     this.itemSelected.emit(selection);
-    this.modelChanged.emit(this.selected);
+    this.modelChange.emit(this.selected);
   }
 
   /**
@@ -644,7 +645,7 @@ export class AutoCompleteComponent implements AfterViewChecked, ControlValueAcce
         this.onChangeCallback(this.formValue);
     }
 
-    this.modelChanged.emit(this.selected);
+    this.modelChange.emit(this.selected);
   }
 
   /**
