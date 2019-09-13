@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [Released]
+
+## [2.1.1]
+### Fixed
+- Two-way binding for [(model)] by [jrquick17](https://github.com/jrquick17)
+
 ## [2.1.1]
 ### Added
 - Templates for reporting issues and adding pull requests by [jrquick17](https://github.com/jrquick17)
