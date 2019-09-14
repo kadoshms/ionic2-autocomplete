@@ -179,7 +179,7 @@ export class AppModule {}
             import {Injectable} from '@angular/core';
             import {map} from 'rxjs/operators';
             
-            import {Http} from '@angular/http';
+            import {HttpClient} from '@angular/common/http';
             
             import {AutoCompleteService} from 'ionic4-auto-complete';
             
@@ -284,7 +284,7 @@ export class AppModule {}
 
                     ```
                     import {AutoCompleteService} from 'ionic4-auto-complete';
-                    import {HttpClient} from '@angular/http';
+                    import {HttpClient} from '@angular/common/http';
                     import {Injectable} from "@angular/core";
                     import 'rxjs/add/operator/map'
                     
@@ -464,7 +464,7 @@ Run `npm install` to get packages required for the demo and then run `ionic serv
     
     ```
     import {AutoCompleteService} from 'ionic4-auto-complete';
-    import { Http } from '@angular/http';
+    import {HttpClient} from '@angular/common/http';
     import {Injectable} from "@angular/core";
     import 'rxjs/add/operator/map'
     
